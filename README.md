@@ -10,6 +10,7 @@ Gestor de contraseñas con cifrado de extremo a extremo, autenticación con Goog
 - 🔒 **Zero-knowledge**: El servidor nunca ve datos en claro
 - 📋 **Clipboard hygiene**: Limpieza automática del portapapeles
 - 📤 **Export/Import**: Backup cifrado del cofre
+- 🚀 **Deploy Ready**: Configurado para Railway
 
 ## Stack
 
@@ -18,7 +19,7 @@ Gestor de contraseñas con cifrado de extremo a extremo, autenticación con Goog
 - **Auth**: NextAuth.js v4 + Google OAuth
 - **Crypto**: Web Crypto API (PBKDF2 + AES-GCM)
 - **WebAuthn**: @simplewebauthn
-- **Deploy**: Railway + GitHub Actions
+- **Deploy**: Railway + Docker
 
 ## Setup Local
 
@@ -26,7 +27,7 @@ Gestor de contraseñas con cifrado de extremo a extremo, autenticación con Goog
    ```bash
    git clone <repo-url>
    cd llave
-   pnpm install
+   npm install
    ```
 
 2. **Configurar variables de entorno**
@@ -43,38 +44,100 @@ Gestor de contraseñas con cifrado de extremo a extremo, autenticación con Goog
 
 3. **Configurar base de datos**
    ```bash
-   pnpm prisma migrate dev
+   npm run prisma:migrate
    ```
 
 4. **Ejecutar en desarrollo**
    ```bash
-   pnpm dev
+   npm run dev
    ```
 
-## Deploy en Railway
+## 🚀 Deploy en Railway
+
+### Opción 1: Deploy Automático (Recomendado)
 
 1. **Crear repositorio en GitHub**
-   - Push del código a un repo público/privado
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/tu-usuario/llave.git
+   git push -u origin main
+   ```
 
 2. **Configurar Railway**
    - Ir a [Railway](https://railway.app)
-   - "New Project" → "Deploy from GitHub repo"
-   - Seleccionar el repo
-   - Agregar addon "PostgreSQL"
+   - Crear cuenta o iniciar sesión
+   - Click en "New Project"
+   - Seleccionar "Deploy from GitHub repo"
+   - Conectar tu cuenta de GitHub
+   - Seleccionar el repositorio `llave`
 
-3. **Configurar variables de entorno en Railway**
-   - `DATABASE_URL`: Automático del addon PostgreSQL
-   - `NEXTAUTH_URL`: URL de producción de Railway
-   - `NEXTAUTH_SECRET`: Generar con `openssl rand -base64 32`
-   - `GOOGLE_CLIENT_ID`: ID de Google OAuth
-   - `GOOGLE_CLIENT_SECRET`: Secret de Google OAuth
+3. **Agregar Base de Datos**
+   - En el proyecto de Railway, click en "New"
+   - Seleccionar "Database" → "PostgreSQL"
+   - Railway automáticamente configurará `DATABASE_URL`
 
-4. **Configurar GitHub Secrets**
-   - En el repo: Settings → Secrets and variables → Actions
-   - Agregar `RAILWAY_TOKEN` con el token de Railway
+4. **Configurar Variables de Entorno**
+   - En el proyecto, ir a la pestaña "Variables"
+   - Agregar las siguientes variables:
+   ```
+   NEXTAUTH_URL=https://tu-app.railway.app
+   NEXTAUTH_SECRET=tu-secret-aleatorio-aqui
+   GOOGLE_CLIENT_ID=tu-google-client-id
+   GOOGLE_CLIENT_SECRET=tu-google-client-secret
+   ```
 
-5. **Deploy automático**
-   - Push a `main` → deploy automático vía GitHub Actions
+5. **Generar NEXTAUTH_SECRET**
+   ```bash
+   openssl rand -base64 32
+   ```
+
+6. **Configurar Google OAuth**
+   - Ir a [Google Cloud Console](https://console.cloud.google.com)
+   - Crear proyecto o seleccionar existente
+   - Habilitar "Google+ API"
+   - Crear credenciales OAuth 2.0
+   - Configurar URIs autorizados:
+     - `http://localhost:3000` (desarrollo)
+     - `https://tu-app.railway.app` (producción)
+   - Copiar Client ID y Client Secret a Railway
+
+7. **Deploy**
+   - Railway automáticamente detectará el Dockerfile
+   - El deploy comenzará automáticamente
+   - Una vez completado, tendrás tu URL de producción
+
+### Opción 2: Deploy Manual
+
+1. **Instalar Railway CLI**
+   ```bash
+   npm install -g @railway/cli
+   ```
+
+2. **Login a Railway**
+   ```bash
+   railway login
+   ```
+
+3. **Inicializar proyecto**
+   ```bash
+   railway init
+   ```
+
+4. **Agregar variables de entorno**
+   ```bash
+   railway variables set NEXTAUTH_URL=https://tu-app.railway.app
+   railway variables set NEXTAUTH_SECRET=tu-secret-aleatorio
+   railway variables set GOOGLE_CLIENT_ID=tu-google-client-id
+   railway variables set GOOGLE_CLIENT_SECRET=tu-google-client-secret
+   ```
+
+5. **Deploy**
+   ```bash
+   railway up
+   ```
 
 ## Configuración de Google OAuth
 
@@ -115,6 +178,7 @@ src/
 │   │   └── webauthn/      # WebAuthn endpoints
 │   ├── (auth)/            # Páginas de autenticación
 │   └── vault/             # Página principal del cofre
+├── components/            # Componentes reutilizables
 ├── lib/                   # Utilidades
 │   ├── auth.ts           # Configuración NextAuth
 │   ├── crypto-client.ts  # Criptografía del cliente
@@ -125,13 +189,33 @@ src/
 
 ## Scripts Disponibles
 
-- `pnpm dev`: Desarrollo local
-- `pnpm build`: Build de producción
-- `pnpm start`: Servidor de producción
-- `pnpm lint`: Linting con ESLint
-- `pnpm prisma:generate`: Generar cliente Prisma
-- `pnpm prisma:migrate`: Ejecutar migraciones
-- `pnpm prisma:deploy`: Deploy de migraciones
+- `npm run dev`: Desarrollo local
+- `npm run build`: Build de producción
+- `npm run start`: Servidor de producción
+- `npm run lint`: Linting con ESLint
+- `npm run prisma:generate`: Generar cliente Prisma
+- `npm run prisma:migrate`: Ejecutar migraciones
+- `npm run prisma:deploy`: Deploy de migraciones
+
+## Troubleshooting
+
+### Problemas Comunes
+
+1. **Error de build en Railway**
+   - Verificar que todas las variables de entorno estén configuradas
+   - Revisar los logs en Railway para más detalles
+
+2. **Error de autenticación**
+   - Verificar que las credenciales de Google OAuth estén correctas
+   - Asegurar que las URIs autorizadas incluyan la URL de Railway
+
+3. **Error de base de datos**
+   - Verificar que `DATABASE_URL` esté configurada correctamente
+   - Ejecutar migraciones: `npm run prisma:deploy`
+
+4. **WebAuthn no funciona**
+   - Asegurar que el sitio use HTTPS en producción
+   - Verificar que el dominio esté configurado correctamente
 
 ## Contribuir
 
