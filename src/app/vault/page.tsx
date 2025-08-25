@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { deriveKeyFromPass, encryptJson, decryptJson, randSalt } from "@/lib/crypto-client";
 import { createPasskey, getPasskey } from "@/lib/webauthn";
+import { test } from "@/lib/test"; // Test import
 
 type VaultItem = {
   id: string;
