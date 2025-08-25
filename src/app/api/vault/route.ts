@@ -1,9 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/utils/prisma";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/utils/auth";
 import { z } from "zod";
 import { NextResponse } from "next/server";
-import { checkRate } from "@/lib/ratelimit";
+import { checkRate } from "@/utils/ratelimit";
 
 export const runtime = "nodejs";
 
