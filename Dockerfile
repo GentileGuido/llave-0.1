@@ -1,4 +1,4 @@
-# Production Dockerfile for Railway
+# Production Dockerfile for Railway - Updated at 2024-12-19 15:30 UTC
 FROM node:20-alpine AS base
 
 # Install dependencies
