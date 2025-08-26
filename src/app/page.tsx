@@ -9,10 +9,12 @@ export default function HomePage() {
     { id: 1, site: "gmail.com", password: "mipassword123", visible: false },
     { id: 2, site: "facebook.com", password: "facebook2024", visible: false },
     { id: 3, site: "twitter.com", password: "twitterpass", visible: false },
+    { id: 4, site: "ejemplo.com", password: "ejemplo123", visible: false },
   ]);
   const [sortBy, setSortBy] = useState("recent");
   const [showAddModal, setShowAddModal] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
+  const [showConfigScreen, setShowConfigScreen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [newSite, setNewSite] = useState("");
@@ -94,7 +96,20 @@ export default function HomePage() {
       const color = Math.random() > 0.5 ? 'white' : 'green';
       const animation = Math.floor(Math.random() * 5) + 1;
       
+      // Variable speed based on size
+      const speeds = {
+        'tiny': [4, 6],
+        'small': [6, 8],
+        'medium': [8, 12],
+        'large': [10, 15],
+        'huge': [12, 18]
+      };
+      
+      const speedRange = speeds[size as keyof typeof speeds];
+      const speed = Math.random() * (speedRange[1] - speedRange[0]) + speedRange[0];
+      
       pixel.className = `floating-pixel ${color} ${size} pixel-float-${animation}`;
+      pixel.style.animationDuration = `${speed}s`;
       
       // Add click event for explosion
       pixel.addEventListener('click', () => {
@@ -173,20 +188,119 @@ export default function HomePage() {
     );
   }
 
-  return (
-    <div className="pixel-container">
-      {/* Background Pixels */}
-      <div className="background-pixels"></div>
-      
-      {/* Back Button */}
-      <button className="back-button" onClick={handleLogout}>
-        ←
-      </button>
-      
-             {/* Theme Toggle */}
-       <button className="theme-toggle" onClick={() => setShowConfig(true)}>
-         ⚙️
+     // Show config screen if active
+   if (showConfigScreen) {
+     return (
+       <div className="pixel-container">
+         {/* Background Pixels */}
+         <div className="background-pixels"></div>
+         
+         {/* Back Button */}
+         <button className="back-button" onClick={() => setShowConfigScreen(false)}>
+           ←
+         </button>
+         
+         <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto' }}>
+           <h1 className="pixel-title">⚙️ Configuración</h1>
+           
+           {/* App Info */}
+           <div className="pixel-card">
+             <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
+             <p style={{ fontSize: '12px', lineHeight: '1.6' }}>
+               Llave es un gestor de contraseñas seguro con estética pixel art. 
+               Desarrollado 100% con Inteligencia Artificial para ofrecer una experiencia 
+               única y retro.
+             </p>
+             <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px' }}>
+               <strong>Desarrollado por:</strong> Guido Gentile<br/>
+               <strong>Tecnologías:</strong> Next.js, TypeScript, CSS Pixel Art<br/>
+               <strong>IA:</strong> Claude Sonnet 4
+             </p>
+           </div>
+
+           {/* Installation Instructions */}
+           <div className="pixel-grid">
+             <div className="pixel-card">
+               <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
+               <div style={{ marginBottom: '15px' }}>
+                 <p style={{ fontSize: '12px', marginBottom: '10px' }}>
+                   <strong>Pasos para instalar:</strong>
+                 </p>
+                 <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
+                   <li>Abre Chrome o tu navegador</li>
+                   <li>Ve a la página de Llave</li>
+                   <li>Toca el menú (⋮) en la esquina superior</li>
+                   <li>Selecciona &quot;Instalar aplicación&quot;</li>
+                   <li>Confirma la instalación</li>
+                 </ol>
+               </div>
+               <div className="android-button">
+                 <div className="android-logo">A</div>
+                 <span>Instalar App</span>
+               </div>
+             </div>
+             
+             <div className="pixel-card">
+               <h4 className="pixel-subtitle">🍎 Instalar en iOS</h4>
+               <div style={{ marginBottom: '15px' }}>
+                 <p style={{ fontSize: '12px', marginBottom: '10px' }}>
+                   <strong>Pasos para instalar:</strong>
+                 </p>
+                 <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
+                   <li>Abre Safari en tu iPhone/iPad</li>
+                   <li>Ve a la página de Llave</li>
+                   <li>Toca el botón compartir (□↑)</li>
+                   <li>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
+                   <li>Confirma y personaliza el nombre</li>
+                 </ol>
+               </div>
+               <div className="android-button" style={{ borderColor: 'var(--blue-electric)' }}>
+                 <div className="android-logo" style={{ background: 'var(--blue-electric)' }}>🍎</div>
+                 <span>Agregar a Inicio</span>
+               </div>
+             </div>
+           </div>
+
+           {/* Donations */}
+           <div className="pixel-card">
+             <h4 className="pixel-subtitle">💝 Donaciones</h4>
+             <p style={{ fontSize: '12px', marginBottom: '15px' }}>
+               Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
+             </p>
+             <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
+               <button className="pixel-button success" style={{ fontSize: '10px' }}>
+                 ☕ Café
+               </button>
+               <button className="pixel-button" style={{ fontSize: '10px' }}>
+                 🍕 Pizza
+               </button>
+               <button className="pixel-button" style={{ fontSize: '10px' }}>
+                 🎮 Juego
+               </button>
+               <button className="pixel-button" style={{ fontSize: '10px' }}>
+                 🚀 Cohete
+               </button>
+             </div>
+           </div>
+         </div>
+       </div>
+     );
+   }
+
+   return (
+     <div className="pixel-container">
+       {/* Background Pixels */}
+       <div className="background-pixels"></div>
+       
+       {/* Back Button */}
+       <button className="back-button" onClick={handleLogout}>
+         ←
        </button>
+       
+              {/* Theme Toggle */}
+        <button className="theme-toggle" onClick={() => setShowConfig(true)}>
+          ⚙️
+        </button>
       
       <div className="pixel-card pixel-fade-in">
         {/* Header - Only Text */}
@@ -219,12 +333,18 @@ export default function HomePage() {
           >
             Z → A
           </button>
-          <button
-            onClick={() => setShowAddModal(true)}
-            className="pixel-button success"
-          >
-            ➕ Agregar
-          </button>
+                     <button
+             onClick={() => setShowAddModal(true)}
+             className="pixel-button success"
+           >
+             ➕ Agregar
+           </button>
+           <button
+             onClick={() => setShowConfigScreen(true)}
+             className="pixel-button"
+           >
+             ℹ️ Info/Config
+           </button>
         </div>
         
         {/* Passwords List - Horizontal Cards */}
