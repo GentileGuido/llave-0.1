@@ -183,7 +183,7 @@ export default function HomePage() {
           gap: '30px'
         }}>
           <h1 className="pixel-title" style={{ margin: '0', fontSize: '3rem' }}>LLAVE</h1>
-          <p className="pixel-subtitle" style={{ margin: '0', fontSize: '1.2rem' }}>El gestor de contraseñas que necesitabas</p>
+                     <p className="pixel-subtitle" style={{ margin: '0', fontSize: '1.2rem', color: 'var(--text-white)' }}>El gestor de contraseñas que necesitabas</p>
           
           <button
             onClick={handleLogin}
@@ -193,9 +193,9 @@ export default function HomePage() {
             Iniciar Sesión
           </button>
           
-          <p className="pixel-subtitle" style={{ margin: '0', fontSize: '1rem' }}>
-            🛡️ Seguridad pixelada garantizada
-          </p>
+                     <p className="pixel-subtitle" style={{ margin: '0', fontSize: '1rem' }}>
+             🛡️ Seguridad pixelada garantizada 🛡️
+           </p>
         </div>
       </div>
     );
@@ -212,24 +212,24 @@ export default function HomePage() {
           {/* Back Button - Inside the main card */}
           <button 
             onClick={() => setShowConfigScreen(false)}
-            style={{ 
-              position: 'absolute', 
-              top: '10px', 
-              left: '10px',
-              zIndex: 10,
-              background: 'var(--purple-neon)',
-              border: '2px solid var(--purple-neon)',
-              color: 'var(--bg-dark)',
-              padding: '8px 12px',
-              fontFamily: 'Press Start 2P, monospace',
-              fontSize: '12px',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              borderRadius: '4px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '5px'
-            }}
+                         style={{ 
+               position: 'absolute', 
+               top: '10px', 
+               left: '10px',
+               zIndex: 10,
+               background: 'var(--purple-neon)',
+               border: '2px solid var(--purple-neon)',
+               color: 'var(--text-white)',
+               padding: '8px 12px',
+               fontFamily: 'Press Start 2P, monospace',
+               fontSize: '12px',
+               cursor: 'pointer',
+               transition: 'all 0.3s ease',
+               borderRadius: '4px',
+               display: 'flex',
+               alignItems: 'center',
+               gap: '5px'
+             }}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
@@ -237,7 +237,7 @@ export default function HomePage() {
             BACK
           </button>
           
-          <h1 className="pixel-title" style={{ textAlign: 'center', fontSize: '1.5rem' }}>Configuración</h1>
+                     <h1 className="pixel-title" style={{ textAlign: 'center', fontSize: '1.5rem', textShadow: 'none', margin: '60px 0 20px 0' }}>Configuración</h1>
           
           {/* App Info */}
           <div className="pixel-card">
