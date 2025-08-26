@@ -201,12 +201,21 @@ export default function HomePage() {
         {/* Background Pixels */}
         <div className="background-pixels"></div>
         
-        {/* Back Button */}
-        <button className="back-button" onClick={() => setShowConfigScreen(false)}>
-          🔙
-        </button>
-        
-        <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto' }}>
+        <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative' }}>
+          {/* Back Button - Inside the green rectangle */}
+          <button 
+            className="back-button" 
+            onClick={() => setShowConfigScreen(false)}
+            style={{ 
+              position: 'absolute', 
+              top: '10px', 
+              left: '10px',
+              zIndex: 10
+            }}
+          >
+            🔙
+          </button>
+          
           <h1 className="pixel-title">⚙️ Configuración</h1>
           
           {/* App Info */}
@@ -218,7 +227,6 @@ export default function HomePage() {
               única y retro.
             </p>
             <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px', fontWeight: 'normal' }}>
-              <strong>Desarrollado por:</strong> Guido Gentile<br/>
               <strong>Tecnologías:</strong> Next.js, TypeScript, CSS Pixel Art<br/>
               <strong>IA:</strong> Claude Sonnet 4
             </p>
@@ -228,7 +236,7 @@ export default function HomePage() {
               marginTop: '15px', 
               color: 'var(--green-neon)',
               textAlign: 'center',
-              animation: 'pixel-bounce 4s ease-in-out infinite'
+              animation: 'pixel-fade-in 3s ease-in-out infinite'
             }}>
               <strong>Desarrollador: Guido Gentile</strong>
             </p>
@@ -286,35 +294,67 @@ export default function HomePage() {
             <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
               <button 
                 onClick={() => handleDonation('jugo')}
-                className="pixel-button success" 
-                style={{ fontSize: '10px' }}
+                className="pixel-button" 
+                style={{ fontSize: '10px', borderColor: 'var(--blue-electric)', color: 'var(--blue-electric)' }}
               >
                 🧃 Jugo
               </button>
               <button 
                 onClick={() => handleDonation('pizza')}
                 className="pixel-button" 
-                style={{ fontSize: '10px' }}
+                style={{ fontSize: '10px', borderColor: 'var(--blue-electric)', color: 'var(--blue-electric)' }}
               >
                 🍕 Pizza
               </button>
               <button 
                 onClick={() => handleDonation('libro')}
                 className="pixel-button" 
-                style={{ fontSize: '10px' }}
+                style={{ fontSize: '10px', borderColor: 'var(--blue-electric)', color: 'var(--blue-electric)' }}
               >
                 📚 Libro
               </button>
               <button 
                 onClick={() => handleDonation('auto')}
                 className="pixel-button" 
-                style={{ fontSize: '10px' }}
+                style={{ fontSize: '10px', borderColor: 'var(--blue-electric)', color: 'var(--blue-electric)' }}
               >
                 🚗 Auto
               </button>
             </div>
           </div>
         </div>
+
+        {/* Donation Modal - Only show in config screen */}
+        {showDonationModal && (
+          <div className="modal-overlay">
+            <div className="pixel-card">
+              <h3 className="pixel-subtitle">💝 Donación - Mercado Pago</h3>
+              <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
+                {selectedDonation === 'jugo' && '🧃 Jugo - $5.000'}
+                {selectedDonation === 'pizza' && '🍕 Pizza - $10.000'}
+                {selectedDonation === 'libro' && '📚 Libro - $15.000'}
+                {selectedDonation === 'auto' && '🚗 Auto - $20.000'}
+              </p>
+              <p style={{ fontSize: '11px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
+                Próximamente vincularemos con Mercado Pago para procesar tu donación.
+              </p>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+                <button
+                  onClick={() => setShowDonationModal(false)}
+                  className="pixel-button success"
+                >
+                  ✅ Entendido
+                </button>
+                <button
+                  onClick={() => setShowDonationModal(false)}
+                  className="pixel-button"
+                >
+                  ❌ Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -530,161 +570,6 @@ export default function HomePage() {
                   setNewPassword("");
                 }}
                 className="pixel-button danger"
-              >
-                ❌ Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-      
-      {/* Config Modal */}
-      {showConfig && (
-        <div className="modal-overlay">
-          <div className="pixel-card" style={{ maxWidth: '600px', maxHeight: '80vh', overflowY: 'auto' }}>
-            <h3 className="pixel-subtitle">⚙️ Configuración</h3>
-            
-            {/* App Info */}
-            <div className="pixel-card">
-              <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
-              <p style={{ fontSize: '12px', lineHeight: '1.6', fontWeight: 'normal' }}>
-                Llave es un gestor de contraseñas seguro con estética pixel art. 
-                Desarrollado 100% con Inteligencia Artificial para ofrecer una experiencia 
-                única y retro.
-              </p>
-              <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px', fontWeight: 'normal' }}>
-                <strong>Desarrollado por:</strong> Guido Gentile<br/>
-                <strong>Tecnologías:</strong> Next.js, TypeScript, CSS Pixel Art<br/>
-                <strong>IA:</strong> Claude Sonnet 4
-              </p>
-              <p style={{ 
-                fontSize: '14px', 
-                lineHeight: '1.6', 
-                marginTop: '15px', 
-                color: 'var(--green-neon)',
-                textAlign: 'center',
-                animation: 'pixel-bounce 4s ease-in-out infinite'
-              }}>
-                <strong>Desarrollador: Guido Gentile</strong>
-              </p>
-            </div>
-
-            {/* Installation Instructions */}
-            <div className="pixel-grid">
-              <div className="pixel-card">
-                <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
-                <div style={{ marginBottom: '15px' }}>
-                  <p style={{ fontSize: '12px', marginBottom: '10px' }}>
-                    <strong>Pasos para instalar:</strong>
-                  </p>
-                  <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px' }}>
-                    <li>1. Abre Chrome o tu navegador</li>
-                    <li>2. Ve a la página de Llave</li>
-                    <li>3. Toca los tres puntos de la esquina superior</li>
-                    <li>4. Selecciona &quot;Instalar aplicación&quot;</li>
-                    <li>5. Confirma la instalación</li>
-                  </ol>
-                </div>
-                <div className="android-button">
-                  <div className="android-logo">🤖</div>
-                  <span>Instalar App</span>
-                </div>
-              </div>
-              
-              <div className="pixel-card">
-                <h4 className="pixel-subtitle">🍎 Instalar en iOS</h4>
-                <div style={{ marginBottom: '15px' }}>
-                  <p style={{ fontSize: '12px', marginBottom: '10px' }}>
-                    <strong>Pasos para instalar:</strong>
-                  </p>
-                  <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px' }}>
-                    <li>1. Abre Safari en tu iPhone/iPad</li>
-                    <li>2. Ve a la página de Llave</li>
-                    <li>3. Toca el botón compartir</li>
-                    <li>4. Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
-                    <li>5. Confirma y personaliza el nombre</li>
-                  </ol>
-                </div>
-                <div className="android-button" style={{ borderColor: 'var(--blue-electric)' }}>
-                  <div className="android-logo" style={{ background: 'var(--blue-electric)' }}>🍎</div>
-                  <span>Agregar a Inicio</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Donations */}
-            <div className="pixel-card">
-              <h4 className="pixel-subtitle">💝 Donaciones</h4>
-              <p style={{ fontSize: '12px', marginBottom: '15px', textAlign: 'left', fontWeight: 'normal' }}>
-                Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
-              </p>
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
-                <button 
-                  onClick={() => handleDonation('jugo')}
-                  className="pixel-button success" 
-                  style={{ fontSize: '10px' }}
-                >
-                  🧃 Jugo
-                </button>
-                <button 
-                  onClick={() => handleDonation('pizza')}
-                  className="pixel-button" 
-                  style={{ fontSize: '10px' }}
-                >
-                  🍕 Pizza
-                </button>
-                <button 
-                  onClick={() => handleDonation('libro')}
-                  className="pixel-button" 
-                  style={{ fontSize: '10px' }}
-                >
-                  📚 Libro
-                </button>
-                <button 
-                  onClick={() => handleDonation('auto')}
-                  className="pixel-button" 
-                  style={{ fontSize: '10px' }}
-                >
-                  🚗 Auto
-                </button>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setShowConfig(false)}
-              className="pixel-button"
-              style={{ marginTop: '20px' }}
-            >
-              ✅ Cerrar
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Donation Modal */}
-      {showDonationModal && (
-        <div className="modal-overlay">
-          <div className="pixel-card">
-            <h3 className="pixel-subtitle">💝 Donación - Mercado Pago</h3>
-            <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
-              {selectedDonation === 'jugo' && '🧃 Jugo - $5.000'}
-              {selectedDonation === 'pizza' && '🍕 Pizza - $10.000'}
-              {selectedDonation === 'libro' && '📚 Libro - $15.000'}
-              {selectedDonation === 'auto' && '🚗 Auto - $20.000'}
-            </p>
-            <p style={{ fontSize: '11px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
-              Próximamente vincularemos con Mercado Pago para procesar tu donación.
-            </p>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
-              <button
-                onClick={() => setShowDonationModal(false)}
-                className="pixel-button success"
-              >
-                ✅ Entendido
-              </button>
-              <button
-                onClick={() => setShowDonationModal(false)}
-                className="pixel-button"
               >
                 ❌ Cancelar
               </button>
