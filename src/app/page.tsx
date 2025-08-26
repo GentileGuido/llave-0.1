@@ -163,8 +163,6 @@ export default function HomePage() {
         {/* Background Pixels */}
         <div className="background-pixels"></div>
         
-        <SplashScreen />
-        
         {/* Login Screen - Only Button */}
         <div style={{ 
           display: 'flex', 
@@ -216,7 +214,7 @@ export default function HomePage() {
             🔙
           </button>
           
-          <h1 className="pixel-title">⚙️ Configuración</h1>
+          <h1 className="pixel-title" style={{ textAlign: 'center' }}>Configuración</h1>
           
           {/* App Info */}
           <div className="pixel-card">
@@ -382,21 +380,36 @@ export default function HomePage() {
             <button
               onClick={() => setSortBy("recent")}
               className={`sort-button ${sortBy === "recent" ? "active" : ""}`}
-              style={{ fontSize: '9px', padding: '6px 10px' }}
+              style={{ 
+                fontSize: '9px', 
+                padding: '6px 10px',
+                backgroundColor: sortBy === "recent" ? 'var(--green-neon)' : 'transparent',
+                color: sortBy === "recent" ? 'black' : 'white'
+              }}
             >
               Recientes
             </button>
             <button
               onClick={() => setSortBy("az")}
               className={`sort-button ${sortBy === "az" ? "active" : ""}`}
-              style={{ fontSize: '9px', padding: '6px 10px' }}
+              style={{ 
+                fontSize: '9px', 
+                padding: '6px 10px',
+                backgroundColor: sortBy === "az" ? 'var(--green-neon)' : 'transparent',
+                color: sortBy === "az" ? 'black' : 'white'
+              }}
             >
               A / Z
             </button>
             <button
               onClick={() => setSortBy("za")}
               className={`sort-button ${sortBy === "za" ? "active" : ""}`}
-              style={{ fontSize: '9px', padding: '6px 10px' }}
+              style={{ 
+                fontSize: '9px', 
+                padding: '6px 10px',
+                backgroundColor: sortBy === "za" ? 'var(--green-neon)' : 'transparent',
+                color: sortBy === "za" ? 'black' : 'white'
+              }}
             >
               Z / A
             </button>
@@ -422,7 +435,7 @@ export default function HomePage() {
         </div>
         
         {/* Passwords List - Horizontal Cards */}
-        <h3 className="pixel-subtitle">Tus Contraseñas</h3>
+        <h3 className="pixel-subtitle" style={{ fontWeight: 'normal', color: 'white' }}>Tus Contraseñas</h3>
         <div style={{ 
           display: 'flex', 
           flexDirection: 'column', 
