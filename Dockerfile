@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json* ./
-RUN npm install --omit=dev --no-audit --no-fund
+RUN npm ci --only=production --no-audit --no-fund
 
 # Copy all source files
 COPY . .
@@ -37,4 +37,5 @@ USER nextjs
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+# Use the correct start command
+CMD ["npm", "start"]

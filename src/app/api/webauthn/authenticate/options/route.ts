@@ -1,7 +1,7 @@
 import { generateAuthenticationOptions } from '@simplewebauthn/server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/utils/auth';
+import { authOptions } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';

@@ -1,6 +1,6 @@
 import "./../styles/globals.css";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/utils/auth";
+import { authOptions } from "@/lib/auth";
 import Providers from "@/components/Providers";
 
 export const metadata = { title: "LLAVE", description: "Gestor E2E con biometría" };

@@ -183,7 +183,9 @@ src/
 │   ├── auth.ts           # Configuración NextAuth
 │   ├── crypto-client.ts  # Criptografía del cliente
 │   ├── webauthn.ts       # Helpers WebAuthn
-│   └── ratelimit.ts      # Rate limiting
+│   ├── ratelimit.ts      # Rate limiting
+│   ├── prisma.ts         # Cliente Prisma
+│   └── base64.ts         # Utilidades Base64
 └── types/                # Tipos TypeScript
 ```
 

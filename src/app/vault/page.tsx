@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { deriveKeyFromPass, encryptJson, decryptJson, randSalt } from "@/utils/crypto-client";
-import { createPasskey, getPasskey } from "@/utils/webauthn";
+import { deriveKeyFromPass, encryptJson, decryptJson, randSalt } from "@/lib/crypto-client";
+import { createPasskey, getPasskey } from "@/lib/webauthn";
 
 type VaultItem = {
   id: string;

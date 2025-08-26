@@ -1,0 +1,38 @@
+# Development files
+.env.local
+.env.development
+.env.test
+.env.production.local
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+.parcel-cache/
+.next/cache/
+
+# Test files
+coverage/
+.nyc_output/
+
+# Documentation
+README.md
+*.md
+
+# Git
+.git/
+.gitignore
+
+# Temporary files
+tmp/
+temp/
