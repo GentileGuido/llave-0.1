@@ -18,7 +18,6 @@ export default function SplashScreen() {
   return (
     <div className="splash-screen">
       <div className="splash-content">
-        <div className="llave-logo llave-logo-large"></div>
         <h1 className="splash-title">LLAVE</h1>
         <p className="splash-subtitle">El gestor de contraseñas que necesitabas</p>
       </div>

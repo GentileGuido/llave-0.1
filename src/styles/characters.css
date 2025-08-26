@@ -3,12 +3,17 @@
 /* Floating Pixels */
 .floating-pixel {
   position: absolute;
-  width: 4px;
-  height: 4px;
   background: var(--green-neon);
   border-radius: 0;
-  pointer-events: none;
+  pointer-events: auto;
   z-index: 1;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.floating-pixel:hover {
+  transform: scale(1.5);
+  filter: brightness(1.5);
 }
 
 .floating-pixel.white {
@@ -17,6 +22,87 @@
 
 .floating-pixel.green {
   background: var(--green-neon);
+}
+
+/* Pixel Sizes */
+.floating-pixel.small {
+  width: 3px;
+  height: 3px;
+}
+
+.floating-pixel.medium {
+  width: 6px;
+  height: 6px;
+}
+
+.floating-pixel.large {
+  width: 10px;
+  height: 10px;
+}
+
+/* Explosion Effect */
+.floating-pixel.exploding {
+  animation: pixel-explode 0.5s ease-out forwards;
+}
+
+@keyframes pixel-explode {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Explosion Particle Animations */
+@keyframes pixel-explosion-1 {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(20px) translateY(-20px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes pixel-explosion-2 {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-20px) translateY(-20px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes pixel-explosion-3 {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(20px) translateY(20px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes pixel-explosion-4 {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-20px) translateY(20px) scale(0);
+    opacity: 0;
+  }
 }
 
 /* Pixel Animation Classes */

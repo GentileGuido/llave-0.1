@@ -44,12 +44,39 @@ export default function HomePage() {
   useEffect(() => {
     const createPixel = () => {
       const pixel = document.createElement('div');
-      pixel.className = `floating-pixel ${Math.random() > 0.5 ? 'white' : 'green'} pixel-float-${Math.floor(Math.random() * 5) + 1}`;
+      const sizes = ['small', 'medium', 'large'];
+      const size = sizes[Math.floor(Math.random() * sizes.length)];
+      const color = Math.random() > 0.5 ? 'white' : 'green';
+      const animation = Math.floor(Math.random() * 5) + 1;
+      
+      pixel.className = `floating-pixel ${color} ${size} pixel-float-${animation}`;
+      
+      // Add click event for explosion
+      pixel.addEventListener('click', () => {
+        pixel.classList.add('exploding');
+        
+        // Create explosion particles
+        for (let i = 0; i < 8; i++) {
+          const particle = document.createElement('div');
+          particle.className = `floating-pixel ${color} small`;
+          particle.style.left = pixel.offsetLeft + 'px';
+          particle.style.top = pixel.offsetTop + 'px';
+          particle.style.animation = `pixel-explosion-${Math.floor(Math.random() * 4) + 1} 1s ease-out forwards`;
+          document.querySelector('.background-pixels')?.appendChild(particle);
+          
+          setTimeout(() => particle.remove(), 1000);
+        }
+        
+        setTimeout(() => pixel.remove(), 500);
+      });
+      
       document.querySelector('.background-pixels')?.appendChild(pixel);
       
       // Remove pixel after animation
       setTimeout(() => {
-        pixel.remove();
+        if (pixel.parentNode) {
+          pixel.remove();
+        }
       }, 15000);
     };
 
@@ -155,52 +182,50 @@ export default function HomePage() {
         </div>
         
         {/* Passwords List - Horizontal Cards */}
-        <div className="pixel-card">
-          <h3 className="pixel-subtitle">Tus Contraseñas</h3>
-          <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            gap: '10px',
-            maxHeight: '60vh',
-            overflowY: 'auto'
-          }}>
-            {sortedPasswords.map((item) => (
-              <div key={item.id} className="pixel-card" style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'center',
-                padding: '15px',
-                margin: '0',
-                minHeight: '60px'
-              }}>
-                <div style={{ flex: 1 }}>
-                  <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>Sitio: {item.site}</p>
-                  <p style={{ margin: '0', fontSize: '12px' }}>Contraseña: {item.visible ? item.password : "••••••••"}</p>
-                </div>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <button 
-                    className="icon-button view"
-                    onClick={() => togglePasswordVisibility(item.id)}
-                    title="Ver contraseña"
-                  >
-                    👁️
-                  </button>
-                  <button 
-                    className="icon-button edit"
-                    title="Editar"
-                  >
-                    ✏️
-                  </button>
-                  <button 
-                    className="icon-button delete"
-                    title="Eliminar"
-                  >
-                    🗑️
-                  </button>
-                </div>
+        <h3 className="pixel-subtitle">Tus Contraseñas</h3>
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '10px',
+          maxHeight: '60vh',
+          overflowY: 'auto'
+        }}>
+          {sortedPasswords.map((item) => (
+            <div key={item.id} className="pixel-card" style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              padding: '15px',
+              margin: '0',
+              minHeight: '60px'
+            }}>
+              <div style={{ flex: 1 }}>
+                <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>Sitio: {item.site}</p>
+                <p style={{ margin: '0', fontSize: '12px' }}>Contraseña: {item.visible ? item.password : "••••••••"}</p>
               </div>
-            ))}
-          </div>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button 
+                  className="icon-button view"
+                  onClick={() => togglePasswordVisibility(item.id)}
+                  title="Ver contraseña"
+                >
+                  👁️
+                </button>
+                <button 
+                  className="icon-button edit"
+                  title="Editar"
+                >
+                  ✏️
+                </button>
+                <button 
+                  className="icon-button delete"
+                  title="Eliminar"
+                >
+                  🗑️
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       
