@@ -13,6 +13,11 @@ export default function HomePage() {
   const [sortBy, setSortBy] = useState("recent");
   const [showAddModal, setShowAddModal] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [newSite, setNewSite] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [editSite, setEditSite] = useState("");
+  const [editPassword, setEditPassword] = useState("");
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -26,6 +31,40 @@ export default function HomePage() {
     setPasswords(passwords.map(pwd => 
       pwd.id === id ? { ...pwd, visible: !pwd.visible } : pwd
     ));
+  };
+
+  const handleAddPassword = () => {
+    if (newSite && newPassword) {
+      const newId = Math.max(...passwords.map(p => p.id)) + 1;
+      setPasswords([...passwords, { id: newId, site: newSite, password: newPassword, visible: false }]);
+      setNewSite("");
+      setNewPassword("");
+      setShowAddModal(false);
+    }
+  };
+
+  const handleEditPassword = (id: number) => {
+    const password = passwords.find(p => p.id === id);
+    if (password) {
+      setEditSite(password.site);
+      setEditPassword(password.password);
+      setEditingId(id);
+    }
+  };
+
+  const handleSaveEdit = () => {
+    if (editingId && editSite && editPassword) {
+      setPasswords(passwords.map(pwd => 
+        pwd.id === editingId ? { ...pwd, site: editSite, password: editPassword } : pwd
+      ));
+      setEditingId(null);
+      setEditSite("");
+      setEditPassword("");
+    }
+  };
+
+  const handleDeletePassword = (id: number) => {
+    setPasswords(passwords.filter(pwd => pwd.id !== id));
   };
 
   const sortedPasswords = [...passwords].sort((a, b) => {
@@ -44,7 +83,7 @@ export default function HomePage() {
   useEffect(() => {
     const createPixel = () => {
       const pixel = document.createElement('div');
-      const sizes = ['small', 'medium', 'large'];
+      const sizes = ['tiny', 'small', 'medium', 'large', 'huge'];
       const size = sizes[Math.floor(Math.random() * sizes.length)];
       const color = Math.random() > 0.5 ? 'white' : 'green';
       const animation = Math.floor(Math.random() * 5) + 1;
@@ -58,7 +97,7 @@ export default function HomePage() {
         // Create explosion particles
         for (let i = 0; i < 8; i++) {
           const particle = document.createElement('div');
-          particle.className = `floating-pixel ${color} small`;
+          particle.className = `floating-pixel ${color} tiny`;
           particle.style.left = pixel.offsetLeft + 'px';
           particle.style.top = pixel.offsetTop + 'px';
           particle.style.animation = `pixel-explosion-${Math.floor(Math.random() * 4) + 1} 1s ease-out forwards`;
@@ -106,20 +145,21 @@ export default function HomePage() {
           justifyContent: 'center', 
           alignItems: 'center', 
           minHeight: '100vh',
-          textAlign: 'center'
+          textAlign: 'center',
+          gap: '30px'
         }}>
-          <h1 className="pixel-title">LLAVE</h1>
-          <p className="pixel-subtitle">El gestor de contraseñas que necesitabas</p>
+          <h1 className="pixel-title" style={{ margin: '0' }}>LLAVE</h1>
+          <p className="pixel-subtitle" style={{ margin: '0' }}>El gestor de contraseñas que necesitabas</p>
           
           <button
             onClick={handleLogin}
             className="pixel-button success"
-            style={{ marginTop: '40px' }}
+            style={{ margin: '0' }}
           >
             Iniciar Sesión
           </button>
           
-          <p className="pixel-subtitle" style={{ marginTop: '40px' }}>
+          <p className="pixel-subtitle" style={{ margin: '0' }}>
             🛡️ Seguridad pixelada garantizada
           </p>
         </div>
@@ -190,112 +230,221 @@ export default function HomePage() {
           maxHeight: '60vh',
           overflowY: 'auto'
         }}>
-          {sortedPasswords.map((item) => (
-            <div key={item.id} className="pixel-card" style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center',
-              padding: '15px',
-              margin: '0',
-              minHeight: '60px'
-            }}>
-              <div style={{ flex: 1 }}>
-                <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>Sitio: {item.site}</p>
-                <p style={{ margin: '0', fontSize: '12px' }}>Contraseña: {item.visible ? item.password : "••••••••"}</p>
-              </div>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button 
-                  className="icon-button view"
-                  onClick={() => togglePasswordVisibility(item.id)}
-                  title="Ver contraseña"
-                >
-                  👁️
-                </button>
-                <button 
-                  className="icon-button edit"
-                  title="Editar"
-                >
-                  ✏️
-                </button>
-                <button 
-                  className="icon-button delete"
-                  title="Eliminar"
-                >
-                  🗑️
-                </button>
-              </div>
-            </div>
-          ))}
+                     {sortedPasswords.map((item) => (
+             <div key={item.id} className="pixel-card" style={{ 
+               display: 'flex', 
+               justifyContent: 'space-between', 
+               alignItems: 'center',
+               padding: '15px',
+               margin: '0',
+               minHeight: '60px'
+             }}>
+               <div style={{ flex: 1 }}>
+                 {editingId === item.id ? (
+                   <>
+                     <input
+                       type="text"
+                       value={editSite}
+                       onChange={(e) => setEditSite(e.target.value)}
+                       className="pixel-input"
+                       style={{ margin: '0 0 5px 0', fontSize: '14px' }}
+                       placeholder="Sitio"
+                     />
+                     <input
+                       type="password"
+                       value={editPassword}
+                       onChange={(e) => setEditPassword(e.target.value)}
+                       className="pixel-input"
+                       style={{ margin: '0', fontSize: '12px' }}
+                       placeholder="Contraseña"
+                     />
+                   </>
+                 ) : (
+                   <>
+                     <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>Sitio: {item.site}</p>
+                     <p style={{ margin: '0', fontSize: '12px' }}>Contraseña: {item.visible ? item.password : "••••••••"}</p>
+                   </>
+                 )}
+               </div>
+               <div style={{ display: 'flex', gap: '8px' }}>
+                 {editingId === item.id ? (
+                   <button 
+                     className="icon-button edit"
+                     onClick={handleSaveEdit}
+                     title="Guardar"
+                   >
+                     💾
+                   </button>
+                 ) : (
+                   <>
+                     <button 
+                       className="icon-button view"
+                       onClick={() => togglePasswordVisibility(item.id)}
+                       title="Ver contraseña"
+                     >
+                       👁️
+                     </button>
+                     <button 
+                       className="icon-button edit"
+                       onClick={() => handleEditPassword(item.id)}
+                       title="Editar"
+                     >
+                       ✏️
+                     </button>
+                     <button 
+                       className="icon-button delete"
+                       onClick={() => handleDeletePassword(item.id)}
+                       title="Eliminar"
+                     >
+                       🗑️
+                     </button>
+                   </>
+                 )}
+               </div>
+             </div>
+           ))}
         </div>
       </div>
       
-      {/* Add Modal */}
-      {showAddModal && (
-        <div className="modal-overlay">
-          <div className="pixel-card">
-            <h3 className="pixel-subtitle">➕ Agregar Contraseña</h3>
-            <div className="pixel-grid">
-              <input
-                type="text"
-                placeholder="Sitio/dominio/app"
-                className="pixel-input"
-              />
-              <input
-                type="password"
-                placeholder="Contraseña"
-                className="pixel-input"
-              />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
-              <button
-                onClick={() => setShowAddModal(false)}
-                className="pixel-button success"
-              >
-                💾 Guardar
-              </button>
-              <button
-                onClick={() => setShowAddModal(false)}
-                className="pixel-button danger"
-              >
-                ❌ Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+             {/* Add Modal */}
+       {showAddModal && (
+         <div className="modal-overlay">
+           <div className="pixel-card">
+             <h3 className="pixel-subtitle">➕ Agregar Contraseña</h3>
+             <div className="pixel-grid">
+               <input
+                 type="text"
+                 value={newSite}
+                 onChange={(e) => setNewSite(e.target.value)}
+                 placeholder="Sitio/dominio/app"
+                 className="pixel-input"
+               />
+               <input
+                 type="password"
+                 value={newPassword}
+                 onChange={(e) => setNewPassword(e.target.value)}
+                 placeholder="Contraseña"
+                 className="pixel-input"
+               />
+             </div>
+             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
+               <button
+                 onClick={handleAddPassword}
+                 className="pixel-button success"
+               >
+                 💾 Guardar
+               </button>
+               <button
+                 onClick={() => {
+                   setShowAddModal(false);
+                   setNewSite("");
+                   setNewPassword("");
+                 }}
+                 className="pixel-button danger"
+               >
+                 ❌ Cancelar
+               </button>
+             </div>
+           </div>
+         </div>
+       )}
       
-      {/* Config Modal */}
-      {showConfig && (
-        <div className="modal-overlay">
-          <div className="pixel-card">
-            <h3 className="pixel-subtitle">⚙️ Configuración</h3>
-            <div className="pixel-grid">
-              <div className="pixel-card">
-                <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
-                <div className="android-button">
-                  <div className="android-logo">A</div>
-                  <span>Instalar App</span>
-                </div>
-              </div>
-              <div className="pixel-card">
-                <h4 className="pixel-subtitle">📱 Instalar en iOS</h4>
-                <p>Agregar a pantalla de inicio</p>
-              </div>
-            </div>
-            <div className="pixel-card">
-              <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
-              <p>Llave es un gestor de contraseñas seguro con estética pixel art.</p>
-              <p>Desarrollado con Next.js, TypeScript y mucho amor por los videojuegos retro.</p>
-            </div>
-            <button
-              onClick={() => setShowConfig(false)}
-              className="pixel-button"
-            >
-              ✅ Cerrar
-            </button>
-          </div>
-        </div>
-      )}
+             {/* Config Modal */}
+       {showConfig && (
+         <div className="modal-overlay">
+           <div className="pixel-card" style={{ maxWidth: '600px', maxHeight: '80vh', overflowY: 'auto' }}>
+             <h3 className="pixel-subtitle">⚙️ Configuración</h3>
+             
+             {/* App Info */}
+             <div className="pixel-card">
+               <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
+               <p style={{ fontSize: '12px', lineHeight: '1.6' }}>
+                 Llave es un gestor de contraseñas seguro con estética pixel art. 
+                 Desarrollado 100% con Inteligencia Artificial para ofrecer una experiencia 
+                 única y retro.
+               </p>
+               <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px' }}>
+                 <strong>Desarrollado por:</strong> Guido Gentile<br/>
+                 <strong>Tecnologías:</strong> Next.js, TypeScript, CSS Pixel Art<br/>
+                 <strong>IA:</strong> Claude Sonnet 4
+               </p>
+             </div>
+
+             {/* Installation Instructions */}
+             <div className="pixel-grid">
+               <div className="pixel-card">
+                 <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
+                 <div style={{ marginBottom: '15px' }}>
+                   <p style={{ fontSize: '12px', marginBottom: '10px' }}>
+                     <strong>Pasos para instalar:</strong>
+                   </p>
+                   <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
+                     <li>Abre Chrome o tu navegador</li>
+                     <li>Ve a la página de Llave</li>
+                     <li>Toca el menú (⋮) en la esquina superior</li>
+                     <li>Selecciona &quot;Instalar aplicación&quot;</li>
+                     <li>Confirma la instalación</li>
+                   </ol>
+                 </div>
+                 <div className="android-button">
+                   <div className="android-logo">A</div>
+                   <span>Instalar App</span>
+                 </div>
+               </div>
+               
+               <div className="pixel-card">
+                 <h4 className="pixel-subtitle">🍎 Instalar en iOS</h4>
+                 <div style={{ marginBottom: '15px' }}>
+                   <p style={{ fontSize: '12px', marginBottom: '10px' }}>
+                     <strong>Pasos para instalar:</strong>
+                   </p>
+                   <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
+                     <li>Abre Safari en tu iPhone/iPad</li>
+                     <li>Ve a la página de Llave</li>
+                     <li>Toca el botón compartir (□↑)</li>
+                     <li>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
+                     <li>Confirma y personaliza el nombre</li>
+                   </ol>
+                 </div>
+                 <div className="android-button" style={{ borderColor: 'var(--blue-electric)' }}>
+                   <div className="android-logo" style={{ background: 'var(--blue-electric)' }}>🍎</div>
+                   <span>Agregar a Inicio</span>
+                 </div>
+               </div>
+             </div>
+
+             {/* Donations */}
+             <div className="pixel-card">
+               <h4 className="pixel-subtitle">💝 Donaciones</h4>
+               <p style={{ fontSize: '12px', marginBottom: '15px' }}>
+                 Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
+               </p>
+               <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
+                 <button className="pixel-button success" style={{ fontSize: '10px' }}>
+                   ☕ Café
+                 </button>
+                 <button className="pixel-button" style={{ fontSize: '10px' }}>
+                   🍕 Pizza
+                 </button>
+                 <button className="pixel-button" style={{ fontSize: '10px' }}>
+                   🎮 Juego
+                 </button>
+                 <button className="pixel-button" style={{ fontSize: '10px' }}>
+                   🚀 Cohete
+                 </button>
+               </div>
+             </div>
+
+             <button
+               onClick={() => setShowConfig(false)}
+               className="pixel-button"
+               style={{ marginTop: '20px' }}
+             >
+               ✅ Cerrar
+             </button>
+           </div>
+         </div>
+       )}
     </div>
   );
 }
