@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SplashScreen from "@/components/SplashScreen";
 
 export default function HomePage() {
@@ -40,57 +40,59 @@ export default function HomePage() {
     }
   });
 
+  // Background pixels effect
+  useEffect(() => {
+    const createPixel = () => {
+      const pixel = document.createElement('div');
+      pixel.className = `floating-pixel ${Math.random() > 0.5 ? 'white' : 'green'} pixel-float-${Math.floor(Math.random() * 5) + 1}`;
+      document.querySelector('.background-pixels')?.appendChild(pixel);
+      
+      // Remove pixel after animation
+      setTimeout(() => {
+        pixel.remove();
+      }, 15000);
+    };
+
+    // Create pixels periodically
+    const interval = setInterval(createPixel, 2000);
+    
+    // Create initial pixels
+    for (let i = 0; i < 5; i++) {
+      setTimeout(createPixel, i * 500);
+    }
+
+    return () => clearInterval(interval);
+  }, []);
+
   if (!isLoggedIn) {
     return (
       <div className="pixel-container">
+        {/* Background Pixels */}
+        <div className="background-pixels"></div>
+        
         <SplashScreen />
-        <div className="pixel-card pixel-fade-in">
-          {/* Header with Logo */}
-          <div className="character-grid">
-            <div className="character-with-label">
-              <div className="llave-logo"></div>
-              <div className="character-label">Llave</div>
-            </div>
-          </div>
-          
-          <h1 className="pixel-title">🔑 LLAVE</h1>
+        
+        {/* Login Screen - Only Button */}
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '100vh',
+          textAlign: 'center'
+        }}>
+          <h1 className="pixel-title">LLAVE</h1>
           <p className="pixel-subtitle">El gestor de contraseñas que necesitabas</p>
           
-          {/* Character Parade */}
-          <div className="character-grid">
-            <div className="character-with-label">
-              <div className="pixel-knight character-interactive"></div>
-              <div className="character-label">Knight</div>
-            </div>
-            <div className="character-with-label">
-              <div className="pixel-wizard character-interactive"></div>
-              <div className="character-label">Wizard</div>
-            </div>
-            <div className="character-with-label">
-              <div className="pixel-robot character-interactive"></div>
-              <div className="character-label">Robot</div>
-            </div>
-            <div className="character-with-label">
-              <div className="pixel-cat character-interactive"></div>
-              <div className="character-label">Cat</div>
-            </div>
-          </div>
+          <button
+            onClick={handleLogin}
+            className="pixel-button success"
+            style={{ marginTop: '40px' }}
+          >
+            Iniciar Sesión
+          </button>
           
-          {/* Login Section - Centered */}
-          <div className="pixel-card" style={{ textAlign: 'center', maxWidth: '400px', margin: '0 auto' }}>
-            <div className="character-grid">
-              <div className="pixel-knight character-interactive"></div>
-            </div>
-            <button
-              onClick={handleLogin}
-              className="pixel-button success"
-            >
-              Iniciar Sesión
-            </button>
-          </div>
-          
-          {/* Footer - No card */}
-          <p className="pixel-subtitle" style={{ textAlign: 'center', marginTop: '20px' }}>
+          <p className="pixel-subtitle" style={{ marginTop: '40px' }}>
             🛡️ Seguridad pixelada garantizada
           </p>
         </div>
@@ -100,6 +102,9 @@ export default function HomePage() {
 
   return (
     <div className="pixel-container">
+      {/* Background Pixels */}
+      <div className="background-pixels"></div>
+      
       {/* Back Button */}
       <button className="back-button" onClick={handleLogout}>
         ←
@@ -111,65 +116,66 @@ export default function HomePage() {
       </button>
       
       <div className="pixel-card pixel-fade-in">
-        {/* Header */}
-        <div className="character-grid">
-          <div className="character-with-label">
-            <div className="llave-logo"></div>
-            <div className="character-label">Llave</div>
-          </div>
-        </div>
-        
-        <h1 className="pixel-title">🔑 LLAVE</h1>
+        {/* Header - Only Text */}
+        <h1 className="pixel-title">LLAVE</h1>
         <p className="pixel-subtitle">El gestor de contraseñas que necesitabas</p>
         
-        {/* Controls - Optimized */}
-        <div className="pixel-grid">
-          {/* Sort Controls */}
-          <div className="pixel-card">
-            <div className="character-grid">
-              <button
-                onClick={() => setSortBy("recent")}
-                className={`sort-button ${sortBy === "recent" ? "active" : ""}`}
-              >
-                Recientes
-              </button>
-              <button
-                onClick={() => setSortBy("az")}
-                className={`sort-button ${sortBy === "az" ? "active" : ""}`}
-              >
-                A → Z
-              </button>
-              <button
-                onClick={() => setSortBy("za")}
-                className={`sort-button ${sortBy === "za" ? "active" : ""}`}
-              >
-                Z → A
-              </button>
-            </div>
-          </div>
-          
-          {/* Add Button */}
-          <div className="pixel-card">
-            <div className="character-grid">
-              <button
-                onClick={() => setShowAddModal(true)}
-                className="pixel-button success"
-              >
-                ➕ Agregar
-              </button>
-            </div>
-          </div>
+        {/* Controls - No Cards, Just Buttons */}
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          gap: '20px', 
+          margin: '30px 0',
+          flexWrap: 'wrap'
+        }}>
+          <button
+            onClick={() => setSortBy("recent")}
+            className={`sort-button ${sortBy === "recent" ? "active" : ""}`}
+          >
+            Recientes
+          </button>
+          <button
+            onClick={() => setSortBy("az")}
+            className={`sort-button ${sortBy === "az" ? "active" : ""}`}
+          >
+            A → Z
+          </button>
+          <button
+            onClick={() => setSortBy("za")}
+            className={`sort-button ${sortBy === "za" ? "active" : ""}`}
+          >
+            Z → A
+          </button>
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="pixel-button success"
+          >
+            ➕ Agregar
+          </button>
         </div>
         
-        {/* Passwords List - Optimized */}
+        {/* Passwords List - Horizontal Cards */}
         <div className="pixel-card">
           <h3 className="pixel-subtitle">Tus Contraseñas</h3>
-          <div className="pixel-grid">
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '10px',
+            maxHeight: '60vh',
+            overflowY: 'auto'
+          }}>
             {sortedPasswords.map((item) => (
-              <div key={item.id} className="pixel-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div key={item.id} className="pixel-card" style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                padding: '15px',
+                margin: '0',
+                minHeight: '60px'
+              }}>
                 <div style={{ flex: 1 }}>
-                  <p>Sitio: {item.site}</p>
-                  <p>Contraseña: {item.visible ? item.password : "••••••••"}</p>
+                  <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>Sitio: {item.site}</p>
+                  <p style={{ margin: '0', fontSize: '12px' }}>Contraseña: {item.visible ? item.password : "••••••••"}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <button 
@@ -215,7 +221,7 @@ export default function HomePage() {
                 className="pixel-input"
               />
             </div>
-            <div className="character-grid">
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
               <button
                 onClick={() => setShowAddModal(false)}
                 className="pixel-button success"
