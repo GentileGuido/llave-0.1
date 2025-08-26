@@ -1,35 +1,117 @@
-/* Retro Gaming Characters - CSS Pixel Art */
+/* Llave Characters - CSS Pixel Art */
 
-/* Space Invader */
-.space-invader {
+/* Lemming (Human-like character) */
+.lemming {
   width: 32px;
   height: 32px;
   position: relative;
   display: inline-block;
-  animation: space-invader-move 3s ease-in-out infinite;
+  animation: lemming-walk 2s ease-in-out infinite;
 }
 
-.space-invader::before {
+.lemming::before {
   content: '';
   position: absolute;
   width: 32px;
   height: 32px;
   background: 
-    /* Eyes */
-    radial-gradient(circle at 8px 8px, var(--green-neon) 2px, transparent 2px),
-    radial-gradient(circle at 24px 8px, var(--green-neon) 2px, transparent 2px),
+    /* Head */
+    radial-gradient(circle at 16px 8px, var(--yellow-glow) 6px, transparent 6px),
     /* Body */
-    linear-gradient(to bottom, 
+    linear-gradient(to bottom,
+      transparent 0px, transparent 12px,
+      var(--blue-electric) 12px, var(--blue-electric) 24px,
+      transparent 24px, transparent 32px
+    ),
+    /* Arms */
+    linear-gradient(to right,
       transparent 0px, transparent 4px,
-      var(--green-neon) 4px, var(--green-neon) 8px,
-      transparent 8px, transparent 12px,
-      var(--green-neon) 12px, var(--green-neon) 16px,
-      transparent 16px, transparent 20px,
-      var(--green-neon) 20px, var(--green-neon) 24px,
-      transparent 24px, transparent 28px,
-      var(--green-neon) 28px, var(--green-neon) 32px
+      var(--blue-electric) 4px, var(--blue-electric) 8px,
+      transparent 8px, transparent 24px,
+      var(--blue-electric) 24px, var(--blue-electric) 28px,
+      transparent 28px, transparent 32px
+    ),
+    /* Eyes */
+    radial-gradient(circle at 14px 6px, var(--bg-primary) 1px, transparent 1px),
+    radial-gradient(circle at 18px 6px, var(--bg-primary) 1px, transparent 1px);
+  box-shadow: var(--shadow-blue);
+}
+
+/* Lemming Female */
+.lemming-female {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: inline-block;
+  animation: lemming-walk 2.5s ease-in-out infinite;
+}
+
+.lemming-female::before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: 
+    /* Head */
+    radial-gradient(circle at 16px 8px, var(--yellow-glow) 6px, transparent 6px),
+    /* Body */
+    linear-gradient(to bottom,
+      transparent 0px, transparent 12px,
+      var(--red-alert) 12px, var(--red-alert) 24px,
+      transparent 24px, transparent 32px
+    ),
+    /* Arms */
+    linear-gradient(to right,
+      transparent 0px, transparent 4px,
+      var(--red-alert) 4px, var(--red-alert) 8px,
+      transparent 8px, transparent 24px,
+      var(--red-alert) 24px, var(--red-alert) 28px,
+      transparent 28px, transparent 32px
+    ),
+    /* Eyes */
+    radial-gradient(circle at 14px 6px, var(--bg-primary) 1px, transparent 1px),
+    radial-gradient(circle at 18px 6px, var(--bg-primary) 1px, transparent 1px),
+    /* Hair */
+    linear-gradient(to bottom,
+      transparent 0px, transparent 4px,
+      var(--yellow-glow) 4px, var(--yellow-glow) 8px,
+      transparent 8px, transparent 32px
     );
-  box-shadow: var(--shadow-green);
+  box-shadow: var(--shadow-red);
+}
+
+/* Dog */
+.dog {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: inline-block;
+  animation: dog-bounce 1.5s ease-in-out infinite;
+}
+
+.dog::before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: 
+    /* Head */
+    radial-gradient(ellipse at 16px 12px, var(--yellow-glow) 8px, transparent 8px),
+    /* Ears */
+    radial-gradient(circle at 8px 8px, var(--yellow-glow) 4px, transparent 4px),
+    radial-gradient(circle at 24px 8px, var(--yellow-glow) 4px, transparent 4px),
+    /* Body */
+    linear-gradient(to bottom,
+      transparent 0px, transparent 16px,
+      var(--yellow-glow) 16px, var(--yellow-glow) 28px,
+      transparent 28px, transparent 32px
+    ),
+    /* Eyes */
+    radial-gradient(circle at 14px 10px, var(--bg-primary) 1px, transparent 1px),
+    radial-gradient(circle at 18px 10px, var(--bg-primary) 1px, transparent 1px),
+    /* Nose */
+    radial-gradient(circle at 16px 14px, var(--bg-primary) 1px, transparent 1px);
+  box-shadow: var(--shadow-yellow);
 }
 
 /* Pac-Man */
@@ -150,33 +232,16 @@
 }
 
 /* Character Animations */
-@keyframes space-invader-move {
-  0%, 100% { transform: translateX(0px); }
-  50% { transform: translateX(20px); }
+@keyframes lemming-walk {
+  0%, 100% { transform: translateX(0px) scaleX(1); }
+  25% { transform: translateX(8px) scaleX(1); }
+  50% { transform: translateX(16px) scaleX(1); }
+  75% { transform: translateX(8px) scaleX(1); }
 }
 
-@keyframes pac-man-chomp {
-  0% { transform: rotate(0deg); }
-  50% { transform: rotate(45deg); }
-  100% { transform: rotate(0deg); }
-}
-
-@keyframes bomberman-bounce {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes ghost-float {
+@keyframes dog-bounce {
   0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-15px) scale(1.1); }
-}
-
-@keyframes mario-walk {
-  0% { transform: translateX(0px); }
-  25% { transform: translateX(5px); }
-  50% { transform: translateX(10px); }
-  75% { transform: translateX(5px); }
-  100% { transform: translateX(0px); }
+  50% { transform: translateY(-8px) scale(1.1); }
 }
 
 /* Character Sizes */

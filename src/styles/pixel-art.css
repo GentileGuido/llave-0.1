@@ -171,6 +171,91 @@ body {
   animation: pixel-bounce 1s ease-in-out;
 }
 
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: modal-fade-in 0.3s ease-out;
+}
+
+.modal-overlay .pixel-card {
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Input Styles */
+.pixel-input {
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--blue-electric);
+  color: var(--white-pure);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  padding: 12px;
+  margin: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pixel-input:focus {
+  outline: none;
+  border-color: var(--green-neon);
+  box-shadow: var(--shadow-green);
+}
+
+.pixel-input::placeholder {
+  color: var(--gray-dark);
+}
+
+/* Android Button */
+.android-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--green-neon);
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  color: var(--white-pure);
+}
+
+.android-button:hover {
+  background-color: var(--green-neon);
+  box-shadow: var(--shadow-green);
+  transform: translateY(-2px);
+}
+
+.android-logo {
+  width: 32px;
+  height: 32px;
+  background: var(--green-neon);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--bg-primary);
+  box-shadow: var(--shadow-green);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .pixel-title {
@@ -184,5 +269,10 @@ body {
   .pixel-button {
     font-size: 10px;
     padding: 10px 16px;
+  }
+  
+  .modal-overlay .pixel-card {
+    max-width: 95vw;
+    margin: 10px;
   }
 }
