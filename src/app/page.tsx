@@ -253,7 +253,7 @@ export default function HomePage() {
                   <li>1. Abre Chrome o tu navegador</li>
                   <li>2. Ve a la página de Llave</li>
                   <li>3. Toca los tres puntos de la esquina superior</li>
-                  <li>4. Selecciona "Instalar aplicación"</li>
+                  <li>4. Selecciona &quot;Instalar aplicación&quot;</li>
                   <li>5. Confirma la instalación</li>
                 </ol>
               </div>
@@ -273,7 +273,7 @@ export default function HomePage() {
                   <li>1. Abre Safari en tu iPhone/iPad</li>
                   <li>2. Ve a la página de Llave</li>
                   <li>3. Toca el botón compartir</li>
-                  <li>4. Selecciona "Agregar a pantalla de inicio"</li>
+                  <li>4. Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
                   <li>5. Confirma y personaliza el nombre</li>
                 </ol>
               </div>
