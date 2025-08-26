@@ -23,6 +23,9 @@ export default function HomePage() {
         <p style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>
           La aplicación está desplegada correctamente en Railway
         </p>
+        <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>
+          Deploy: {new Date().toLocaleString()}
+        </p>
         <div style={{ 
           backgroundColor: '#dcfce7', 
           border: '1px solid #22c55e',
