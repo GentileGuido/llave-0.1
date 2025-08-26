@@ -175,8 +175,8 @@ export default function HomePage() {
           textAlign: 'center',
           gap: '30px'
         }}>
-          <h1 className="pixel-title" style={{ margin: '0', fontSize: '2.5rem' }}>LLAVE</h1>
-          <p className="pixel-subtitle" style={{ margin: '0', fontSize: '1rem' }}>El gestor de contraseñas que necesitabas</p>
+          <h1 className="pixel-title" style={{ margin: '0', fontSize: '3rem' }}>LLAVE</h1>
+          <p className="pixel-subtitle" style={{ margin: '0', fontSize: '1.2rem' }}>El gestor de contraseñas que necesitabas</p>
           
           <button
             onClick={handleLogin}
@@ -186,7 +186,7 @@ export default function HomePage() {
             Iniciar Sesión
           </button>
           
-          <p className="pixel-subtitle" style={{ margin: '0', fontSize: '0.9rem' }}>
+          <p className="pixel-subtitle" style={{ margin: '0', fontSize: '1rem' }}>
             🛡️ Seguridad pixelada garantizada
           </p>
         </div>
@@ -201,8 +201,8 @@ export default function HomePage() {
         {/* Background Pixels */}
         <div className="background-pixels"></div>
         
-        <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative', borderColor: 'var(--blue-electric)' }}>
-          {/* Back Button - Inside the blue rectangle */}
+        <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative' }}>
+          {/* Back Button - Inside the main card */}
           <button 
             className="back-button" 
             onClick={() => setShowConfigScreen(false)}
@@ -219,24 +219,23 @@ export default function HomePage() {
           <h1 className="pixel-title">⚙️ Configuración</h1>
           
           {/* App Info */}
-          <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
+          <div className="pixel-card">
             <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
-            <p style={{ fontSize: '12px', lineHeight: '1.6', fontWeight: 'normal' }}>
+            <p style={{ fontSize: '12px', lineHeight: '1.6' }}>
               Llave es un gestor de contraseñas seguro con estética pixel art. 
               Desarrollado 100% con Inteligencia Artificial para ofrecer una experiencia 
               única y retro.
             </p>
-            <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px', fontWeight: 'normal' }}>
+            <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px' }}>
               Tecnologías: Next.js, TypeScript, CSS Pixel Art
             </p>
             <p style={{ 
               fontSize: '14px', 
               lineHeight: '1.6', 
               marginTop: '15px', 
-              color: 'var(--blue-electric)',
+              color: 'var(--green-neon)',
               textAlign: 'center',
-              animation: 'pixel-glow 2s ease-in-out infinite',
-              textShadow: '0 0 10px var(--blue-electric), 0 0 20px var(--blue-electric)'
+              animation: 'pixel-glow 2s ease-in-out infinite'
             }}>
               Desarrollador: Guido Gentile
             </p>
@@ -244,17 +243,17 @@ export default function HomePage() {
 
           {/* Installation Instructions */}
           <div className="pixel-grid">
-            <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
+            <div className="pixel-card">
               <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
               <div style={{ marginBottom: '15px' }}>
-                <p style={{ fontSize: '12px', marginBottom: '10px', fontWeight: 'normal' }}>
+                <p style={{ fontSize: '12px', marginBottom: '10px' }}>
                   Pasos para instalar:
                 </p>
                 <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px' }}>
                   <li>1. Abre Chrome o tu navegador</li>
                   <li>2. Ve a la página de Llave</li>
                   <li>3. Toca los tres puntos de la esquina superior</li>
-                  <li>4. Selecciona &quot;Instalar aplicación&quot;</li>
+                  <li>4. Selecciona "Instalar aplicación"</li>
                   <li>5. Confirma la instalación</li>
                 </ol>
               </div>
@@ -264,59 +263,59 @@ export default function HomePage() {
               </div>
             </div>
             
-            <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
+            <div className="pixel-card">
               <h4 className="pixel-subtitle">🍎 Instalar en iOS</h4>
               <div style={{ marginBottom: '15px' }}>
-                <p style={{ fontSize: '12px', marginBottom: '10px', fontWeight: 'normal' }}>
+                <p style={{ fontSize: '12px', marginBottom: '10px' }}>
                   Pasos para instalar:
                 </p>
                 <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px' }}>
                   <li>1. Abre Safari en tu iPhone/iPad</li>
                   <li>2. Ve a la página de Llave</li>
                   <li>3. Toca el botón compartir</li>
-                  <li>4. Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
+                  <li>4. Selecciona "Agregar a pantalla de inicio"</li>
                   <li>5. Confirma y personaliza el nombre</li>
                 </ol>
               </div>
-              <div className="android-button" style={{ borderColor: 'var(--blue-electric)' }}>
-                <div className="android-logo" style={{ background: 'var(--blue-electric)' }}>🍎</div>
+              <div className="android-button">
+                <div className="android-logo">🍎</div>
                 <span>Agregar a Inicio</span>
               </div>
             </div>
           </div>
 
           {/* Donations */}
-          <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
+          <div className="pixel-card">
             <h4 className="pixel-subtitle">💝 Donaciones</h4>
-            <p style={{ fontSize: '12px', marginBottom: '15px', textAlign: 'left', fontWeight: 'normal' }}>
+            <p style={{ fontSize: '12px', marginBottom: '15px', textAlign: 'left' }}>
               Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
               <button 
                 onClick={() => handleDonation('jugo')}
                 className="pixel-button" 
-                style={{ fontSize: '10px', borderColor: 'var(--blue-electric)', color: 'var(--blue-electric)' }}
+                style={{ fontSize: '10px' }}
               >
                 🧃 Jugo
               </button>
               <button 
                 onClick={() => handleDonation('pizza')}
                 className="pixel-button" 
-                style={{ fontSize: '10px', borderColor: 'var(--blue-electric)', color: 'var(--blue-electric)' }}
+                style={{ fontSize: '10px' }}
               >
                 🍕 Pizza
               </button>
               <button 
                 onClick={() => handleDonation('libro')}
                 className="pixel-button" 
-                style={{ fontSize: '10px', borderColor: 'var(--blue-electric)', color: 'var(--blue-electric)' }}
+                style={{ fontSize: '10px' }}
               >
                 📚 Libro
               </button>
               <button 
                 onClick={() => handleDonation('auto')}
                 className="pixel-button" 
-                style={{ fontSize: '10px', borderColor: 'var(--blue-electric)', color: 'var(--blue-electric)' }}
+                style={{ fontSize: '10px' }}
               >
                 🚗 Auto
               </button>
@@ -327,15 +326,15 @@ export default function HomePage() {
         {/* Donation Modal - Only show in config screen */}
         {showDonationModal && (
           <div className="modal-overlay">
-            <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
+            <div className="pixel-card">
               <h3 className="pixel-subtitle">💝 Donación - Mercado Pago</h3>
-              <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
+              <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px' }}>
                 {selectedDonation === 'jugo' && '🧃 Jugo - $5.000'}
                 {selectedDonation === 'pizza' && '🍕 Pizza - $10.000'}
                 {selectedDonation === 'libro' && '📚 Libro - $15.000'}
                 {selectedDonation === 'auto' && '🚗 Auto - $20.000'}
               </p>
-              <p style={{ fontSize: '11px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
+              <p style={{ fontSize: '11px', textAlign: 'center', marginBottom: '20px' }}>
                 Próximamente vincularemos con Mercado Pago para procesar tu donación.
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
@@ -364,7 +363,7 @@ export default function HomePage() {
       {/* Background Pixels */}
       <div className="background-pixels"></div>
       
-      <div className="pixel-card pixel-fade-in" style={{ borderColor: 'var(--blue-electric)' }}>
+      <div className="pixel-card pixel-fade-in">
         {/* Header - Only Text */}
         <h1 className="pixel-title">LLAVE</h1>
         <p className="pixel-subtitle">El gestor de contraseñas que necesitabas</p>
@@ -410,7 +409,7 @@ export default function HomePage() {
               className="pixel-button success"
               style={{ fontSize: '9px', padding: '6px 10px' }}
             >
-              Agregar
+              ➕ Agregar
             </button>
             <button
               onClick={() => setShowConfigScreen(true)}
@@ -440,8 +439,7 @@ export default function HomePage() {
               padding: '12px',
               margin: '0',
               minHeight: '50px',
-              animation: `slideInFromTop 0.5s ease-out ${index * 0.1}s both`,
-              borderColor: 'var(--blue-electric)'
+              animation: `slideInFromTop 0.5s ease-out ${index * 0.1}s both`
             }}>
               <div style={{ flex: 1 }}>
                 {editingId === item.id ? (
@@ -465,8 +463,8 @@ export default function HomePage() {
                   </>
                 ) : (
                   <>
-                    <p style={{ margin: '0 0 5px 0', fontSize: '14px', fontWeight: 'normal' }}>{item.site}</p>
-                    <p style={{ margin: '0', fontSize: '12px', fontWeight: 'normal' }}>{item.visible ? item.password : "••••••••"}</p>
+                    <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>{item.site}</p>
+                    <p style={{ margin: '0', fontSize: '12px' }}>{item.visible ? item.password : "••••••••"}</p>
                   </>
                 )}
               </div>
@@ -513,9 +511,9 @@ export default function HomePage() {
       {/* Delete Confirmation Modal */}
       {deletingId && (
         <div className="modal-overlay">
-          <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
+          <div className="pixel-card">
             <h3 className="pixel-subtitle">🗑️ Confirmar Eliminación</h3>
-            <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
+            <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px' }}>
               ¿Quieres eliminar esta contraseña?
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
@@ -539,7 +537,7 @@ export default function HomePage() {
       {/* Add Modal */}
       {showAddModal && (
         <div className="modal-overlay">
-          <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
+          <div className="pixel-card">
             <h3 className="pixel-subtitle">➕ Agregar Contraseña</h3>
             <div className="pixel-grid">
               <input
