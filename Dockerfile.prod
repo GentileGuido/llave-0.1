@@ -5,19 +5,14 @@ FROM node:20-alpine AS base
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy package files first
-COPY package.json package-lock.json* ./
-
-# Copy Prisma schema before installing dependencies
-COPY prisma ./prisma/
-
-# Install dependencies (this will run postinstall script)
-RUN npm ci --only=production --no-audit --no-fund
-
-# Copy all remaining source files
+# Copy all files first
 COPY . .
 
-# Build the application
+# Install dependencies
+RUN npm ci --only=production --no-audit --no-fund
+
+# Generate Prisma client and build
+RUN npx prisma generate
 RUN npm run build
 
 # Production stage
