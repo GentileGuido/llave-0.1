@@ -21,42 +21,50 @@ export default function SignInPage() {
   };
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      minHeight: '100vh',
-      fontFamily: 'Arial, sans-serif',
-      backgroundColor: '#f0f0f0'
-    }}>
-      <div style={{
-        textAlign: 'center',
-        padding: '2rem',
-        backgroundColor: 'white',
-        borderRadius: '10px',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-      }}>
-        <h1 style={{ color: '#2563eb', marginBottom: '2rem' }}>
-          🔐 Iniciar Sesión
-        </h1>
-        <button
-          onClick={handleGoogleSignIn}
-          style={{
-            backgroundColor: '#4285f4',
-            color: 'white',
-            border: 'none',
-            padding: '12px 24px',
-            borderRadius: '6px',
-            fontSize: '16px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px'
-          }}
-        >
-          <span>🔍</span>
-          Continuar con Google
-        </button>
+    <div className="pixel-container">
+      <div className="pixel-card pixel-fade-in">
+        {/* Header with Characters */}
+        <div className="character-grid">
+          <div className="character-with-label">
+            <div className="space-invader character-large"></div>
+            <div className="character-label">Llave</div>
+          </div>
+        </div>
+        
+        <h1 className="pixel-title">🔐 Iniciar Sesión</h1>
+        <p className="pixel-subtitle">Accede a tu bóveda de contraseñas</p>
+        
+        {/* Character Animation */}
+        <div className="character-grid">
+          <div className="pac-man character-interactive"></div>
+          <div className="ghost character-interactive"></div>
+          <div className="mario character-interactive"></div>
+        </div>
+        
+        {/* Sign In Button */}
+        <div className="pixel-card">
+          <button
+            onClick={handleGoogleSignIn}
+            className="pixel-button success"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              fontSize: '14px',
+              padding: '16px 32px'
+            }}
+          >
+            <div className="space-invader character-small"></div>
+            <span>Continuar con Google</span>
+          </button>
+        </div>
+        
+        {/* Footer */}
+        <div className="pixel-card">
+          <p className="pixel-subtitle">
+            🕹️ Seguridad pixelada garantizada
+          </p>
+        </div>
       </div>
     </div>
   );

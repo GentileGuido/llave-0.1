@@ -1,4 +1,6 @@
 import Providers from "@/components/Providers";
+import "@/styles/pixel-art.css";
+import "@/styles/characters.css";
 
 export default function RootLayout({ 
   children 

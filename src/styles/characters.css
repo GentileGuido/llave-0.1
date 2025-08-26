@@ -1,0 +1,262 @@
+/* Retro Gaming Characters - CSS Pixel Art */
+
+/* Space Invader */
+.space-invader {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: inline-block;
+  animation: space-invader-move 3s ease-in-out infinite;
+}
+
+.space-invader::before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: 
+    /* Eyes */
+    radial-gradient(circle at 8px 8px, var(--green-neon) 2px, transparent 2px),
+    radial-gradient(circle at 24px 8px, var(--green-neon) 2px, transparent 2px),
+    /* Body */
+    linear-gradient(to bottom, 
+      transparent 0px, transparent 4px,
+      var(--green-neon) 4px, var(--green-neon) 8px,
+      transparent 8px, transparent 12px,
+      var(--green-neon) 12px, var(--green-neon) 16px,
+      transparent 16px, transparent 20px,
+      var(--green-neon) 20px, var(--green-neon) 24px,
+      transparent 24px, transparent 28px,
+      var(--green-neon) 28px, var(--green-neon) 32px
+    );
+  box-shadow: var(--shadow-green);
+}
+
+/* Pac-Man */
+.pac-man {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: inline-block;
+  animation: pac-man-chomp 0.5s linear infinite;
+}
+
+.pac-man::before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: var(--yellow-glow);
+  border-radius: 50%;
+  clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
+  box-shadow: var(--shadow-yellow);
+}
+
+/* Bomberman */
+.bomberman {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: inline-block;
+  animation: bomberman-bounce 2s ease-in-out infinite;
+}
+
+.bomberman::before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: 
+    /* Head */
+    radial-gradient(circle at 16px 8px, var(--white-pure) 6px, transparent 6px),
+    /* Body */
+    linear-gradient(to bottom,
+      transparent 0px, transparent 12px,
+      var(--blue-electric) 12px, var(--blue-electric) 24px,
+      transparent 24px, transparent 32px
+    ),
+    /* Arms */
+    linear-gradient(to right,
+      transparent 0px, transparent 4px,
+      var(--blue-electric) 4px, var(--blue-electric) 8px,
+      transparent 8px, transparent 24px,
+      var(--blue-electric) 24px, var(--blue-electric) 28px,
+      transparent 28px, transparent 32px
+    );
+  box-shadow: var(--shadow-blue);
+}
+
+/* Ghost (Pac-Man Ghost) */
+.ghost {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: inline-block;
+  animation: ghost-float 4s ease-in-out infinite;
+}
+
+.ghost::before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: 
+    /* Body */
+    radial-gradient(ellipse at 16px 16px, var(--red-alert) 12px, transparent 12px),
+    /* Eyes */
+    radial-gradient(circle at 12px 12px, var(--white-pure) 3px, transparent 3px),
+    radial-gradient(circle at 20px 12px, var(--white-pure) 3px, transparent 3px),
+    /* Pupils */
+    radial-gradient(circle at 12px 12px, var(--bg-primary) 1px, transparent 1px),
+    radial-gradient(circle at 20px 12px, var(--bg-primary) 1px, transparent 1px);
+  border-radius: 16px 16px 0 0;
+  box-shadow: var(--shadow-red);
+}
+
+/* Mario */
+.mario {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: inline-block;
+  animation: mario-walk 1s steps(4) infinite;
+}
+
+.mario::before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: 
+    /* Hat */
+    linear-gradient(to bottom,
+      transparent 0px, transparent 4px,
+      var(--red-alert) 4px, var(--red-alert) 8px,
+      transparent 8px, transparent 32px
+    ),
+    /* Face */
+    linear-gradient(to bottom,
+      transparent 0px, transparent 8px,
+      var(--yellow-glow) 8px, var(--yellow-glow) 16px,
+      transparent 16px, transparent 32px
+    ),
+    /* Overalls */
+    linear-gradient(to bottom,
+      transparent 0px, transparent 16px,
+      var(--blue-electric) 16px, var(--blue-electric) 24px,
+      transparent 24px, transparent 32px
+    );
+  box-shadow: var(--shadow-red);
+}
+
+/* Character Animations */
+@keyframes space-invader-move {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(20px); }
+}
+
+@keyframes pac-man-chomp {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(45deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes bomberman-bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes ghost-float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-15px) scale(1.1); }
+}
+
+@keyframes mario-walk {
+  0% { transform: translateX(0px); }
+  25% { transform: translateX(5px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(5px); }
+  100% { transform: translateX(0px); }
+}
+
+/* Character Sizes */
+.character-small {
+  transform: scale(0.5);
+}
+
+.character-medium {
+  transform: scale(1);
+}
+
+.character-large {
+  transform: scale(1.5);
+}
+
+/* Character Grid */
+.character-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+/* Character with Label */
+.character-with-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.character-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--white-pure);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Interactive Characters */
+.character-interactive {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.character-interactive:hover {
+  transform: scale(1.2);
+  filter: brightness(1.5);
+}
+
+/* Character States */
+.character-loading {
+  opacity: 0.5;
+  animation: character-pulse 1s ease-in-out infinite;
+}
+
+.character-success {
+  animation: character-success 0.5s ease-out;
+}
+
+.character-error {
+  animation: character-error 0.5s ease-out;
+}
+
+@keyframes character-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes character-success {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes character-error {
+  0% { transform: translateX(0px); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+  100% { transform: translateX(0px); }
+}
