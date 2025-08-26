@@ -115,12 +115,14 @@ export default function HomePage() {
       pixel.className = `floating-pixel ${color} ${size} pixel-float-${animation}`;
       pixel.style.animationDuration = `${speed}s`;
       
-      // Add click event for explosion
-      pixel.addEventListener('click', () => {
-        pixel.classList.add('exploding');
-        
-                 // Create explosion particles (divide into 2)
-         for (let i = 0; i < 2; i++) {
+             // Add click event for explosion
+       pixel.addEventListener('click', () => {
+         pixel.classList.add('exploding');
+         
+         // Create explosion particles (divide into 2-4 based on size)
+         const particleCount = size === 'tiny' ? 2 : size === 'small' ? 3 : size === 'medium' ? 4 : size === 'large' ? 5 : 6;
+         
+         for (let i = 0; i < particleCount; i++) {
            const particle = document.createElement('div');
            particle.className = `floating-pixel ${color} tiny`;
            particle.style.left = pixel.offsetLeft + 'px';
@@ -130,9 +132,9 @@ export default function HomePage() {
            
            setTimeout(() => particle.remove(), 1000);
          }
-        
-        setTimeout(() => pixel.remove(), 500);
-      });
+         
+         setTimeout(() => pixel.remove(), 500);
+       });
       
       document.querySelector('.background-pixels')?.appendChild(pixel);
       
@@ -201,10 +203,10 @@ export default function HomePage() {
          
          {/* Back Button */}
          <button className="back-button" onClick={() => setShowConfigScreen(false)}>
-           ←
+           🔙
          </button>
          
-         <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto' }}>
+                   <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', textAlign: 'center' }}>
            <h1 className="pixel-title">⚙️ Configuración</h1>
            
            {/* App Info */}
@@ -240,12 +242,12 @@ export default function HomePage() {
                  <p style={{ fontSize: '12px', marginBottom: '10px' }}>
                    <strong>Pasos para instalar:</strong>
                  </p>
-                 <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
-                   <li>Abre Chrome o tu navegador</li>
-                   <li>Ve a la página de Llave</li>
-                   <li>Toca los tres puntos de la esquina superior</li>
-                   <li>Selecciona &quot;Instalar aplicación&quot;</li>
-                   <li>Confirma la instalación</li>
+                 <ol style={{ fontSize: '10px', textAlign: 'center', paddingLeft: '0', listStyle: 'none' }}>
+                   <li>1. Abre Chrome o tu navegador</li>
+                   <li>2. Ve a la página de Llave</li>
+                   <li>3. Toca los tres puntos de la esquina superior</li>
+                   <li>4. Selecciona &quot;Instalar aplicación&quot;</li>
+                   <li>5. Confirma la instalación</li>
                  </ol>
                </div>
                <div className="android-button">
@@ -260,12 +262,12 @@ export default function HomePage() {
                  <p style={{ fontSize: '12px', marginBottom: '10px' }}>
                    <strong>Pasos para instalar:</strong>
                  </p>
-                 <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
-                   <li>Abre Safari en tu iPhone/iPad</li>
-                   <li>Ve a la página de Llave</li>
-                   <li>Toca el botón compartir</li>
-                   <li>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
-                   <li>Confirma y personaliza el nombre</li>
+                 <ol style={{ fontSize: '10px', textAlign: 'center', paddingLeft: '0', listStyle: 'none' }}>
+                   <li>1. Abre Safari en tu iPhone/iPad</li>
+                   <li>2. Ve a la página de Llave</li>
+                   <li>3. Toca el botón compartir</li>
+                   <li>4. Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
+                   <li>5. Confirma y personaliza el nombre</li>
                  </ol>
                </div>
                <div className="android-button" style={{ borderColor: 'var(--blue-electric)' }}>
@@ -322,60 +324,70 @@ export default function HomePage() {
        {/* Background Pixels */}
        <div className="background-pixels"></div>
        
-       {/* Back Button */}
-       <button className="back-button" onClick={handleLogout}>
-         ←
-       </button>
+                {/* Back Button */}
+         <button className="back-button" onClick={handleLogout}>
+           🔙
+         </button>
        
-              {/* Theme Toggle */}
-        <button className="theme-toggle" onClick={() => setShowConfig(true)}>
-          ⚙️
-        </button>
+                       {/* Theme Toggle - Removed as requested */}
       
       <div className="pixel-card pixel-fade-in">
         {/* Header - Only Text */}
         <h1 className="pixel-title">LLAVE</h1>
         <p className="pixel-subtitle">El gestor de contraseñas que necesitabas</p>
         
-        {/* Controls - No Cards, Just Buttons */}
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          gap: '20px', 
-          margin: '30px 0',
-          flexWrap: 'wrap'
-        }}>
-          <button
-            onClick={() => setSortBy("recent")}
-            className={`sort-button ${sortBy === "recent" ? "active" : ""}`}
-          >
-            Recientes
-          </button>
-                     <button
-             onClick={() => setSortBy("az")}
-             className={`sort-button ${sortBy === "az" ? "active" : ""}`}
-           >
-             A / Z
-           </button>
-           <button
-             onClick={() => setSortBy("za")}
-             className={`sort-button ${sortBy === "za" ? "active" : ""}`}
-           >
-             Z / A
-          </button>
-                     <button
-             onClick={() => setShowAddModal(true)}
-             className="pixel-button success"
-           >
-             ➕ Agregar
-           </button>
-           <button
-             onClick={() => setShowConfigScreen(true)}
-             className="pixel-button"
-           >
-             ℹ️ Info/Config
-           </button>
-        </div>
+                 {/* Controls - Compact Two Rows */}
+         <div style={{ 
+           display: 'flex', 
+           flexDirection: 'column',
+           justifyContent: 'center', 
+           gap: '10px', 
+           margin: '20px 0',
+           alignItems: 'center'
+         }}>
+           {/* First Row */}
+           <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', justifyContent: 'center' }}>
+             <button
+               onClick={() => setSortBy("recent")}
+               className={`sort-button ${sortBy === "recent" ? "active" : ""}`}
+               style={{ fontSize: '10px', padding: '8px 12px' }}
+             >
+               Recientes
+             </button>
+             <button
+               onClick={() => setSortBy("az")}
+               className={`sort-button ${sortBy === "az" ? "active" : ""}`}
+               style={{ fontSize: '10px', padding: '8px 12px' }}
+             >
+               A / Z
+             </button>
+             <button
+               onClick={() => setSortBy("za")}
+               className={`sort-button ${sortBy === "za" ? "active" : ""}`}
+               style={{ fontSize: '10px', padding: '8px 12px' }}
+             >
+               Z / A
+             </button>
+           </div>
+           
+           {/* Second Row */}
+           <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', justifyContent: 'center' }}>
+             <button
+               onClick={() => setShowAddModal(true)}
+               className="pixel-button success"
+               style={{ fontSize: '10px', padding: '8px 12px' }}
+             >
+               ➕ Agregar
+             </button>
+             <button
+               onClick={() => setShowConfigScreen(true)}
+               className="pixel-button"
+               style={{ fontSize: '10px', padding: '8px 12px' }}
+             >
+               ℹ️ Info/Config
+             </button>
+           </div>
+         </div>
         
         {/* Passwords List - Horizontal Cards */}
         <h3 className="pixel-subtitle">Tus Contraseñas</h3>
@@ -397,34 +409,34 @@ export default function HomePage() {
                minHeight: '60px',
                animation: `slideInFromTop 0.5s ease-out ${index * 0.1}s both`
              }}>
-               <div style={{ flex: 1 }}>
-                 {editingId === item.id ? (
-                   <>
-                     <input
-                       type="text"
-                       value={editSite}
-                       onChange={(e) => setEditSite(e.target.value)}
-                       className="pixel-input"
-                       style={{ margin: '0 0 5px 0', fontSize: '14px' }}
-                       placeholder="Sitio"
-                     />
-                     <input
-                       type="password"
-                       value={editPassword}
-                       onChange={(e) => setEditPassword(e.target.value)}
-                       className="pixel-input"
-                       style={{ margin: '0', fontSize: '12px' }}
-                       placeholder="Contraseña"
-                     />
-                   </>
-                 ) : (
-                   <>
-                     <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>{item.site}</p>
-                     <p style={{ margin: '0', fontSize: '12px' }}>{item.visible ? item.password : "••••••••"}</p>
-                   </>
-                 )}
-               </div>
-               <div style={{ display: 'flex', gap: '8px' }}>
+                               <div style={{ flex: 1 }}>
+                  {editingId === item.id ? (
+                    <>
+                      <input
+                        type="text"
+                        value={editSite}
+                        onChange={(e) => setEditSite(e.target.value)}
+                        className="pixel-input"
+                        style={{ margin: '0 0 5px 0', fontSize: '14px' }}
+                        placeholder="Sitio"
+                      />
+                      <input
+                        type="password"
+                        value={editPassword}
+                        onChange={(e) => setEditPassword(e.target.value)}
+                        className="pixel-input"
+                        style={{ margin: '0', fontSize: '12px' }}
+                        placeholder="Contraseña"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>{item.site}</p>
+                      <p style={{ margin: '0', fontSize: '12px' }}>{item.visible ? item.password : "••••••••"}</p>
+                    </>
+                  )}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', justifyContent: 'center' }}>
                  {editingId === item.id ? (
                    <button 
                      className="icon-button edit"
@@ -477,13 +489,13 @@ export default function HomePage() {
                  onClick={() => handleDeletePassword(deletingId)}
                  className="pixel-button danger"
                >
-                 ✅ Sí, Eliminar
+                 Eliminar
                </button>
                <button
                  onClick={() => setDeletingId(null)}
                  className="pixel-button"
                >
-                 ❌ Cancelar
+                 Cancelar
                </button>
              </div>
            </div>
@@ -572,12 +584,12 @@ export default function HomePage() {
                    <p style={{ fontSize: '12px', marginBottom: '10px' }}>
                      <strong>Pasos para instalar:</strong>
                    </p>
-                   <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
-                     <li>Abre Chrome o tu navegador</li>
-                     <li>Ve a la página de Llave</li>
-                     <li>Toca los tres puntos de la esquina superior</li>
-                     <li>Selecciona &quot;Instalar aplicación&quot;</li>
-                     <li>Confirma la instalación</li>
+                   <ol style={{ fontSize: '10px', textAlign: 'center', paddingLeft: '0', listStyle: 'none' }}>
+                     <li>1. Abre Chrome o tu navegador</li>
+                     <li>2. Ve a la página de Llave</li>
+                     <li>3. Toca los tres puntos de la esquina superior</li>
+                     <li>4. Selecciona &quot;Instalar aplicación&quot;</li>
+                     <li>5. Confirma la instalación</li>
                    </ol>
                  </div>
                  <div className="android-button">
@@ -592,12 +604,12 @@ export default function HomePage() {
                    <p style={{ fontSize: '12px', marginBottom: '10px' }}>
                      <strong>Pasos para instalar:</strong>
                    </p>
-                   <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
-                     <li>Abre Safari en tu iPhone/iPad</li>
-                     <li>Ve a la página de Llave</li>
-                     <li>Toca el botón compartir</li>
-                     <li>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
-                     <li>Confirma y personaliza el nombre</li>
+                   <ol style={{ fontSize: '10px', textAlign: 'center', paddingLeft: '0', listStyle: 'none' }}>
+                     <li>1. Abre Safari en tu iPhone/iPad</li>
+                     <li>2. Ve a la página de Llave</li>
+                     <li>3. Toca el botón compartir</li>
+                     <li>4. Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
+                     <li>5. Confirma y personaliza el nombre</li>
                    </ol>
                  </div>
                  <div className="android-button" style={{ borderColor: 'var(--blue-electric)' }}>
