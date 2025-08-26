@@ -1,51 +1,43 @@
-"use client";
-
-import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
-
-export default function Home() {
-  const { data: session, status } = useSession();
-
-  if (status === "loading") {
-    return (
-      <main className="min-h-screen grid place-items-center">
-        <div className="p-8 rounded-2xl shadow border w-full max-w-lg text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black mx-auto mb-4"></div>
-          <p>Cargando...</p>
-        </div>
-      </main>
-    );
-  }
-
+export default function HomePage() {
   return (
-    <main className="min-h-screen grid place-items-center">
-      <div className="p-8 rounded-2xl shadow border w-full max-w-lg text-center">
-        <h1 className="text-3xl font-extrabold mb-3 tracking-tight">LLAVE</h1>
-        <p className="opacity-80 mb-6">Gestor de contraseñas con cifrado de extremo a extremo y desbloqueo con biometría.</p>
-        
-        {session ? (
-          <div className="space-y-4">
-            <p className="text-sm opacity-70">Bienvenido, {session.user?.name || session.user?.email}</p>
-            <div className="flex gap-2 justify-center">
-              <Link href="/vault" className="px-4 py-2 rounded bg-black text-white inline-block">
-                Ir al Cofre
-              </Link>
-              <button 
-                onClick={() => signOut()} 
-                className="px-4 py-2 rounded border border-gray-300 text-gray-700 inline-block"
-              >
-                Cerrar Sesión
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <Link href="/signin" className="px-4 py-2 rounded bg-black text-white inline-block">
-              Iniciar Sesión
-            </Link>
-          </div>
-        )}
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column',
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      minHeight: '100vh',
+      fontFamily: 'Arial, sans-serif',
+      backgroundColor: '#f0f0f0'
+    }}>
+      <div style={{
+        textAlign: 'center',
+        padding: '2rem',
+        backgroundColor: 'white',
+        borderRadius: '10px',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        maxWidth: '500px'
+      }}>
+        <h1 style={{ color: '#2563eb', marginBottom: '1rem' }}>
+          🚀 ¡LLAVE FUNCIONA!
+        </h1>
+        <p style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>
+          La aplicación está desplegada correctamente en Railway
+        </p>
+        <div style={{ 
+          backgroundColor: '#dcfce7', 
+          border: '1px solid #22c55e',
+          borderRadius: '5px',
+          padding: '1rem',
+          marginTop: '1rem'
+        }}>
+          <p style={{ color: '#166534', margin: 0 }}>
+            ✅ Deploy exitoso<br/>
+            ✅ Next.js funcionando<br/>
+            ✅ Railway conectado<br/>
+            ✅ Listo para agregar funcionalidades
+          </p>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
