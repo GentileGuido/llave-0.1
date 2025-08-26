@@ -175,8 +175,8 @@ export default function HomePage() {
           textAlign: 'center',
           gap: '30px'
         }}>
-          <h1 className="pixel-title" style={{ margin: '0' }}>LLAVE</h1>
-          <p className="pixel-subtitle" style={{ margin: '0' }}>El gestor de contraseñas que necesitabas</p>
+          <h1 className="pixel-title" style={{ margin: '0', fontSize: '2.5rem' }}>LLAVE</h1>
+          <p className="pixel-subtitle" style={{ margin: '0', fontSize: '1rem' }}>El gestor de contraseñas que necesitabas</p>
           
           <button
             onClick={handleLogin}
@@ -186,7 +186,7 @@ export default function HomePage() {
             Iniciar Sesión
           </button>
           
-          <p className="pixel-subtitle" style={{ margin: '0' }}>
+          <p className="pixel-subtitle" style={{ margin: '0', fontSize: '0.9rem' }}>
             🛡️ Seguridad pixelada garantizada
           </p>
         </div>
@@ -201,8 +201,8 @@ export default function HomePage() {
         {/* Background Pixels */}
         <div className="background-pixels"></div>
         
-        <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative' }}>
-          {/* Back Button - Inside the green rectangle */}
+        <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative', borderColor: 'var(--blue-electric)' }}>
+          {/* Back Button - Inside the blue rectangle */}
           <button 
             className="back-button" 
             onClick={() => setShowConfigScreen(false)}
@@ -219,7 +219,7 @@ export default function HomePage() {
           <h1 className="pixel-title">⚙️ Configuración</h1>
           
           {/* App Info */}
-          <div className="pixel-card">
+          <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
             <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
             <p style={{ fontSize: '12px', lineHeight: '1.6', fontWeight: 'normal' }}>
               Llave es un gestor de contraseñas seguro con estética pixel art. 
@@ -227,28 +227,28 @@ export default function HomePage() {
               única y retro.
             </p>
             <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px', fontWeight: 'normal' }}>
-              <strong>Tecnologías:</strong> Next.js, TypeScript, CSS Pixel Art<br/>
-              <strong>IA:</strong> Claude Sonnet 4
+              Tecnologías: Next.js, TypeScript, CSS Pixel Art
             </p>
             <p style={{ 
               fontSize: '14px', 
               lineHeight: '1.6', 
               marginTop: '15px', 
-              color: 'var(--green-neon)',
+              color: 'var(--blue-electric)',
               textAlign: 'center',
-              animation: 'pixel-fade-in 3s ease-in-out infinite'
+              animation: 'pixel-glow 2s ease-in-out infinite',
+              textShadow: '0 0 10px var(--blue-electric), 0 0 20px var(--blue-electric)'
             }}>
-              <strong>Desarrollador: Guido Gentile</strong>
+              Desarrollador: Guido Gentile
             </p>
           </div>
 
           {/* Installation Instructions */}
           <div className="pixel-grid">
-            <div className="pixel-card">
+            <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
               <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
               <div style={{ marginBottom: '15px' }}>
-                <p style={{ fontSize: '12px', marginBottom: '10px' }}>
-                  <strong>Pasos para instalar:</strong>
+                <p style={{ fontSize: '12px', marginBottom: '10px', fontWeight: 'normal' }}>
+                  Pasos para instalar:
                 </p>
                 <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px' }}>
                   <li>1. Abre Chrome o tu navegador</li>
@@ -264,11 +264,11 @@ export default function HomePage() {
               </div>
             </div>
             
-            <div className="pixel-card">
+            <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
               <h4 className="pixel-subtitle">🍎 Instalar en iOS</h4>
               <div style={{ marginBottom: '15px' }}>
-                <p style={{ fontSize: '12px', marginBottom: '10px' }}>
-                  <strong>Pasos para instalar:</strong>
+                <p style={{ fontSize: '12px', marginBottom: '10px', fontWeight: 'normal' }}>
+                  Pasos para instalar:
                 </p>
                 <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px' }}>
                   <li>1. Abre Safari en tu iPhone/iPad</li>
@@ -286,7 +286,7 @@ export default function HomePage() {
           </div>
 
           {/* Donations */}
-          <div className="pixel-card">
+          <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
             <h4 className="pixel-subtitle">💝 Donaciones</h4>
             <p style={{ fontSize: '12px', marginBottom: '15px', textAlign: 'left', fontWeight: 'normal' }}>
               Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
@@ -327,7 +327,7 @@ export default function HomePage() {
         {/* Donation Modal - Only show in config screen */}
         {showDonationModal && (
           <div className="modal-overlay">
-            <div className="pixel-card">
+            <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
               <h3 className="pixel-subtitle">💝 Donación - Mercado Pago</h3>
               <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
                 {selectedDonation === 'jugo' && '🧃 Jugo - $5.000'}
@@ -364,7 +364,7 @@ export default function HomePage() {
       {/* Background Pixels */}
       <div className="background-pixels"></div>
       
-      <div className="pixel-card pixel-fade-in">
+      <div className="pixel-card pixel-fade-in" style={{ borderColor: 'var(--blue-electric)' }}>
         {/* Header - Only Text */}
         <h1 className="pixel-title">LLAVE</h1>
         <p className="pixel-subtitle">El gestor de contraseñas que necesitabas</p>
@@ -410,7 +410,7 @@ export default function HomePage() {
               className="pixel-button success"
               style={{ fontSize: '9px', padding: '6px 10px' }}
             >
-              ➕ Agregar
+              Agregar
             </button>
             <button
               onClick={() => setShowConfigScreen(true)}
@@ -440,7 +440,8 @@ export default function HomePage() {
               padding: '12px',
               margin: '0',
               minHeight: '50px',
-              animation: `slideInFromTop 0.5s ease-out ${index * 0.1}s both`
+              animation: `slideInFromTop 0.5s ease-out ${index * 0.1}s both`,
+              borderColor: 'var(--blue-electric)'
             }}>
               <div style={{ flex: 1 }}>
                 {editingId === item.id ? (
@@ -464,8 +465,8 @@ export default function HomePage() {
                   </>
                 ) : (
                   <>
-                    <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>{item.site}</p>
-                    <p style={{ margin: '0', fontSize: '12px' }}>{item.visible ? item.password : "••••••••"}</p>
+                    <p style={{ margin: '0 0 5px 0', fontSize: '14px', fontWeight: 'normal' }}>{item.site}</p>
+                    <p style={{ margin: '0', fontSize: '12px', fontWeight: 'normal' }}>{item.visible ? item.password : "••••••••"}</p>
                   </>
                 )}
               </div>
@@ -512,9 +513,9 @@ export default function HomePage() {
       {/* Delete Confirmation Modal */}
       {deletingId && (
         <div className="modal-overlay">
-          <div className="pixel-card">
+          <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
             <h3 className="pixel-subtitle">🗑️ Confirmar Eliminación</h3>
-            <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px' }}>
+            <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
               ¿Quieres eliminar esta contraseña?
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
@@ -538,7 +539,7 @@ export default function HomePage() {
       {/* Add Modal */}
       {showAddModal && (
         <div className="modal-overlay">
-          <div className="pixel-card">
+          <div className="pixel-card" style={{ borderColor: 'var(--blue-electric)' }}>
             <h3 className="pixel-subtitle">➕ Agregar Contraseña</h3>
             <div className="pixel-grid">
               <input
