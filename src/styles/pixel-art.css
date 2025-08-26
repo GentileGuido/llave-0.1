@@ -220,6 +220,103 @@ body {
   color: var(--gray-dark);
 }
 
+/* Icon Buttons */
+.icon-button {
+  background: none;
+  border: none;
+  color: var(--white-pure);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button:hover {
+  background-color: var(--bg-tertiary);
+  transform: scale(1.1);
+}
+
+.icon-button.view {
+  color: var(--blue-electric);
+}
+
+.icon-button.edit {
+  color: var(--yellow-glow);
+}
+
+.icon-button.delete {
+  color: var(--red-alert);
+}
+
+/* Sort Button */
+.sort-button {
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--blue-electric);
+  color: var(--white-pure);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort-button:hover {
+  background-color: var(--blue-electric);
+  box-shadow: var(--shadow-blue);
+}
+
+.sort-button.active {
+  background-color: var(--green-neon);
+  border-color: var(--green-neon);
+  box-shadow: var(--shadow-green);
+}
+
+/* Back Button */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: var(--white-pure);
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  color: var(--green-neon);
+  transform: scale(1.2);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--white-pure);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--yellow-glow);
+  transform: rotate(90deg);
+}
+
 /* Android Button */
 .android-button {
   display: flex;

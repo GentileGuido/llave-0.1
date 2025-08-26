@@ -6,9 +6,9 @@ import SplashScreen from "@/components/SplashScreen";
 export default function HomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [passwords, setPasswords] = useState([
-    { id: 1, site: "gmail.com", password: "********", date: "2024-01-15" },
-    { id: 2, site: "facebook.com", password: "********", date: "2024-01-10" },
-    { id: 3, site: "twitter.com", password: "********", date: "2024-01-05" },
+    { id: 1, site: "gmail.com", password: "mipassword123", visible: false },
+    { id: 2, site: "facebook.com", password: "facebook2024", visible: false },
+    { id: 3, site: "twitter.com", password: "twitterpass", visible: false },
   ]);
   const [sortBy, setSortBy] = useState("recent");
   const [showAddModal, setShowAddModal] = useState(false);
@@ -22,6 +22,12 @@ export default function HomePage() {
     setIsLoggedIn(false);
   };
 
+  const togglePasswordVisibility = (id: number) => {
+    setPasswords(passwords.map(pwd => 
+      pwd.id === id ? { ...pwd, visible: !pwd.visible } : pwd
+    ));
+  };
+
   const sortedPasswords = [...passwords].sort((a, b) => {
     switch (sortBy) {
       case "az":
@@ -30,7 +36,7 @@ export default function HomePage() {
         return b.site.localeCompare(a.site);
       case "recent":
       default:
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
+        return b.id - a.id;
     }
   });
 
@@ -53,25 +59,28 @@ export default function HomePage() {
           {/* Character Parade */}
           <div className="character-grid">
             <div className="character-with-label">
-              <div className="lemming character-interactive"></div>
-              <div className="character-label">Lemming</div>
+              <div className="pixel-knight character-interactive"></div>
+              <div className="character-label">Knight</div>
             </div>
             <div className="character-with-label">
-              <div className="lemming-female character-interactive"></div>
-              <div className="character-label">Lemming F</div>
+              <div className="pixel-wizard character-interactive"></div>
+              <div className="character-label">Wizard</div>
             </div>
             <div className="character-with-label">
-              <div className="dog character-interactive"></div>
-              <div className="character-label">Perrito</div>
+              <div className="pixel-robot character-interactive"></div>
+              <div className="character-label">Robot</div>
+            </div>
+            <div className="character-with-label">
+              <div className="pixel-cat character-interactive"></div>
+              <div className="character-label">Cat</div>
             </div>
           </div>
           
-          {/* Login Section */}
-          <div className="pixel-card">
+          {/* Login Section - Centered */}
+          <div className="pixel-card" style={{ textAlign: 'center', maxWidth: '400px', margin: '0 auto' }}>
             <div className="character-grid">
-              <div className="lemming character-interactive"></div>
+              <div className="pixel-knight character-interactive"></div>
             </div>
-            <p className="pixel-subtitle">🔐 Inicia sesión para acceder a tus contraseñas</p>
             <button
               onClick={handleLogin}
               className="pixel-button success"
@@ -80,12 +89,10 @@ export default function HomePage() {
             </button>
           </div>
           
-          {/* Footer */}
-          <div className="pixel-card">
-            <p className="pixel-subtitle">
-              🛡️ Seguridad pixelada garantizada
-            </p>
-          </div>
+          {/* Footer - No card */}
+          <p className="pixel-subtitle" style={{ textAlign: 'center', marginTop: '20px' }}>
+            🛡️ Seguridad pixelada garantizada
+          </p>
         </div>
       </div>
     );
@@ -93,6 +100,16 @@ export default function HomePage() {
 
   return (
     <div className="pixel-container">
+      {/* Back Button */}
+      <button className="back-button" onClick={handleLogout}>
+        ←
+      </button>
+      
+      {/* Theme Toggle */}
+      <button className="theme-toggle">
+        ⚙️
+      </button>
+      
       <div className="pixel-card pixel-fade-in">
         {/* Header */}
         <div className="character-grid">
@@ -105,34 +122,34 @@ export default function HomePage() {
         <h1 className="pixel-title">🔑 LLAVE</h1>
         <p className="pixel-subtitle">El gestor de contraseñas que necesitabas</p>
         
-        {/* Controls */}
+        {/* Controls - Optimized */}
         <div className="pixel-grid">
+          {/* Sort Controls */}
           <div className="pixel-card">
-            <h3 className="pixel-subtitle">Ordenar por:</h3>
             <div className="character-grid">
               <button
                 onClick={() => setSortBy("recent")}
-                className={`pixel-button ${sortBy === "recent" ? "success" : ""}`}
+                className={`sort-button ${sortBy === "recent" ? "active" : ""}`}
               >
                 Recientes
               </button>
               <button
                 onClick={() => setSortBy("az")}
-                className={`pixel-button ${sortBy === "az" ? "success" : ""}`}
+                className={`sort-button ${sortBy === "az" ? "active" : ""}`}
               >
                 A → Z
               </button>
               <button
                 onClick={() => setSortBy("za")}
-                className={`pixel-button ${sortBy === "za" ? "success" : ""}`}
+                className={`sort-button ${sortBy === "za" ? "active" : ""}`}
               >
                 Z → A
               </button>
             </div>
           </div>
           
+          {/* Add Button */}
           <div className="pixel-card">
-            <h3 className="pixel-subtitle">Acciones:</h3>
             <div className="character-grid">
               <button
                 onClick={() => setShowAddModal(true)}
@@ -140,37 +157,40 @@ export default function HomePage() {
               >
                 ➕ Agregar
               </button>
-              <button
-                onClick={() => setShowConfig(true)}
-                className="pixel-button"
-              >
-                ⚙️ Config
-              </button>
-              <button
-                onClick={handleLogout}
-                className="pixel-button danger"
-              >
-                🚪 Salir
-              </button>
             </div>
           </div>
         </div>
         
-        {/* Passwords List */}
+        {/* Passwords List - Optimized */}
         <div className="pixel-card">
           <h3 className="pixel-subtitle">Tus Contraseñas</h3>
           <div className="pixel-grid">
             {sortedPasswords.map((item) => (
-              <div key={item.id} className="pixel-card">
-                <div className="character-grid">
-                  <div className="lemming character-small"></div>
+              <div key={item.id} className="pixel-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ flex: 1 }}>
+                  <p>Sitio: {item.site}</p>
+                  <p>Contraseña: {item.visible ? item.password : "••••••••"}</p>
                 </div>
-                <p><strong>Sitio:</strong> {item.site}</p>
-                <p><strong>Contraseña:</strong> {item.password}</p>
-                <p><strong>Fecha:</strong> {item.date}</p>
-                <div className="character-grid">
-                  <button className="pixel-button">✏️ Editar</button>
-                  <button className="pixel-button danger">🗑️ Eliminar</button>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button 
+                    className="icon-button view"
+                    onClick={() => togglePasswordVisibility(item.id)}
+                    title="Ver contraseña"
+                  >
+                    👁️
+                  </button>
+                  <button 
+                    className="icon-button edit"
+                    title="Editar"
+                  >
+                    ✏️
+                  </button>
+                  <button 
+                    className="icon-button delete"
+                    title="Eliminar"
+                  >
+                    🗑️
+                  </button>
                 </div>
               </div>
             ))}

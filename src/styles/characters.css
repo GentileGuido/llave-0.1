@@ -1,95 +1,136 @@
 /* Llave Characters - CSS Pixel Art */
 
-/* Lemming (Human-like character) */
-.lemming {
+/* Pixel Knight */
+.pixel-knight {
   width: 32px;
   height: 32px;
   position: relative;
   display: inline-block;
-  animation: lemming-walk 2s ease-in-out infinite;
+  animation: knight-walk 3s ease-in-out infinite;
 }
 
-.lemming::before {
+.pixel-knight::before {
   content: '';
   position: absolute;
   width: 32px;
   height: 32px;
   background: 
-    /* Head */
-    radial-gradient(circle at 16px 8px, var(--yellow-glow) 6px, transparent 6px),
+    /* Helmet */
+    radial-gradient(circle at 16px 6px, var(--blue-electric) 8px, transparent 8px),
     /* Body */
     linear-gradient(to bottom,
       transparent 0px, transparent 12px,
       var(--blue-electric) 12px, var(--blue-electric) 24px,
       transparent 24px, transparent 32px
     ),
-    /* Arms */
+    /* Shield */
+    radial-gradient(circle at 8px 20px, var(--red-alert) 4px, transparent 4px),
+    /* Sword */
     linear-gradient(to right,
-      transparent 0px, transparent 4px,
-      var(--blue-electric) 4px, var(--blue-electric) 8px,
-      transparent 8px, transparent 24px,
-      var(--blue-electric) 24px, var(--blue-electric) 28px,
+      transparent 0px, transparent 24px,
+      var(--yellow-glow) 24px, var(--yellow-glow) 28px,
       transparent 28px, transparent 32px
     ),
     /* Eyes */
-    radial-gradient(circle at 14px 6px, var(--bg-primary) 1px, transparent 1px),
-    radial-gradient(circle at 18px 6px, var(--bg-primary) 1px, transparent 1px);
+    radial-gradient(circle at 14px 4px, var(--white-pure) 1px, transparent 1px),
+    radial-gradient(circle at 18px 4px, var(--white-pure) 1px, transparent 1px);
   box-shadow: var(--shadow-blue);
 }
 
-/* Lemming Female */
-.lemming-female {
+/* Pixel Wizard */
+.pixel-wizard {
   width: 32px;
   height: 32px;
   position: relative;
   display: inline-block;
-  animation: lemming-walk 2.5s ease-in-out infinite;
+  animation: wizard-float 4s ease-in-out infinite;
 }
 
-.lemming-female::before {
+.pixel-wizard::before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: 
+    /* Hat */
+    radial-gradient(ellipse at 16px 8px, var(--red-alert) 10px, transparent 10px),
+    /* Face */
+    radial-gradient(circle at 16px 16px, var(--yellow-glow) 6px, transparent 6px),
+    /* Robe */
+    linear-gradient(to bottom,
+      transparent 0px, transparent 16px,
+      var(--red-alert) 16px, var(--red-alert) 28px,
+      transparent 28px, transparent 32px
+    ),
+    /* Staff */
+    linear-gradient(to right,
+      transparent 0px, transparent 4px,
+      var(--yellow-glow) 4px, var(--yellow-glow) 8px,
+      transparent 8px, transparent 32px
+    ),
+    /* Eyes */
+    radial-gradient(circle at 14px 14px, var(--bg-primary) 1px, transparent 1px),
+    radial-gradient(circle at 18px 14px, var(--bg-primary) 1px, transparent 1px),
+    /* Magic Orb */
+    radial-gradient(circle at 28px 20px, var(--green-neon) 3px, transparent 3px);
+  box-shadow: var(--shadow-red);
+}
+
+/* Pixel Robot */
+.pixel-robot {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: inline-block;
+  animation: robot-blink 2s ease-in-out infinite;
+}
+
+.pixel-robot::before {
   content: '';
   position: absolute;
   width: 32px;
   height: 32px;
   background: 
     /* Head */
-    radial-gradient(circle at 16px 8px, var(--yellow-glow) 6px, transparent 6px),
+    linear-gradient(to bottom,
+      transparent 0px, transparent 8px,
+      var(--gray-light) 8px, var(--gray-light) 16px,
+      transparent 16px, transparent 32px
+    ),
     /* Body */
     linear-gradient(to bottom,
-      transparent 0px, transparent 12px,
-      var(--red-alert) 12px, var(--red-alert) 24px,
-      transparent 24px, transparent 32px
-    ),
-    /* Arms */
-    linear-gradient(to right,
-      transparent 0px, transparent 4px,
-      var(--red-alert) 4px, var(--red-alert) 8px,
-      transparent 8px, transparent 24px,
-      var(--red-alert) 24px, var(--red-alert) 28px,
+      transparent 0px, transparent 16px,
+      var(--blue-electric) 16px, var(--blue-electric) 28px,
       transparent 28px, transparent 32px
     ),
-    /* Eyes */
-    radial-gradient(circle at 14px 6px, var(--bg-primary) 1px, transparent 1px),
-    radial-gradient(circle at 18px 6px, var(--bg-primary) 1px, transparent 1px),
-    /* Hair */
+    /* Antenna */
     linear-gradient(to bottom,
       transparent 0px, transparent 4px,
       var(--yellow-glow) 4px, var(--yellow-glow) 8px,
       transparent 8px, transparent 32px
+    ),
+    /* Eyes */
+    radial-gradient(circle at 12px 10px, var(--green-neon) 2px, transparent 2px),
+    radial-gradient(circle at 20px 10px, var(--green-neon) 2px, transparent 2px),
+    /* Mouth */
+    linear-gradient(to right,
+      transparent 0px, transparent 14px,
+      var(--red-alert) 14px, var(--red-alert) 18px,
+      transparent 18px, transparent 32px
     );
-  box-shadow: var(--shadow-red);
+  box-shadow: var(--shadow-blue);
 }
 
-/* Dog */
-.dog {
+/* Pixel Cat */
+.pixel-cat {
   width: 32px;
   height: 32px;
   position: relative;
   display: inline-block;
-  animation: dog-bounce 1.5s ease-in-out infinite;
+  animation: cat-pounce 2.5s ease-in-out infinite;
 }
 
-.dog::before {
+.pixel-cat::before {
   content: '';
   position: absolute;
   width: 32px;
@@ -110,7 +151,13 @@
     radial-gradient(circle at 14px 10px, var(--bg-primary) 1px, transparent 1px),
     radial-gradient(circle at 18px 10px, var(--bg-primary) 1px, transparent 1px),
     /* Nose */
-    radial-gradient(circle at 16px 14px, var(--bg-primary) 1px, transparent 1px);
+    radial-gradient(circle at 16px 14px, var(--red-alert) 1px, transparent 1px),
+    /* Tail */
+    linear-gradient(to right,
+      transparent 0px, transparent 28px,
+      var(--yellow-glow) 28px, var(--yellow-glow) 32px,
+      transparent 32px, transparent 32px
+    );
   box-shadow: var(--shadow-yellow);
 }
 
@@ -232,16 +279,26 @@
 }
 
 /* Character Animations */
-@keyframes lemming-walk {
+@keyframes knight-walk {
   0%, 100% { transform: translateX(0px) scaleX(1); }
   25% { transform: translateX(8px) scaleX(1); }
   50% { transform: translateX(16px) scaleX(1); }
   75% { transform: translateX(8px) scaleX(1); }
 }
 
-@keyframes dog-bounce {
+@keyframes wizard-float {
   0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-8px) scale(1.1); }
+  50% { transform: translateY(-12px) scale(1.1); }
+}
+
+@keyframes robot-blink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0.3; }
+}
+
+@keyframes cat-pounce {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-10px) scale(1.2); }
 }
 
 /* Character Sizes */

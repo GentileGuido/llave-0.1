@@ -14,6 +14,8 @@
   width: 64px;
   height: 64px;
   background: 
+    /* Key Ring */
+    radial-gradient(circle at 48px 16px, transparent 4px, var(--green-neon) 4px, var(--green-neon) 8px, transparent 8px),
     /* Key Head */
     linear-gradient(to bottom,
       transparent 0px, transparent 8px,
@@ -26,18 +28,20 @@
       var(--green-neon) 24px, var(--green-neon) 32px,
       transparent 32px, transparent 64px
     ),
-    /* Key Teeth */
+    /* Key Teeth - More detailed */
     linear-gradient(to bottom,
       transparent 0px, transparent 12px,
       var(--green-neon) 12px, var(--green-neon) 20px,
-      transparent 20px, transparent 28px,
-      var(--green-neon) 28px, var(--green-neon) 36px,
-      transparent 36px, transparent 44px,
-      var(--green-neon) 44px, var(--green-neon) 52px,
+      transparent 20px, transparent 24px,
+      var(--green-neon) 24px, var(--green-neon) 28px,
+      transparent 28px, transparent 32px,
+      var(--green-neon) 32px, var(--green-neon) 36px,
+      transparent 36px, transparent 40px,
+      var(--green-neon) 40px, var(--green-neon) 44px,
+      transparent 44px, transparent 48px,
+      var(--green-neon) 48px, var(--green-neon) 52px,
       transparent 52px, transparent 64px
-    ),
-    /* Key Ring */
-    radial-gradient(circle at 48px 16px, transparent 4px, var(--green-neon) 4px, var(--green-neon) 8px, transparent 8px);
+    );
   box-shadow: var(--shadow-green);
 }
 
