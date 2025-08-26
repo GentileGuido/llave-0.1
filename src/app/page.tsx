@@ -12,6 +12,8 @@ export default function HomePage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
   const [showConfigScreen, setShowConfigScreen] = useState(false);
+  const [showDonationModal, setShowDonationModal] = useState(false);
+  const [selectedDonation, setSelectedDonation] = useState("");
   const [editingId, setEditingId] = useState<number | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [newSite, setNewSite] = useState("");
@@ -70,6 +72,11 @@ export default function HomePage() {
 
   const confirmDelete = (id: number) => {
     setDeletingId(id);
+  };
+
+  const handleDonation = (type: string) => {
+    setSelectedDonation(type);
+    setShowDonationModal(true);
   };
 
   const sortedPasswords = [...passwords].sort((a, b) => {
@@ -203,15 +210,25 @@ export default function HomePage() {
            {/* App Info */}
            <div className="pixel-card">
              <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
-             <p style={{ fontSize: '12px', lineHeight: '1.6' }}>
+             <p style={{ fontSize: '12px', lineHeight: '1.6', fontWeight: 'normal' }}>
                Llave es un gestor de contraseñas seguro con estética pixel art. 
                Desarrollado 100% con Inteligencia Artificial para ofrecer una experiencia 
                única y retro.
              </p>
-             <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px' }}>
+             <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px', fontWeight: 'normal' }}>
                <strong>Desarrollado por:</strong> Guido Gentile<br/>
                <strong>Tecnologías:</strong> Next.js, TypeScript, CSS Pixel Art<br/>
                <strong>IA:</strong> Claude Sonnet 4
+             </p>
+             <p style={{ 
+               fontSize: '14px', 
+               lineHeight: '1.6', 
+               marginTop: '15px', 
+               color: 'var(--green-neon)',
+               textAlign: 'center',
+               animation: 'pixel-bounce 2s ease-in-out infinite'
+             }}>
+               <strong>Desarrollador IA: Guido Gentile</strong>
              </p>
            </div>
 
@@ -226,13 +243,13 @@ export default function HomePage() {
                  <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
                    <li>Abre Chrome o tu navegador</li>
                    <li>Ve a la página de Llave</li>
-                   <li>Toca el menú (⋮) en la esquina superior</li>
+                   <li>Toca los tres puntos de la esquina superior</li>
                    <li>Selecciona &quot;Instalar aplicación&quot;</li>
                    <li>Confirma la instalación</li>
                  </ol>
                </div>
                <div className="android-button">
-                 <div className="android-logo">A</div>
+                 <div className="android-logo">🤖</div>
                  <span>Instalar App</span>
                </div>
              </div>
@@ -246,7 +263,7 @@ export default function HomePage() {
                  <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
                    <li>Abre Safari en tu iPhone/iPad</li>
                    <li>Ve a la página de Llave</li>
-                   <li>Toca el botón compartir (□↑)</li>
+                   <li>Toca el botón compartir</li>
                    <li>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
                    <li>Confirma y personaliza el nombre</li>
                  </ol>
@@ -261,21 +278,37 @@ export default function HomePage() {
            {/* Donations */}
            <div className="pixel-card">
              <h4 className="pixel-subtitle">💝 Donaciones</h4>
-             <p style={{ fontSize: '12px', marginBottom: '15px' }}>
+             <p style={{ fontSize: '12px', marginBottom: '15px', textAlign: 'center', fontWeight: 'normal' }}>
                Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
              </p>
              <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
-               <button className="pixel-button success" style={{ fontSize: '10px' }}>
-                 ☕ Café
+               <button 
+                 onClick={() => handleDonation('jugo')}
+                 className="pixel-button success" 
+                 style={{ fontSize: '10px' }}
+               >
+                 🧃 Jugo
                </button>
-               <button className="pixel-button" style={{ fontSize: '10px' }}>
+               <button 
+                 onClick={() => handleDonation('pizza')}
+                 className="pixel-button" 
+                 style={{ fontSize: '10px' }}
+               >
                  🍕 Pizza
                </button>
-               <button className="pixel-button" style={{ fontSize: '10px' }}>
-                 🎮 Juego
+               <button 
+                 onClick={() => handleDonation('libro')}
+                 className="pixel-button" 
+                 style={{ fontSize: '10px' }}
+               >
+                 📚 Libro
                </button>
-               <button className="pixel-button" style={{ fontSize: '10px' }}>
-                 🚀 Cohete
+               <button 
+                 onClick={() => handleDonation('auto')}
+                 className="pixel-button" 
+                 style={{ fontSize: '10px' }}
+               >
+                 🚗 Auto
                </button>
              </div>
            </div>
@@ -318,17 +351,17 @@ export default function HomePage() {
           >
             Recientes
           </button>
-          <button
-            onClick={() => setSortBy("az")}
-            className={`sort-button ${sortBy === "az" ? "active" : ""}`}
-          >
-            A → Z
-          </button>
-          <button
-            onClick={() => setSortBy("za")}
-            className={`sort-button ${sortBy === "za" ? "active" : ""}`}
-          >
-            Z → A
+                     <button
+             onClick={() => setSortBy("az")}
+             className={`sort-button ${sortBy === "az" ? "active" : ""}`}
+           >
+             A / Z
+           </button>
+           <button
+             onClick={() => setSortBy("za")}
+             className={`sort-button ${sortBy === "za" ? "active" : ""}`}
+           >
+             Z / A
           </button>
                      <button
              onClick={() => setShowAddModal(true)}
@@ -509,15 +542,25 @@ export default function HomePage() {
              {/* App Info */}
              <div className="pixel-card">
                <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
-               <p style={{ fontSize: '12px', lineHeight: '1.6' }}>
+               <p style={{ fontSize: '12px', lineHeight: '1.6', fontWeight: 'normal' }}>
                  Llave es un gestor de contraseñas seguro con estética pixel art. 
                  Desarrollado 100% con Inteligencia Artificial para ofrecer una experiencia 
                  única y retro.
                </p>
-               <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px' }}>
+               <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px', fontWeight: 'normal' }}>
                  <strong>Desarrollado por:</strong> Guido Gentile<br/>
                  <strong>Tecnologías:</strong> Next.js, TypeScript, CSS Pixel Art<br/>
                  <strong>IA:</strong> Claude Sonnet 4
+               </p>
+               <p style={{ 
+                 fontSize: '14px', 
+                 lineHeight: '1.6', 
+                 marginTop: '15px', 
+                 color: 'var(--green-neon)',
+                 textAlign: 'center',
+                 animation: 'pixel-bounce 2s ease-in-out infinite'
+               }}>
+                 <strong>Desarrollador IA: Guido Gentile</strong>
                </p>
              </div>
 
@@ -532,13 +575,13 @@ export default function HomePage() {
                    <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
                      <li>Abre Chrome o tu navegador</li>
                      <li>Ve a la página de Llave</li>
-                     <li>Toca el menú (⋮) en la esquina superior</li>
+                     <li>Toca los tres puntos de la esquina superior</li>
                      <li>Selecciona &quot;Instalar aplicación&quot;</li>
                      <li>Confirma la instalación</li>
                    </ol>
                  </div>
                  <div className="android-button">
-                   <div className="android-logo">A</div>
+                   <div className="android-logo">🤖</div>
                    <span>Instalar App</span>
                  </div>
                </div>
@@ -552,7 +595,7 @@ export default function HomePage() {
                    <ol style={{ fontSize: '11px', textAlign: 'left', paddingLeft: '20px' }}>
                      <li>Abre Safari en tu iPhone/iPad</li>
                      <li>Ve a la página de Llave</li>
-                     <li>Toca el botón compartir (□↑)</li>
+                     <li>Toca el botón compartir</li>
                      <li>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
                      <li>Confirma y personaliza el nombre</li>
                    </ol>
@@ -567,21 +610,37 @@ export default function HomePage() {
              {/* Donations */}
              <div className="pixel-card">
                <h4 className="pixel-subtitle">💝 Donaciones</h4>
-               <p style={{ fontSize: '12px', marginBottom: '15px' }}>
+               <p style={{ fontSize: '12px', marginBottom: '15px', textAlign: 'center', fontWeight: 'normal' }}>
                  Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
                </p>
                <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
-                 <button className="pixel-button success" style={{ fontSize: '10px' }}>
-                   ☕ Café
+                 <button 
+                   onClick={() => handleDonation('jugo')}
+                   className="pixel-button success" 
+                   style={{ fontSize: '10px' }}
+                 >
+                   🧃 Jugo
                  </button>
-                 <button className="pixel-button" style={{ fontSize: '10px' }}>
+                 <button 
+                   onClick={() => handleDonation('pizza')}
+                   className="pixel-button" 
+                   style={{ fontSize: '10px' }}
+                 >
                    🍕 Pizza
                  </button>
-                 <button className="pixel-button" style={{ fontSize: '10px' }}>
-                   🎮 Juego
+                 <button 
+                   onClick={() => handleDonation('libro')}
+                   className="pixel-button" 
+                   style={{ fontSize: '10px' }}
+                 >
+                   📚 Libro
                  </button>
-                 <button className="pixel-button" style={{ fontSize: '10px' }}>
-                   🚀 Cohete
+                 <button 
+                   onClick={() => handleDonation('auto')}
+                   className="pixel-button" 
+                   style={{ fontSize: '10px' }}
+                 >
+                   🚗 Auto
                  </button>
                </div>
              </div>
@@ -592,10 +651,42 @@ export default function HomePage() {
                style={{ marginTop: '20px' }}
              >
                ✅ Cerrar
-             </button>
-           </div>
-         </div>
-       )}
-    </div>
-  );
-}
+                           </button>
+            </div>
+          </div>
+        )}
+
+        {/* Donation Modal */}
+        {showDonationModal && (
+          <div className="modal-overlay">
+            <div className="pixel-card">
+              <h3 className="pixel-subtitle">💝 Donación - Mercado Pago</h3>
+              <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
+                {selectedDonation === 'jugo' && '🧃 Jugo - $5.000'}
+                {selectedDonation === 'pizza' && '🍕 Pizza - $10.000'}
+                {selectedDonation === 'libro' && '📚 Libro - $15.000'}
+                {selectedDonation === 'auto' && '🚗 Auto - $20.000'}
+              </p>
+              <p style={{ fontSize: '11px', textAlign: 'center', marginBottom: '20px', fontWeight: 'normal' }}>
+                Próximamente vincularemos con Mercado Pago para procesar tu donación.
+              </p>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+                <button
+                  onClick={() => setShowDonationModal(false)}
+                  className="pixel-button success"
+                >
+                  ✅ Entendido
+                </button>
+                <button
+                  onClick={() => setShowDonationModal(false)}
+                  className="pixel-button"
+                >
+                  ❌ Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+     </div>
+   );
+ }
