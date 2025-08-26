@@ -25,10 +25,6 @@ logs/
 coverage/
 .nyc_output/
 
-# Documentation
-README.md
-*.md
-
 # Git
 .git/
 .gitignore
