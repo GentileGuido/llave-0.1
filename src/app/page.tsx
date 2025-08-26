@@ -14,6 +14,7 @@ export default function HomePage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
   const [newSite, setNewSite] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [editSite, setEditSite] = useState("");
@@ -65,6 +66,11 @@ export default function HomePage() {
 
   const handleDeletePassword = (id: number) => {
     setPasswords(passwords.filter(pwd => pwd.id !== id));
+    setDeletingId(null);
+  };
+
+  const confirmDelete = (id: number) => {
+    setDeletingId(id);
   };
 
   const sortedPasswords = [...passwords].sort((a, b) => {
@@ -94,17 +100,17 @@ export default function HomePage() {
       pixel.addEventListener('click', () => {
         pixel.classList.add('exploding');
         
-        // Create explosion particles
-        for (let i = 0; i < 8; i++) {
-          const particle = document.createElement('div');
-          particle.className = `floating-pixel ${color} tiny`;
-          particle.style.left = pixel.offsetLeft + 'px';
-          particle.style.top = pixel.offsetTop + 'px';
-          particle.style.animation = `pixel-explosion-${Math.floor(Math.random() * 4) + 1} 1s ease-out forwards`;
-          document.querySelector('.background-pixels')?.appendChild(particle);
-          
-          setTimeout(() => particle.remove(), 1000);
-        }
+                 // Create explosion particles (divide into 2)
+         for (let i = 0; i < 2; i++) {
+           const particle = document.createElement('div');
+           particle.className = `floating-pixel ${color} tiny`;
+           particle.style.left = pixel.offsetLeft + 'px';
+           particle.style.top = pixel.offsetTop + 'px';
+           particle.style.animation = `pixel-explosion-${Math.floor(Math.random() * 4) + 1} 1s ease-out forwards`;
+           document.querySelector('.background-pixels')?.appendChild(particle);
+           
+           setTimeout(() => particle.remove(), 1000);
+         }
         
         setTimeout(() => pixel.remove(), 500);
       });
@@ -177,10 +183,10 @@ export default function HomePage() {
         ←
       </button>
       
-      {/* Theme Toggle */}
-      <button className="theme-toggle">
-        ⚙️
-      </button>
+             {/* Theme Toggle */}
+       <button className="theme-toggle" onClick={() => setShowConfig(true)}>
+         ⚙️
+       </button>
       
       <div className="pixel-card pixel-fade-in">
         {/* Header - Only Text */}
@@ -223,21 +229,23 @@ export default function HomePage() {
         
         {/* Passwords List - Horizontal Cards */}
         <h3 className="pixel-subtitle">Tus Contraseñas</h3>
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: '10px',
-          maxHeight: '60vh',
-          overflowY: 'auto'
-        }}>
-                     {sortedPasswords.map((item) => (
+                 <div style={{ 
+           display: 'flex', 
+           flexDirection: 'column', 
+           gap: '10px',
+           maxHeight: '60vh',
+           overflowY: 'auto',
+           transition: 'all 0.3s ease-in-out'
+         }}>
+                     {sortedPasswords.map((item, index) => (
              <div key={item.id} className="pixel-card" style={{ 
                display: 'flex', 
                justifyContent: 'space-between', 
                alignItems: 'center',
                padding: '15px',
                margin: '0',
-               minHeight: '60px'
+               minHeight: '60px',
+               animation: `slideInFromTop 0.5s ease-out ${index * 0.1}s both`
              }}>
                <div style={{ flex: 1 }}>
                  {editingId === item.id ? (
@@ -261,8 +269,8 @@ export default function HomePage() {
                    </>
                  ) : (
                    <>
-                     <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>Sitio: {item.site}</p>
-                     <p style={{ margin: '0', fontSize: '12px' }}>Contraseña: {item.visible ? item.password : "••••••••"}</p>
+                     <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>{item.site}</p>
+                     <p style={{ margin: '0', fontSize: '12px' }}>{item.visible ? item.password : "••••••••"}</p>
                    </>
                  )}
                </div>
@@ -293,7 +301,7 @@ export default function HomePage() {
                      </button>
                      <button 
                        className="icon-button delete"
-                       onClick={() => handleDeletePassword(item.id)}
+                       onClick={() => confirmDelete(item.id)}
                        title="Eliminar"
                      >
                        🗑️
@@ -303,10 +311,36 @@ export default function HomePage() {
                </div>
              </div>
            ))}
-        </div>
-      </div>
-      
-             {/* Add Modal */}
+                 </div>
+       </div>
+       
+       {/* Delete Confirmation Modal */}
+       {deletingId && (
+         <div className="modal-overlay">
+           <div className="pixel-card">
+             <h3 className="pixel-subtitle">🗑️ Confirmar Eliminación</h3>
+             <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px' }}>
+               ¿Quieres eliminar esta contraseña?
+             </p>
+             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+               <button
+                 onClick={() => handleDeletePassword(deletingId)}
+                 className="pixel-button danger"
+               >
+                 ✅ Sí, Eliminar
+               </button>
+               <button
+                 onClick={() => setDeletingId(null)}
+                 className="pixel-button"
+               >
+                 ❌ Cancelar
+               </button>
+             </div>
+           </div>
+         </div>
+       )}
+       
+              {/* Add Modal */}
        {showAddModal && (
          <div className="modal-overlay">
            <div className="pixel-card">
