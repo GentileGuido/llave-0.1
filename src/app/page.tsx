@@ -98,6 +98,7 @@ export default function HomePage() {
       const sizes = ['tiny', 'small', 'medium', 'large', 'huge'];
       const size = sizes[Math.floor(Math.random() * sizes.length)];
       const color = Math.random() > 0.5 ? 'white' : 'green';
+      // Ensure only white and green colors
       const animation = Math.floor(Math.random() * 5) + 1;
       
       // Variable speed based on size
@@ -128,6 +129,14 @@ export default function HomePage() {
           particle.style.left = pixel.offsetLeft + 'px';
           particle.style.top = pixel.offsetTop + 'px';
           particle.style.animation = `pixel-explosion-${Math.floor(Math.random() * 4) + 1} 1s ease-out forwards`;
+          // Ensure particle has correct color
+          if (color === 'white') {
+            particle.style.background = 'var(--text-white)';
+            particle.style.boxShadow = '0 0 10px var(--text-white), 0 0 20px var(--text-white)';
+          } else {
+            particle.style.background = 'var(--green-neon)';
+            particle.style.boxShadow = '0 0 10px var(--green-neon), 0 0 20px var(--green-neon)';
+          }
           document.querySelector('.background-pixels')?.appendChild(particle);
           
           setTimeout(() => particle.remove(), 1000);
@@ -202,23 +211,37 @@ export default function HomePage() {
         <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative' }}>
           {/* Back Button - Inside the main card */}
           <button 
-            className="back-button" 
             onClick={() => setShowConfigScreen(false)}
             style={{ 
               position: 'absolute', 
               top: '10px', 
               left: '10px',
-              zIndex: 10
+              zIndex: 10,
+              background: 'var(--purple-neon)',
+              border: '2px solid var(--purple-neon)',
+              color: 'var(--bg-dark)',
+              padding: '8px 12px',
+              fontFamily: 'Press Start 2P, monospace',
+              fontSize: '12px',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              borderRadius: '4px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px'
             }}
           >
-            🔙
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            BACK
           </button>
           
-          <h1 className="pixel-title" style={{ textAlign: 'center' }}>Configuración</h1>
+          <h1 className="pixel-title" style={{ textAlign: 'center', fontSize: '1.5rem' }}>Configuración</h1>
           
           {/* App Info */}
           <div className="pixel-card">
-            <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
+                          <h4 className="pixel-subtitle">Acerca de Llave</h4>
             <p style={{ fontSize: '12px', lineHeight: '1.6' }}>
               Llave es un gestor de contraseñas seguro con estética pixel art. 
               Desarrollado 100% con Inteligencia Artificial para ofrecer una experiencia 
@@ -242,17 +265,17 @@ export default function HomePage() {
           {/* Installation Instructions */}
           <div className="pixel-grid">
             <div className="pixel-card">
-              <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
+              <h4 className="pixel-subtitle" style={{ textShadow: 'none' }}>Instalar en Android</h4>
               <div style={{ marginBottom: '15px' }}>
                 <p style={{ fontSize: '12px', marginBottom: '10px' }}>
                   Pasos para instalar:
                 </p>
-                <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px' }}>
-                  <li>1. Abre Chrome o tu navegador</li>
-                  <li>2. Ve a la página de Llave</li>
-                  <li>3. Toca los tres puntos de la esquina superior</li>
-                  <li>4. Selecciona &quot;Instalar aplicación&quot;</li>
-                  <li>5. Confirma la instalación</li>
+                <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px', lineHeight: '1.8' }}>
+                  <li style={{ marginBottom: '8px' }}>Abre Chrome o tu navegador</li>
+                  <li style={{ marginBottom: '8px' }}>Ve a la página de Llave</li>
+                  <li style={{ marginBottom: '8px' }}>Toca los tres puntos de la esquina superior</li>
+                  <li style={{ marginBottom: '8px' }}>Selecciona &quot;Instalar aplicación&quot;</li>
+                  <li style={{ marginBottom: '8px' }}>Confirma la instalación</li>
                 </ol>
               </div>
               <div className="android-button">
@@ -262,17 +285,17 @@ export default function HomePage() {
             </div>
             
             <div className="pixel-card">
-              <h4 className="pixel-subtitle">🍎 Instalar en iOS</h4>
+              <h4 className="pixel-subtitle" style={{ textShadow: 'none' }}>Instalar en iOS</h4>
               <div style={{ marginBottom: '15px' }}>
                 <p style={{ fontSize: '12px', marginBottom: '10px' }}>
                   Pasos para instalar:
                 </p>
-                <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px' }}>
-                  <li>1. Abre Safari en tu iPhone/iPad</li>
-                  <li>2. Ve a la página de Llave</li>
-                  <li>3. Toca el botón compartir</li>
-                  <li>4. Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
-                  <li>5. Confirma y personaliza el nombre</li>
+                <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px', lineHeight: '1.8' }}>
+                  <li style={{ marginBottom: '8px' }}>Abre Safari en tu iPhone/iPad</li>
+                  <li style={{ marginBottom: '8px' }}>Ve a la página de Llave</li>
+                  <li style={{ marginBottom: '8px' }}>Toca el botón compartir</li>
+                  <li style={{ marginBottom: '8px' }}>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
+                  <li style={{ marginBottom: '8px' }}>Confirma y personaliza el nombre</li>
                 </ol>
               </div>
               <div className="android-button">
@@ -284,7 +307,7 @@ export default function HomePage() {
 
           {/* Donations */}
           <div className="pixel-card">
-            <h4 className="pixel-subtitle">💝 Donaciones</h4>
+            <h4 className="pixel-subtitle" style={{ textShadow: 'none' }}>💝 Donaciones 💝</h4>
             <p style={{ fontSize: '12px', marginBottom: '15px', textAlign: 'left' }}>
               Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
             </p>

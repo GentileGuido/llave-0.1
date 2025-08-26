@@ -61,17 +61,7 @@ body::before {
   animation: scan-line 2s linear infinite;
 }
 
-.pixel-card::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, var(--green-neon), transparent, var(--green-neon));
-  z-index: -1;
-  animation: border-glow 3s ease-in-out infinite;
-}
+/* Removed gradient background effect */
 
 .pixel-button {
   background: transparent;
@@ -319,6 +309,8 @@ body::before {
   border-radius: 50%;
   z-index: 10;
   transition: all 0.3s ease;
+  /* Ensure only white and green pixels */
+  background: var(--text-white);
 }
 
 .floating-pixel:hover {
@@ -328,12 +320,12 @@ body::before {
 
 .floating-pixel.white {
   background: var(--text-white);
-  box-shadow: 0 0 10px var(--text-white);
+  box-shadow: 0 0 10px var(--text-white), 0 0 20px var(--text-white);
 }
 
 .floating-pixel.green {
   background: var(--green-neon);
-  box-shadow: 0 0 10px var(--green-neon);
+  box-shadow: 0 0 10px var(--green-neon), 0 0 20px var(--green-neon);
 }
 
 .floating-pixel.tiny {
