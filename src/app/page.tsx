@@ -6,10 +6,7 @@ import SplashScreen from "@/components/SplashScreen";
 export default function HomePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [passwords, setPasswords] = useState([
-    { id: 1, site: "gmail.com", password: "mipassword123", visible: false },
-    { id: 2, site: "facebook.com", password: "facebook2024", visible: false },
-    { id: 3, site: "twitter.com", password: "twitterpass", visible: false },
-    { id: 4, site: "ejemplo.com", password: "ejemplo123", visible: false },
+    { id: 1, site: "ejemplo.com", password: "ejemplo123", visible: false },
   ]);
   const [sortBy, setSortBy] = useState("recent");
   const [showAddModal, setShowAddModal] = useState(false);
