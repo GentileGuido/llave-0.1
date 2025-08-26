@@ -2,7 +2,6 @@ export default function HomePage() {
   return (
     <div style={{ 
       display: 'flex', 
-      flexDirection: 'column',
       alignItems: 'center', 
       justifyContent: 'center', 
       minHeight: '100vh',
@@ -14,32 +13,17 @@ export default function HomePage() {
         padding: '2rem',
         backgroundColor: 'white',
         borderRadius: '10px',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-        maxWidth: '500px'
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
       }}>
         <h1 style={{ color: '#2563eb', marginBottom: '1rem' }}>
-          🚀 ¡LLAVE FUNCIONA!
+          🚀 ¡HOLA MUNDO!
         </h1>
         <p style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>
-          La aplicación está desplegada correctamente en Railway
+          La aplicación funciona en Railway
         </p>
-        <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>
-          Deploy: {new Date().toLocaleString()}
+        <p style={{ fontSize: '0.9rem', color: '#666' }}>
+          {new Date().toLocaleString()}
         </p>
-        <div style={{ 
-          backgroundColor: '#dcfce7', 
-          border: '1px solid #22c55e',
-          borderRadius: '5px',
-          padding: '1rem',
-          marginTop: '1rem'
-        }}>
-          <p style={{ color: '#166534', margin: 0 }}>
-            ✅ Deploy exitoso<br/>
-            ✅ Next.js funcionando<br/>
-            ✅ Railway conectado<br/>
-            ✅ Listo para agregar funcionalidades
-          </p>
-        </div>
       </div>
     </div>
   );
