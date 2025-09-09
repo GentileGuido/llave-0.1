@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { supabase } from '@/lib/supabase'
+import { useRouter } from 'next/navigation'
 import SplashScreen from "@/components/SplashScreen";
 
 export default function HomePage() {
+  const router = useRouter()
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [passwords, setPasswords] = useState([
     { id: 1, site: "ejemplo.com", password: "ejemplo123", visible: false },
@@ -21,11 +24,28 @@ export default function HomePage() {
   const [editSite, setEditSite] = useState("");
   const [editPassword, setEditPassword] = useState("");
 
+  // Check user session on mount
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      setIsLoggedIn(!!user)
+    }
+    checkUser()
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsLoggedIn(!!session?.user)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
   const handleLogin = () => {
-    setIsLoggedIn(true);
+    router.push('/auth/signin')
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
     setIsLoggedIn(false);
   };
 
@@ -158,18 +178,18 @@ export default function HomePage() {
   }, []);
 
   if (!isLoggedIn) {
-    return (
+  return (
       <div className="pixel-container">
         {/* Background Pixels */}
         <div className="background-pixels"></div>
         
         {/* Login Screen - Only Button */}
-        <div style={{ 
-          display: 'flex', 
+    <div style={{ 
+      display: 'flex', 
           flexDirection: 'column', 
           justifyContent: 'center', 
-          alignItems: 'center', 
-          minHeight: '100vh',
+      alignItems: 'center', 
+      minHeight: '100vh',
           textAlign: 'center',
           gap: '30px'
         }}>
@@ -232,7 +252,7 @@ export default function HomePage() {
               lineHeight: '1.6', 
               marginTop: '15px', 
               color: 'var(--green-neon)',
-              textAlign: 'center',
+        textAlign: 'center',
               animation: 'pixel-glow 2s ease-in-out infinite'
             }}>
               Desarrollador: Guido Gentile
