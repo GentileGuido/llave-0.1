@@ -215,13 +215,13 @@ export default function HomePage() {
               gap: '12px',
               fontSize: '1.2rem',
               padding: '15px 30px',
-              backgroundColor: 'var(--blue-electric)',
-              borderColor: 'var(--blue-electric)',
+              backgroundColor: 'var(--green-neon)',
+              borderColor: 'var(--green-neon)',
               color: 'var(--text-white)',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
               borderRadius: '8px',
-              border: '2px solid var(--blue-electric)',
+              border: '2px solid var(--green-neon)',
               minWidth: '280px',
               margin: '0'
             }}
