@@ -4,7 +4,7 @@ export const authConfig = {
   google: {
     clientId: process.env.GOOGLE_CLIENT_ID || '',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-    redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/auth/callback`
+    redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://llaveapp.com'}/auth/callback`
   },
   supabase: {
     url: process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jlmfkgmluwkbfcapjsni.supabase.co',
