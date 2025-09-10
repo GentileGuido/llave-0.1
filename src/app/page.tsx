@@ -453,166 +453,6 @@ export default function HomePage() {
     );
   }
 
-  // Show config screen if active
-  if (showConfigScreen) {
-    return (
-      <div className="pixel-container">
-        {/* Background Pixels */}
-        <div className="background-pixels"></div>
-        
-        <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative' }}>
-          {/* Back Button - Inside the main card */}
-          <button 
-            className="back-button" 
-            onClick={() => setShowConfigScreen(false)}
-            style={{ 
-              position: 'absolute', 
-              top: '10px', 
-              left: '10px',
-              zIndex: 10,
-              fontSize: '24px',
-              padding: '8px 12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            ←
-          </button>
-          
-          <h1 className="pixel-title" style={{ 
-            textAlign: 'center', 
-            fontSize: '1.5rem',
-            marginBottom: '20px'
-          }}>Configuración</h1>
-          
-          {/* App Info */}
-          <div className="pixel-card">
-            <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
-            <p style={{ fontSize: '12px', lineHeight: '2.4', marginBottom: '15px' }}>
-              Llave es un gestor de contraseñas seguro con estética pixel art. 
-              Desarrollado 100% con Inteligencia Artificial para ofrecer una experiencia 
-              única y retro.
-            </p>
-            <p style={{ fontSize: '12px', lineHeight: '2.4', marginBottom: '20px' }}>
-              Tecnologías: Next.js, TypeScript, CSS Pixel Art
-            </p>
-            <p style={{ 
-              fontSize: '14px', 
-              lineHeight: '2.4', 
-              marginTop: '20px', 
-              color: 'var(--green-neon)',
-              textAlign: 'center',
-              animation: 'pixel-glow 2s ease-in-out infinite'
-            }}>
-              Desarrollador: Guido Gentile
-            </p>
-          </div>
-
-          {/* Installation Instructions */}
-          <div className="pixel-grid">
-            <div className="pixel-card">
-              <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
-              <div style={{ marginBottom: '20px' }}>
-                <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.8' }}>
-                  Pasos para instalar:
-                </p>
-                <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px', lineHeight: '2.0' }}>
-                  <li style={{ marginBottom: '8px' }}>Abre Chrome o tu navegador</li>
-                  <li style={{ marginBottom: '8px' }}>Ve a la página de Llave</li>
-                  <li style={{ marginBottom: '8px' }}>Toca los tres puntos de la esquina superior</li>
-                  <li style={{ marginBottom: '8px' }}>Selecciona &quot;Instalar aplicación&quot;</li>
-                  <li style={{ marginBottom: '8px' }}>Confirma la instalación</li>
-                </ol>
-              </div>
-              <div className="android-button" onClick={handleInstallAndroid} style={{ cursor: 'pointer' }}>
-                <div className="android-logo">🤖</div>
-                <span>Instalar App</span>
-              </div>
-            </div>
-            
-            <div className="pixel-card">
-              <h4 className="pixel-subtitle">🍎 Instalar en iOS</h4>
-              <div style={{ marginBottom: '20px' }}>
-                <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.8' }}>
-                  Pasos para instalar:
-                </p>
-                <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px', lineHeight: '2.0' }}>
-                  <li style={{ marginBottom: '8px' }}>Abre Safari en tu iPhone/iPad</li>
-                  <li style={{ marginBottom: '8px' }}>Ve a la página de Llave</li>
-                  <li style={{ marginBottom: '8px' }}>Toca el botón compartir</li>
-                  <li style={{ marginBottom: '8px' }}>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
-                  <li style={{ marginBottom: '8px' }}>Confirma y personaliza el nombre</li>
-                </ol>
-              </div>
-              <p style={{ 
-                fontSize: '10px', 
-                textAlign: 'center', 
-                color: 'var(--blue-electric)',
-                marginTop: '15px',
-                fontStyle: 'italic'
-              }}>
-                Usa el botón compartir de Safari para agregar a inicio
-              </p>
-            </div>
-          </div>
-
-          {/* Donations */}
-          <div className="pixel-card">
-            <h4 className="pixel-subtitle">💝 Donaciones</h4>
-            <p style={{ fontSize: '12px', marginBottom: '20px', textAlign: 'left', lineHeight: '2.0' }}>
-              Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
-            </p>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              gap: 'clamp(10px, 3vw, 15px)', 
-              flexWrap: 'wrap',
-              marginTop: '20px'
-            }}>
-              <DonationButton type="jugo" onDonate={handleDonation} />
-              <DonationButton type="pizza" onDonate={handleDonation} />
-              <DonationButton type="libro" onDonate={handleDonation} />
-              <DonationButton type="auto" onDonate={handleDonation} />
-            </div>
-          </div>
-        </div>
-
-        {/* Donation Modal - Only show in config screen */}
-        {showDonationModal && (
-          <div className="modal-overlay">
-            <div className="pixel-card">
-              <h3 className="pixel-subtitle">💝 Donación - Mercado Pago</h3>
-              <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px' }}>
-                {selectedDonation === 'jugo' && '🧃 Jugo - $5.000'}
-                {selectedDonation === 'pizza' && '🍕 Pizza - $10.000'}
-                {selectedDonation === 'libro' && '📚 Libro - $15.000'}
-                {selectedDonation === 'auto' && '🚗 Auto - $20.000'}
-              </p>
-              <p style={{ fontSize: '11px', textAlign: 'center', marginBottom: '20px' }}>
-                Próximamente vincularemos con Mercado Pago para procesar tu donación.
-              </p>
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
-                <button
-                  onClick={() => setShowDonationModal(false)}
-                  className="pixel-button success"
-                >
-                  ✅ Entendido
-                </button>
-                <button
-                  onClick={() => setShowDonationModal(false)}
-                  className="pixel-button"
-                >
-                  ❌ Cancelar
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
-
   // Main app content
   return (
     <div className="pixel-container">
@@ -943,6 +783,161 @@ export default function HomePage() {
           >
             🚪 Salir
           </button>
+        </div>
+      )}
+
+      {/* Show config screen if active */}
+      {showConfigScreen && (
+        <div className="pixel-container" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000, background: 'rgba(0, 0, 0, 0.95)' }}>
+          {/* Background Pixels */}
+          <div className="background-pixels"></div>
+          
+          <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative' }}>
+            {/* Back Button - Inside the main card */}
+            <button 
+              className="back-button" 
+              onClick={() => setShowConfigScreen(false)}
+              style={{ 
+                position: 'absolute', 
+                top: '10px', 
+                left: '10px',
+                zIndex: 10,
+                fontSize: '24px',
+                padding: '8px 12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              ←
+            </button>
+            
+            <h1 className="pixel-title" style={{ 
+              textAlign: 'center', 
+              fontSize: '1.5rem',
+              marginBottom: '20px'
+            }}>Configuración</h1>
+            
+            {/* App Info */}
+            <div className="pixel-card">
+              <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
+              <p style={{ fontSize: '12px', lineHeight: '2.4', marginBottom: '15px' }}>
+                Llave es un gestor de contraseñas seguro con estética pixel art. 
+                Desarrollado 100% con Inteligencia Artificial para ofrecer una experiencia 
+                única y retro.
+              </p>
+              <p style={{ fontSize: '12px', lineHeight: '2.4', marginBottom: '20px' }}>
+                Tecnologías: Next.js, TypeScript, CSS Pixel Art
+              </p>
+              <p style={{ 
+                fontSize: '14px', 
+                lineHeight: '2.4', 
+                marginTop: '20px', 
+                color: 'var(--green-neon)',
+                textAlign: 'center',
+                animation: 'pixel-glow 2s ease-in-out infinite'
+              }}>
+                Desarrollador: Guido Gentile
+              </p>
+            </div>
+
+            {/* Installation Instructions */}
+            <div className="pixel-grid">
+              <div className="pixel-card">
+                <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
+                <div style={{ marginBottom: '20px' }}>
+                  <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.8' }}>
+                    Pasos para instalar:
+                  </p>
+                  <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px', lineHeight: '2.0' }}>
+                    <li style={{ marginBottom: '8px' }}>Abre Chrome o tu navegador</li>
+                    <li style={{ marginBottom: '8px' }}>Ve a la página de Llave</li>
+                    <li style={{ marginBottom: '8px' }}>Toca los tres puntos de la esquina superior</li>
+                    <li style={{ marginBottom: '8px' }}>Selecciona &quot;Instalar aplicación&quot;</li>
+                    <li style={{ marginBottom: '8px' }}>Confirma la instalación</li>
+                  </ol>
+                </div>
+                <div className="android-button" onClick={handleInstallAndroid} style={{ cursor: 'pointer' }}>
+                  <div className="android-logo">🤖</div>
+                  <span>Instalar App</span>
+                </div>
+              </div>
+              
+              <div className="pixel-card">
+                <h4 className="pixel-subtitle">🍎 Instalar en iOS</h4>
+                <div style={{ marginBottom: '20px' }}>
+                  <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.8' }}>
+                    Pasos para instalar:
+                  </p>
+                  <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px', lineHeight: '2.0' }}>
+                    <li style={{ marginBottom: '8px' }}>Abre Safari en tu iPhone/iPad</li>
+                    <li style={{ marginBottom: '8px' }}>Ve a la página de Llave</li>
+                    <li style={{ marginBottom: '8px' }}>Toca el botón compartir</li>
+                    <li style={{ marginBottom: '8px' }}>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
+                    <li style={{ marginBottom: '8px' }}>Confirma y personaliza el nombre</li>
+                  </ol>
+                </div>
+                <p style={{ 
+                  fontSize: '10px', 
+                  textAlign: 'center', 
+                  color: 'var(--blue-electric)',
+                  marginTop: '15px',
+                  fontStyle: 'italic'
+                }}>
+                  Usa el botón compartir de Safari para agregar a inicio
+                </p>
+              </div>
+            </div>
+
+            {/* Donations */}
+            <div className="pixel-card">
+              <h4 className="pixel-subtitle">💝 Donaciones</h4>
+              <p style={{ fontSize: '12px', marginBottom: '20px', textAlign: 'left', lineHeight: '2.0' }}>
+                Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
+              </p>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                gap: 'clamp(10px, 3vw, 15px)', 
+                flexWrap: 'wrap',
+                marginTop: '20px'
+              }}>
+                <DonationButton type="jugo" onDonate={handleDonation} />
+                <DonationButton type="pizza" onDonate={handleDonation} />
+                <DonationButton type="libro" onDonate={handleDonation} />
+                <DonationButton type="auto" onDonate={handleDonation} />
+              </div>
+            </div>
+          </div>
+
+          {/* Donation Modal - Only show in config screen */}
+          {showDonationModal && (
+            <div className="modal-overlay">
+              <div className="modal-content" style={{ overflow: 'visible', maxHeight: 'none' }}>
+                <h3 className="pixel-subtitle">💝 Donación</h3>
+                <p style={{ fontSize: '12px', marginBottom: '20px', textAlign: 'left' }}>
+                  ¿Estás seguro de que quieres hacer una donación de {selectedDonation}?
+                </p>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+                  <button
+                    onClick={() => {
+                      setShowDonationModal(false);
+                      setSelectedDonation("");
+                    }}
+                    className="pixel-button success"
+                  >
+                    ✅ Entendido
+                  </button>
+                  <button
+                    onClick={() => setShowDonationModal(false)}
+                    className="pixel-button"
+                  >
+                    ❌ Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
