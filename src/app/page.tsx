@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from '@/lib/supabase'
+import { supabase, signInWithGoogle, signOut } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 import SplashScreen from "@/components/SplashScreen";
+import AuthDebugger from "@/components/AuthDebugger";
 
 export default function HomePage() {
   const router = useRouter()
@@ -41,18 +42,22 @@ export default function HomePage() {
   }, [])
 
   const handleLogin = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google'
-    })
-
-    if (error) {
+    try {
+      await signInWithGoogle()
+    } catch (error) {
       console.error('Error signing in:', error)
+      // Mostrar mensaje de error al usuario
+      alert('Error al iniciar sesión. Verifica la configuración de Google OAuth.')
     }
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    setIsLoggedIn(false);
+    try {
+      await signOut()
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.error('Error signing out:', error)
+    }
   };
 
   const togglePasswordVisibility = (id: number) => {
@@ -188,6 +193,9 @@ export default function HomePage() {
       <div className="pixel-container">
         {/* Background Pixels */}
         <div className="background-pixels"></div>
+        
+        {/* Auth Debugger */}
+        <AuthDebugger />
         
         {/* Login Screen - Only Button */}
     <div style={{ 
@@ -409,6 +417,9 @@ export default function HomePage() {
     <div className="pixel-container">
       {/* Background Pixels */}
       <div className="background-pixels"></div>
+      
+      {/* Auth Debugger */}
+      <AuthDebugger />
       
       <div className="pixel-card pixel-fade-in">
         {/* Header - Only Text */}

@@ -1,6 +1,43 @@
 import { createClient } from '@supabase/supabase-js'
+import { authConfig, validateAuthConfig } from './auth-config'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://jlmfkgmluwkbfcapjsni.supabase.co'
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsbWZrZ21sdXdrYmZjYXBqc25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0NTU3ODIsImV4cCI6MjA3MzAzMTc4Mn0.RKNUviCI45FL5C80OK5EfY6rq42hxc7l2e7Er9ooipg'
+// Validar configuración al importar
+const configValidation = validateAuthConfig()
+if (!configValidation.isValid) {
+  console.warn('⚠️ Configuración de autenticación incompleta:', configValidation.errors)
+}
+
+const supabaseUrl = authConfig.supabase.url
+const supabaseAnonKey = authConfig.supabase.anonKey
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+// Función helper para login con Google
+export async function signInWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: authConfig.google.redirectUrl,
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+    }
+  })
+
+  if (error) {
+    console.error('Error signing in with Google:', error)
+    throw error
+  }
+
+  return data
+}
+
+// Función helper para logout
+export async function signOut() {
+  const { error } = await supabase.auth.signOut()
+  if (error) {
+    console.error('Error signing out:', error)
+    throw error
+  }
+}
