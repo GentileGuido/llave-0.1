@@ -113,6 +113,16 @@ export default function HomePage() {
     ));
   };
 
+  const copyPassword = async (password: string) => {
+    try {
+      await navigator.clipboard.writeText(password);
+      // Mostrar feedback visual (opcional)
+      console.log('Contraseña copiada al portapapeles');
+    } catch (error) {
+      console.error('Error al copiar:', error);
+    }
+  };
+
   const handleAddPassword = () => {
     if (newSite && newPassword) {
       const newId = Math.max(...passwords.map(p => p.id)) + 1;
@@ -579,7 +589,7 @@ export default function HomePage() {
                   </>
                 ) : (
                   <>
-                    <p style={{ margin: '0 0 5px 0', fontSize: '14px' }}>{item.site}</p>
+                    <p className="password-title">{item.site}</p>
                     <p style={{ margin: '0', fontSize: '12px' }}>{item.visible ? item.password : "••••••••"}</p>
                   </>
                 )}
@@ -601,6 +611,13 @@ export default function HomePage() {
                       title="Ver contraseña"
                     >
                       👁️
+                    </button>
+                    <button 
+                      className="icon-button copy"
+                      onClick={() => copyPassword(item.password)}
+                      title="Copiar contraseña"
+                    >
+                      📎
                     </button>
                     <button 
                       className="icon-button edit"
@@ -627,7 +644,7 @@ export default function HomePage() {
       {/* Delete Confirmation Modal */}
       {deletingId && (
         <div className="modal-overlay">
-          <div className="pixel-card">
+          <div className="pixel-card" style={{ overflow: 'visible', maxHeight: 'none' }}>
             <h3 className="pixel-subtitle">🗑️ Confirmar Eliminación</h3>
             <p style={{ fontSize: '12px', textAlign: 'center', marginBottom: '20px' }}>
               ¿Quieres eliminar esta contraseña?
