@@ -156,11 +156,15 @@ export default function HomePage() {
       try {
         console.log('➕ Agregando nueva contraseña...')
         const newPasswordData = await addPassword(user.id, newSite.trim(), newPassword.trim())
-        setPasswords(prev => [newPasswordData, ...prev])
-        setNewSite("")
-        setNewPassword("")
-        setShowAddModal(false)
-        console.log('✅ Contraseña agregada')
+        if (newPasswordData) {
+          setPasswords(prev => [newPasswordData, ...prev])
+          setNewSite("")
+          setNewPassword("")
+          setShowAddModal(false)
+          console.log('✅ Contraseña agregada')
+        } else {
+          console.error('❌ Error: No se pudo crear la contraseña')
+        }
       } catch (error) {
         console.error('❌ Error adding password:', error)
       }
@@ -172,11 +176,15 @@ export default function HomePage() {
       try {
         console.log('💾 Guardando edición...')
         const updatedPassword = await updatePassword(editingId, editSite.trim(), editPassword.trim())
-        setPasswords(prev => prev.map(p => p.id === editingId ? updatedPassword : p))
-        setEditingId(null)
-        setEditSite("")
-        setEditPassword("")
-        console.log('✅ Contraseña actualizada')
+        if (updatedPassword) {
+          setPasswords(prev => prev.map(p => p.id === editingId ? updatedPassword : p))
+          setEditingId(null)
+          setEditSite("")
+          setEditPassword("")
+          console.log('✅ Contraseña actualizada')
+        } else {
+          console.error('❌ Error: No se pudo actualizar la contraseña')
+        }
       } catch (error) {
         console.error('❌ Error updating password:', error)
       }
