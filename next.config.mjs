@@ -5,10 +5,6 @@ const nextConfig = {
   experimental: {
     outputFileTracingRoot: undefined,
   },
-  // Configurar el dominio correcto para producción
-  env: {
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://llaveapp.com',
-  },
   // Configurar headers para evitar problemas de CORS
   async headers() {
     return [
@@ -22,10 +18,6 @@ const nextConfig = {
         ],
       },
     ];
-  },
-  // Configurar el puerto para Railway
-  server: {
-    port: process.env.PORT || 8080,
   },
 };
 
