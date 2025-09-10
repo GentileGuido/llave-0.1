@@ -99,7 +99,8 @@ export default function AuthDebugger() {
         <div className="pixel-card" style={{ marginBottom: '15px' }}>
           <h4 className="pixel-subtitle">📋 Configuración</h4>
           <div style={{ fontSize: '11px', fontFamily: 'monospace' }}>
-            <p><strong>Configuración válida:</strong> {debugInfo.configValidation?.isValid ? '✅ Sí' : '❌ No'}</p>
+            <p><strong>Supabase URL:</strong> {debugInfo.configValidation?.isValid ? '✅ Configurado' : '❌ No configurado'}</p>
+            <p><strong>Google OAuth:</strong> {debugInfo.configValidation?.hasGoogleConfig ? '✅ Configurado en servidor' : '❌ No configurado'}</p>
             {debugInfo.configValidation?.errors?.map((error: string, index: number) => (
               <p key={index} style={{ color: 'var(--red-neon)' }}>❌ {error}</p>
             ))}

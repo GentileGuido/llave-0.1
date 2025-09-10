@@ -12,18 +12,11 @@ export const authConfig = {
   }
 }
 
-// Validar configuración
+// Validar configuración (solo variables públicas)
 export function validateAuthConfig() {
   const errors: string[] = []
   
-  if (!authConfig.google.clientId) {
-    errors.push('GOOGLE_CLIENT_ID no está configurado')
-  }
-  
-  if (!authConfig.google.clientSecret) {
-    errors.push('GOOGLE_CLIENT_SECRET no está configurado')
-  }
-  
+  // Solo validar variables públicas (disponibles en el cliente)
   if (!authConfig.supabase.url) {
     errors.push('NEXT_PUBLIC_SUPABASE_URL no está configurado')
   }
@@ -32,8 +25,15 @@ export function validateAuthConfig() {
     errors.push('NEXT_PUBLIC_SUPABASE_ANON_KEY no está configurado')
   }
   
+  // Las credenciales de Google se validan en el servidor
+  const hasGoogleConfig = authConfig.google.clientId && authConfig.google.clientSecret
+  if (!hasGoogleConfig) {
+    errors.push('Google OAuth no configurado en el servidor')
+  }
+  
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
+    hasGoogleConfig
   }
 }
