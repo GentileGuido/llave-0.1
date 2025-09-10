@@ -40,6 +40,54 @@ export default function HomePage() {
     return () => subscription.unsubscribe()
   }, [])
 
+  // Process auth token from URL hash
+  useEffect(() => {
+    const processAuthToken = async () => {
+      const hash = window.location.hash
+      if (hash.includes('access_token=')) {
+        console.log('🔍 Procesando token de autenticación desde URL')
+        
+        try {
+          // Extraer el token del hash
+          const urlParams = new URLSearchParams(hash.substring(1))
+          const accessToken = urlParams.get('access_token')
+          const refreshToken = urlParams.get('refresh_token')
+          
+          if (accessToken && refreshToken) {
+            // Establecer la sesión manualmente
+            const { data, error } = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: refreshToken
+            })
+            
+            if (error) {
+              console.error('❌ Error estableciendo sesión:', error)
+            } else if (data.session) {
+              console.log('✅ Sesión establecida exitosamente:', data.session.user?.email)
+              setIsLoggedIn(true)
+              
+              // Limpiar la URL
+              window.history.replaceState({}, document.title, window.location.pathname)
+            }
+          }
+        } catch (error) {
+          console.error('❌ Error procesando token:', error)
+        }
+      }
+    }
+
+    // Verificar si estamos procesando autenticación
+    const urlParams = new URLSearchParams(window.location.search)
+    if (urlParams.get('auth_processing') === 'true') {
+      processAuthToken()
+      
+      // Limpiar el parámetro de la URL
+      const newUrl = new URL(window.location.href)
+      newUrl.searchParams.delete('auth_processing')
+      window.history.replaceState({}, document.title, newUrl.toString())
+    }
+  }, [])
+
   const handleLogin = async () => {
     try {
       await signInWithGoogle()

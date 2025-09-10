@@ -51,6 +51,8 @@ export async function GET(request: Request) {
     }
   }
 
-  console.log('⚠️ No se recibió código de autorización')
-  return NextResponse.redirect(`${publicOrigin}/auth/auth-code-error?error=no_code`)
+  // Si no hay código, pero hay un token en el hash, redirigir a la página principal
+  // para que el cliente lo procese
+  console.log('⚠️ No se recibió código de autorización, redirigiendo a página principal')
+  return NextResponse.redirect(`${publicOrigin}/?auth_processing=true`)
 }
