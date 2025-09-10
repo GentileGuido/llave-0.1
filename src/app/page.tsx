@@ -453,12 +453,6 @@ export default function HomePage() {
     );
   }
 
-  // Main app content
-  return (
-    <div className="pixel-container">
-      {/* Background Pixels */}
-      <div className="background-pixels"></div>
-      
       {/* Show main app content if logged in */}
       {isLoggedIn && (
         <div className="pixel-card pixel-fade-in">
@@ -940,6 +934,7 @@ export default function HomePage() {
             </div>
           )}
         </div>
+      )}
       )}
     </div>
   );
