@@ -425,7 +425,7 @@ export default function HomePage() {
       
       {/* Show main app content if logged in */}
       {isLoggedIn && (
-        <div className="pixel-card pixel-fade-in">
+        <div className="pixel-fade-in">
           {/* Header */}
           <div style={{ 
             textAlign: 'center', 
@@ -439,7 +439,7 @@ export default function HomePage() {
               margin: '5px 0 0 0', 
               fontSize: 'clamp(0.8rem, 2.5vw, 1rem)' 
             }}>
-              🛡️ Seguridad pixelada garantizada
+              🛡️ Seguridad pixelada garantizada 🛡️
             </p>
           </div>
 
@@ -597,9 +597,11 @@ export default function HomePage() {
                       </div>
                       <div style={{ 
                         display: 'flex', 
-                        justifyContent: 'center', 
-                        gap: 'clamp(6px, 1.5vw, 10px)',
-                        flexWrap: 'wrap'
+                        justifyContent: 'flex-start', 
+                        gap: 'clamp(4px, 1vw, 8px)',
+                        flexWrap: 'nowrap',
+                        marginTop: '8px',
+                        alignItems: 'center'
                       }}>
                         <button
                           onClick={() => copyPassword(password.password)}
@@ -752,29 +754,36 @@ export default function HomePage() {
               
               <div className="pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative', paddingBottom: '50px' }}>
                 {/* Back Button - Inside the main card */}
+                <h1 className="pixel-title" style={{ 
+                  textAlign: 'center', 
+                  fontSize: 'clamp(1rem, 3vw, 1.2rem)',
+                  marginBottom: '20px'
+                }}>Configuración</h1>
+                
+                {/* Back Button - Outside the card, top left */}
                 <button 
                   className="back-button" 
                   onClick={() => setShowConfigScreen(false)}
                   style={{ 
-                    position: 'absolute', 
-                    top: '10px', 
-                    left: '10px',
-                    zIndex: 10,
-                    fontSize: '24px',
-                    padding: '8px 12px',
+                    position: 'absolute',
+                    top: '20px',
+                    left: '20px',
+                    fontSize: '20px',
+                    padding: '6px 10px',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    backgroundColor: 'var(--purple-neon)',
+                    border: '1px solid var(--purple-neon)',
+                    color: 'var(--text-white)',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    zIndex: 10
                   }}
                 >
                   ←
                 </button>
-                
-                <h1 className="pixel-title" style={{ 
-                  textAlign: 'center', 
-                  fontSize: '1.5rem',
-                  marginBottom: '20px'
-                }}>Configuración</h1>
                 
                 {/* App Info */}
                 <div className="pixel-card">
@@ -802,7 +811,7 @@ export default function HomePage() {
                 {/* Installation Instructions */}
                 <div className="pixel-grid">
                   <div className="pixel-card">
-                    <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
+                    <h4 className="pixel-subtitle">Instalar en Android</h4>
                     <div style={{ marginBottom: '20px' }}>
                       <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.8' }}>
                         Pasos para instalar:
@@ -822,7 +831,7 @@ export default function HomePage() {
                   </div>
                   
                   <div className="pixel-card">
-                    <h4 className="pixel-subtitle">🍎 Instalar en iOS</h4>
+                    <h4 className="pixel-subtitle">Instalar en iOS</h4>
                     <div style={{ marginBottom: '20px' }}>
                       <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.8' }}>
                         Pasos para instalar:

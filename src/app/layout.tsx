@@ -4,9 +4,6 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Llave - Gestor de Contraseñas',
   description: 'El gestor de contraseñas que necesitabas',
-  manifest: '/manifest.json',
-  themeColor: '#00ff41',
-  viewport: 'width=device-width, initial-scale=1',
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
@@ -19,6 +16,12 @@ export const metadata: Metadata = {
   }
 }
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#00ff41',
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -28,6 +31,7 @@ export default function RootLayout({
     <html lang="es">
       <head>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗝️</text></svg>" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
