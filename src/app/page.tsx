@@ -7,6 +7,12 @@ import { useRouter } from 'next/navigation'
 import SplashScreen from "@/components/SplashScreen";
 import DonationButton from "@/components/DonationButton";
 
+// Define BeforeInstallPromptEvent type
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
 export default function HomePage() {
   const router = useRouter()
   const [isLoggedIn, setIsLoggedIn] = useState(false);
