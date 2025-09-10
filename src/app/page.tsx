@@ -768,29 +768,24 @@ export default function HomePage() {
                   marginBottom: '20px'
                 }}>Configuración</h1>
                 
-                {/* Back Button - Outside the card, top left */}
+                {/* Back Button - Positioned relative to green perimeter */}
                 <button 
-                  className="back-button" 
+                  className="pixel-button" 
                   onClick={() => setShowConfigScreen(false)}
                   style={{ 
                     position: 'absolute',
-                    top: '10px',
+                    top: '23px',
                     left: '10px',
-                    fontSize: '18px',
-                    padding: '4px 8px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    fontSize: '12px',
+                    padding: '6px 12px',
                     backgroundColor: 'var(--purple-neon)',
                     border: '1px solid var(--purple-neon)',
                     color: 'var(--text-white)',
-                    borderRadius: '4px',
                     cursor: 'pointer',
-                    transition: 'all 0.3s ease',
                     zIndex: 10
                   }}
                 >
-                  ←
+                  BACK
                 </button>
                 
                 {/* App Info */}
