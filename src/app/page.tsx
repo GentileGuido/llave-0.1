@@ -865,8 +865,16 @@ export default function HomePage() {
               </div>
 
               {/* Back Button - Después del bloque de donaciones */}
-              <div className="pixel-card" style={{ marginTop: '20px' }}>
-                <div style={{ textAlign: 'center' }}>
+              <div style={{ 
+                marginTop: '20px',
+                display: 'flex',
+                justifyContent: 'center'
+              }}>
+                <div style={{
+                  border: '1px solid var(--green-neon)',
+                  padding: '3px',
+                  display: 'inline-block'
+                }}>
                   <button 
                     className="pixel-button" 
                     onClick={() => setShowConfigScreen(false)}
