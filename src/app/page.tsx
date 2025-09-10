@@ -528,22 +528,14 @@ export default function HomePage() {
                   />
                 )}
                 <div>
-                  <p style={{ 
-                    margin: '0', 
-                    fontSize: '10px', 
-                    color: 'var(--green-neon)',
-                    fontWeight: 'bold'
-                  }}>
-                    {user.user_metadata?.full_name || user.email}
-                  </p>
-                  <p style={{ 
-                    margin: '0', 
-                    fontSize: '8px', 
-                    color: 'var(--blue-electric)',
-                    opacity: 0.8
-                  }}>
-                    {user.email}
-                  </p>
+                         <p style={{ 
+                           margin: '0', 
+                           fontSize: '10px', 
+                           color: 'var(--green-neon)',
+                           fontWeight: 'bold'
+                         }}>
+                           {user.user_metadata?.full_name || user.email}
+                         </p>
                 </div>
               </div>
               
