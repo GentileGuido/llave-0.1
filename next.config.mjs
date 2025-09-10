@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = { 
+const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   experimental: {
@@ -22,6 +22,10 @@ const nextConfig = {
         ],
       },
     ];
+  },
+  // Configurar el puerto para Railway
+  server: {
+    port: process.env.PORT || 8080,
   },
 };
 

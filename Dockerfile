@@ -20,7 +20,7 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=8080
 ENV HOSTNAME="0.0.0.0"
 
 # Security: create non-root user
@@ -34,7 +34,7 @@ COPY --from=base --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-EXPOSE 3000
+EXPOSE 8080
 
 # Use the correct start command
 CMD ["npm", "start"]
