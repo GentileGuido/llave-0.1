@@ -762,28 +762,6 @@ export default function HomePage() {
               
               <div className="pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative', paddingBottom: '50px' }}>
                 {/* Back Button - Inside the main card */}
-                {/* Back Button - Centered at bottom */}
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'center', 
-                  marginTop: '30px',
-                  paddingBottom: '20px'
-                }}>
-                  <button 
-                    className="pixel-button" 
-                    onClick={() => setShowConfigScreen(false)}
-                    style={{ 
-                      fontSize: '14px',
-                      padding: '8px 16px',
-                      backgroundColor: 'var(--purple-neon)',
-                      border: '1px solid var(--purple-neon)',
-                      color: 'var(--text-white)',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    BACK
-                  </button>
-                </div>
                 
                 <h1 className="pixel-title" style={{ 
                   textAlign: 'center', 
@@ -914,6 +892,29 @@ export default function HomePage() {
                   </div>
                 </div>
               )}
+              
+              {/* Back Button - AL FINAL DE TODO */}
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                marginTop: '30px',
+                paddingBottom: '20px'
+              }}>
+                <button 
+                  className="pixel-button" 
+                  onClick={() => setShowConfigScreen(false)}
+                  style={{ 
+                    fontSize: '14px',
+                    padding: '8px 16px',
+                    backgroundColor: 'var(--purple-neon)',
+                    border: '1px solid var(--purple-neon)',
+                    color: 'var(--text-white)',
+                    cursor: 'pointer'
+                  }}
+                >
+                  BACK
+                </button>
+              </div>
             </div>
           )}
         </div>
