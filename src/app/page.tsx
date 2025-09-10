@@ -482,78 +482,15 @@ export default function HomePage() {
       
       
       <div className="pixel-card pixel-fade-in">
-        {/* Header with User Info and Logout */}
+        {/* Header */}
         <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          marginBottom: '20px',
-          flexWrap: 'wrap',
-          gap: '10px'
+          textAlign: 'center', 
+          marginBottom: '20px'
         }}>
-          <div style={{ flex: 1, minWidth: '200px' }}>
-            <h1 className="pixel-title" style={{ margin: '0', fontSize: '2rem' }}>LLAVE</h1>
-            <p className="pixel-subtitle" style={{ margin: '5px 0 0 0', fontSize: '0.8rem' }}>
-              El gestor de contraseñas que necesitabas
-            </p>
-          </div>
-          
-          {user && (
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '15px',
-              flexWrap: 'wrap'
-            }}>
-              {/* User Info */}
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px',
-                backgroundColor: 'rgba(0, 255, 65, 0.1)',
-                padding: '8px 12px',
-                borderRadius: '8px',
-                border: '1px solid var(--green-neon)'
-              }}>
-                {user.user_metadata?.avatar_url && (
-                  <img 
-                    src={user.user_metadata.avatar_url} 
-                    alt="Avatar" 
-                    style={{ 
-                      width: '24px', 
-                      height: '24px', 
-                      borderRadius: '50%',
-                      border: '1px solid var(--green-neon)'
-                    }} 
-                  />
-                )}
-                <div>
-                         <p style={{ 
-                           margin: '0', 
-                           fontSize: '10px', 
-                           color: 'var(--green-neon)',
-                           fontWeight: 'bold'
-                         }}>
-                           {user.user_metadata?.full_name || user.email}
-                         </p>
-                </div>
-              </div>
-              
-              {/* Logout Button */}
-              <button
-                onClick={handleLogout}
-                className="pixel-button danger"
-                style={{
-                  fontSize: '10px',
-                  padding: '8px 12px',
-                  minWidth: '80px'
-                }}
-                title="Cerrar sesión"
-              >
-                🚪 Salir
-              </button>
-            </div>
-          )}
+          <h1 className="pixel-title" style={{ margin: '0', fontSize: '2rem' }}>LLAVE</h1>
+          <p className="pixel-subtitle" style={{ margin: '5px 0 0 0', fontSize: '0.8rem' }}>
+            El gestor de contraseñas que necesitabas
+          </p>
         </div>
         
         {/* Controls - Compact Two Rows */}
@@ -784,6 +721,66 @@ export default function HomePage() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* User Info and Logout - Centered at bottom */}
+      {user && (
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          gap: '15px',
+          marginTop: '30px',
+          flexWrap: 'wrap'
+        }}>
+          {/* User Info */}
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '8px',
+            backgroundColor: 'rgba(0, 255, 65, 0.1)',
+            padding: '8px 12px',
+            borderRadius: '8px',
+            border: '1px solid var(--green-neon)'
+          }}>
+            {user.user_metadata?.avatar_url && (
+              <img 
+                src={user.user_metadata.avatar_url} 
+                alt="Avatar" 
+                style={{ 
+                  width: '24px', 
+                  height: '24px', 
+                  borderRadius: '50%',
+                  border: '1px solid var(--green-neon)'
+                }} 
+              />
+            )}
+            <div>
+              <p style={{ 
+                margin: '0', 
+                fontSize: '10px', 
+                color: 'var(--green-neon)',
+                fontWeight: 'bold'
+              }}>
+                {user.user_metadata?.full_name || user.email}
+              </p>
+            </div>
+          </div>
+          
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout}
+            className="pixel-button danger"
+            style={{
+              fontSize: '10px',
+              padding: '8px 12px',
+              minWidth: '80px'
+            }}
+            title="Cerrar sesión"
+          >
+            🚪 Salir
+          </button>
         </div>
       )}
     </div>
