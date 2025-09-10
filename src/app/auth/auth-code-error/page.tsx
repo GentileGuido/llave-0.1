@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function AuthCodeError() {
+function AuthCodeErrorContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [errorDetails, setErrorDetails] = useState<string>('');
@@ -108,5 +108,28 @@ export default function AuthCodeError() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthCodeError() {
+  return (
+    <Suspense fallback={
+      <div className="pixel-container">
+        <div className="background-pixels"></div>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '100vh',
+          textAlign: 'center'
+        }}>
+          <div className="pixel-card">
+            <h1 className="pixel-title">Cargando...</h1>
+          </div>
+        </div>
+      </div>
+    }>
+      <AuthCodeErrorContent />
+    </Suspense>
   );
 }
