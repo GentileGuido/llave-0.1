@@ -479,7 +479,7 @@ export default function HomePage() {
                 📝 No hay contraseñas guardadas
               </p>
               <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '10px' }}>
-                Haz clic en "➕ Agregar" para crear tu primera contraseña
+                Haz clic en &quot;➕ Agregar&quot; para crear tu primera contraseña
               </p>
             </div>
           ) : (
@@ -777,7 +777,7 @@ export default function HomePage() {
                         <li style={{ marginBottom: '8px' }}>Abre Chrome o tu navegador</li>
                         <li style={{ marginBottom: '8px' }}>Ve a la página de Llave</li>
                         <li style={{ marginBottom: '8px' }}>Toca los tres puntos de la esquina superior</li>
-                        <li style={{ marginBottom: '8px' }}>Selecciona "Instalar aplicación"</li>
+                        <li style={{ marginBottom: '8px' }}>Selecciona &quot;Instalar aplicación&quot;</li>
                         <li style={{ marginBottom: '8px' }}>Confirma la instalación</li>
                       </ol>
                     </div>
@@ -797,7 +797,7 @@ export default function HomePage() {
                         <li style={{ marginBottom: '8px' }}>Abre Safari en tu iPhone/iPad</li>
                         <li style={{ marginBottom: '8px' }}>Ve a la página de Llave</li>
                         <li style={{ marginBottom: '8px' }}>Toca el botón compartir</li>
-                        <li style={{ marginBottom: '8px' }}>Selecciona "Agregar a pantalla de inicio"</li>
+                        <li style={{ marginBottom: '8px' }}>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
                         <li style={{ marginBottom: '8px' }}>Confirma y personaliza el nombre</li>
                       </ol>
                     </div>
