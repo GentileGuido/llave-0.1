@@ -864,6 +864,26 @@ export default function HomePage() {
                 </div>
               </div>
 
+              {/* Back Button - Después del bloque de donaciones */}
+              <div className="pixel-card" style={{ marginTop: '20px' }}>
+                <div style={{ textAlign: 'center' }}>
+                  <button 
+                    className="pixel-button" 
+                    onClick={() => setShowConfigScreen(false)}
+                    style={{ 
+                      fontSize: '14px',
+                      padding: '8px 16px',
+                      backgroundColor: 'var(--purple-neon)',
+                      border: '1px solid var(--purple-neon)',
+                      color: 'var(--text-white)',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    BACK
+                  </button>
+                </div>
+              </div>
+
               {/* Donation Modal - Only show in config screen */}
               {showDonationModal && (
                 <div className="modal-overlay">
@@ -892,29 +912,6 @@ export default function HomePage() {
                   </div>
                 </div>
               )}
-              
-              {/* Back Button - AL FINAL DE TODO */}
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                marginTop: '30px',
-                paddingBottom: '20px'
-              }}>
-                <button 
-                  className="pixel-button" 
-                  onClick={() => setShowConfigScreen(false)}
-                  style={{ 
-                    fontSize: '14px',
-                    padding: '8px 16px',
-                    backgroundColor: 'var(--purple-neon)',
-                    border: '1px solid var(--purple-neon)',
-                    color: 'var(--text-white)',
-                    cursor: 'pointer'
-                  }}
-                >
-                  BACK
-                </button>
-              </div>
             </div>
           )}
         </div>
