@@ -740,7 +740,7 @@ export default function HomePage() {
                       placeholder="Sitio"
                     />
                     <input
-                      type="password"
+                      type="text"
                       value={editPassword}
                       onChange={(e) => setEditPassword(e.target.value)}
                       className="pixel-input"
@@ -842,7 +842,7 @@ export default function HomePage() {
                 className="pixel-input"
               />
               <input
-                type="password"
+                type="text"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Contraseña"
