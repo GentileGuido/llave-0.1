@@ -10,6 +10,8 @@ export async function GET(request: Request) {
   // Forzar el uso de la URL pública
   const publicOrigin = process.env.NEXT_PUBLIC_SITE_URL || 'https://llaveapp.com'
 
+  console.log('🔍 Auth callback recibido:', { code: !!code, next })
+
   if (code) {
     const cookieStore = cookies()
     
@@ -28,11 +30,27 @@ export async function GET(request: Request) {
       }
     )
     
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) {
-      return NextResponse.redirect(`${publicOrigin}${next}`)
+    try {
+      const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+      
+      if (error) {
+        console.error('❌ Error en exchangeCodeForSession:', error)
+        return NextResponse.redirect(`${publicOrigin}/auth/auth-code-error?error=${encodeURIComponent(error.message)}`)
+      }
+      
+      if (data.session) {
+        console.log('✅ Sesión creada exitosamente:', data.session.user?.email)
+        return NextResponse.redirect(`${publicOrigin}${next}`)
+      } else {
+        console.log('⚠️ No se creó sesión')
+        return NextResponse.redirect(`${publicOrigin}/auth/auth-code-error?error=no_session`)
+      }
+    } catch (error) {
+      console.error('❌ Error inesperado:', error)
+      return NextResponse.redirect(`${publicOrigin}/auth/auth-code-error?error=unexpected`)
     }
   }
 
-  return NextResponse.redirect(`${publicOrigin}/auth/auth-code-error`)
+  console.log('⚠️ No se recibió código de autorización')
+  return NextResponse.redirect(`${publicOrigin}/auth/auth-code-error?error=no_code`)
 }
