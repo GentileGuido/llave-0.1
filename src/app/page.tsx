@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import { supabase, signInWithGoogle, signOut } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 import SplashScreen from "@/components/SplashScreen";
+import DonationButton from "@/components/DonationButton";
 
 export default function HomePage() {
   const router = useRouter()
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<any>(null);
   const [passwords, setPasswords] = useState([
     { id: 1, site: "ejemplo.com", password: "ejemplo123", visible: false },
   ]);
@@ -29,12 +31,14 @@ export default function HomePage() {
     const checkUser = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       setIsLoggedIn(!!user)
+      setUser(user)
     }
     checkUser()
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setIsLoggedIn(!!session?.user)
+      setUser(session?.user || null)
     })
 
     return () => subscription.unsubscribe()
@@ -65,6 +69,7 @@ export default function HomePage() {
             } else if (data.session) {
               console.log('✅ Sesión establecida exitosamente:', data.session.user?.email)
               setIsLoggedIn(true)
+              setUser(data.session.user)
               
               // Limpiar la URL
               window.history.replaceState({}, document.title, window.location.pathname)
@@ -102,6 +107,7 @@ export default function HomePage() {
     try {
       await signOut()
       setIsLoggedIn(false);
+      setUser(null);
     } catch (error) {
       console.error('Error signing out:', error)
     }
@@ -162,9 +168,29 @@ export default function HomePage() {
     setDeletingId(id);
   };
 
-  const handleDonation = (type: string) => {
-    setSelectedDonation(type);
-    setShowDonationModal(true);
+  const handleDonation = async (type: string, amount: number) => {
+    try {
+      const response = await fetch('/api/create-preference', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ type, amount }),
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.init_point) {
+        // Redirigir a Mercado Pago
+        window.location.href = data.init_point;
+      } else {
+        console.error('Error creating preference:', data.error);
+        alert('Error al procesar la donación. Intenta nuevamente.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error al procesar la donación. Intenta nuevamente.');
+    }
   };
 
   const sortedPasswords = [...passwords].sort((a, b) => {
@@ -320,10 +346,15 @@ export default function HomePage() {
               position: 'absolute', 
               top: '10px', 
               left: '10px',
-              zIndex: 10
+              zIndex: 10,
+              fontSize: '24px',
+              padding: '8px 12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
-            🔙
+            ←
           </button>
           
           <h1 className="pixel-title" style={{ textAlign: 'center' }}>Configuración</h1>
@@ -401,34 +432,10 @@ export default function HomePage() {
               Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
-              <button 
-                onClick={() => handleDonation('jugo')}
-                className="pixel-button" 
-                style={{ fontSize: '10px' }}
-              >
-                🧃 Jugo
-              </button>
-              <button 
-                onClick={() => handleDonation('pizza')}
-                className="pixel-button" 
-                style={{ fontSize: '10px' }}
-              >
-                🍕 Pizza
-              </button>
-              <button 
-                onClick={() => handleDonation('libro')}
-                className="pixel-button" 
-                style={{ fontSize: '10px' }}
-              >
-                📚 Libro
-              </button>
-              <button 
-                onClick={() => handleDonation('auto')}
-                className="pixel-button" 
-                style={{ fontSize: '10px' }}
-              >
-                🚗 Auto
-              </button>
+              <DonationButton type="jugo" onDonate={handleDonation} />
+              <DonationButton type="pizza" onDonate={handleDonation} />
+              <DonationButton type="libro" onDonate={handleDonation} />
+              <DonationButton type="auto" onDonate={handleDonation} />
             </div>
           </div>
         </div>
@@ -475,9 +482,87 @@ export default function HomePage() {
       
       
       <div className="pixel-card pixel-fade-in">
-        {/* Header - Only Text */}
-        <h1 className="pixel-title">LLAVE</h1>
-        <p className="pixel-subtitle">El gestor de contraseñas que necesitabas</p>
+        {/* Header with User Info and Logout */}
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center', 
+          marginBottom: '20px',
+          flexWrap: 'wrap',
+          gap: '10px'
+        }}>
+          <div style={{ flex: 1, minWidth: '200px' }}>
+            <h1 className="pixel-title" style={{ margin: '0', fontSize: '2rem' }}>LLAVE</h1>
+            <p className="pixel-subtitle" style={{ margin: '5px 0 0 0', fontSize: '0.8rem' }}>
+              El gestor de contraseñas que necesitabas
+            </p>
+          </div>
+          
+          {user && (
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '15px',
+              flexWrap: 'wrap'
+            }}>
+              {/* User Info */}
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '8px',
+                backgroundColor: 'rgba(0, 255, 65, 0.1)',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                border: '1px solid var(--green-neon)'
+              }}>
+                {user.user_metadata?.avatar_url && (
+                  <img 
+                    src={user.user_metadata.avatar_url} 
+                    alt="Avatar" 
+                    style={{ 
+                      width: '24px', 
+                      height: '24px', 
+                      borderRadius: '50%',
+                      border: '1px solid var(--green-neon)'
+                    }} 
+                  />
+                )}
+                <div>
+                  <p style={{ 
+                    margin: '0', 
+                    fontSize: '10px', 
+                    color: 'var(--green-neon)',
+                    fontWeight: 'bold'
+                  }}>
+                    {user.user_metadata?.full_name || user.email}
+                  </p>
+                  <p style={{ 
+                    margin: '0', 
+                    fontSize: '8px', 
+                    color: 'var(--blue-electric)',
+                    opacity: 0.8
+                  }}>
+                    {user.email}
+                  </p>
+                </div>
+              </div>
+              
+              {/* Logout Button */}
+              <button
+                onClick={handleLogout}
+                className="pixel-button danger"
+                style={{
+                  fontSize: '10px',
+                  padding: '8px 12px',
+                  minWidth: '80px'
+                }}
+                title="Cerrar sesión"
+              >
+                🚪 Salir
+              </button>
+            </div>
+          )}
+        </div>
         
         {/* Controls - Compact Two Rows */}
         <div style={{ 
@@ -594,7 +679,7 @@ export default function HomePage() {
                   </>
                 )}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
                 {editingId === item.id ? (
                   <button 
                     className="icon-button edit"
@@ -670,7 +755,7 @@ export default function HomePage() {
       {/* Add Modal */}
       {showAddModal && (
         <div className="modal-overlay">
-          <div className="pixel-card">
+          <div className="pixel-card" style={{ overflow: 'visible', maxHeight: 'none' }}>
             <h3 className="pixel-subtitle">➕ Agregar Contraseña</h3>
             <div className="pixel-grid">
               <input
