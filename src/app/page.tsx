@@ -42,9 +42,20 @@ export default function HomePage() {
   }, [])
 
   const handleLogin = async () => {
+<<<<<<< HEAD
     try {
       await signInWithGoogle()
     } catch (error) {
+=======
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`
+      }
+    })
+
+    if (error) {
+>>>>>>> 1922e5fafa62183cd57a3e0508dc4c1b82ff67e2
       console.error('Error signing in:', error)
       // Mostrar mensaje de error al usuario
       alert('Error al iniciar sesión. Verifica la configuración de Google OAuth.')

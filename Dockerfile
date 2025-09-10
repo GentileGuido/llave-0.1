@@ -12,8 +12,7 @@ RUN npm ci --only=production --no-audit --no-fund
 # Copy all source files
 COPY . .
 
-# Generate Prisma client and build
-RUN npx prisma generate
+# Build the application
 RUN npm run build
 
 # Production stage
