@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { supabase, signInWithGoogle, signOut } from '@/lib/supabase'
+import { getPasswords, addPassword, updatePassword, deletePassword, Password } from '@/lib/supabase-passwords'
 import { useRouter } from 'next/navigation'
 import SplashScreen from "@/components/SplashScreen";
 import DonationButton from "@/components/DonationButton";
@@ -10,21 +11,39 @@ export default function HomePage() {
   const router = useRouter()
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<any>(null);
-  const [passwords, setPasswords] = useState([
-    { id: 1, site: "ejemplo.com", password: "ejemplo123", visible: false },
-  ]);
+  const [passwords, setPasswords] = useState<Password[]>([]);
+  const [passwordsLoaded, setPasswordsLoaded] = useState(false);
+  const [visiblePasswords, setVisiblePasswords] = useState<Set<string>>(new Set());
   const [sortBy, setSortBy] = useState("recent");
   const [showAddModal, setShowAddModal] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
   const [showConfigScreen, setShowConfigScreen] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
   const [selectedDonation, setSelectedDonation] = useState("");
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [newSite, setNewSite] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [editSite, setEditSite] = useState("");
   const [editPassword, setEditPassword] = useState("");
+
+  // Load passwords when user changes
+  useEffect(() => {
+    const loadPasswords = async () => {
+      if (user?.id) {
+        console.log('🔄 Cargando contraseñas para usuario:', user.id)
+        const userPasswords = await getPasswords(user.id)
+        setPasswords(userPasswords)
+        setPasswordsLoaded(true)
+        console.log('✅ Contraseñas cargadas:', userPasswords.length)
+      } else {
+        setPasswords([])
+        setPasswordsLoaded(true)
+      }
+    }
+
+    loadPasswords()
+  }, [user])
 
   // Check user session on mount
   useEffect(() => {
@@ -113,10 +132,16 @@ export default function HomePage() {
     }
   };
 
-  const togglePasswordVisibility = (id: number) => {
-    setPasswords(passwords.map(pwd => 
-      pwd.id === id ? { ...pwd, visible: !pwd.visible } : pwd
-    ));
+  const togglePasswordVisibility = (id: string) => {
+    setVisiblePasswords(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
   };
 
   const copyPassword = async (password: string) => {
@@ -129,17 +154,26 @@ export default function HomePage() {
     }
   };
 
-  const handleAddPassword = () => {
-    if (newSite && newPassword) {
-      const newId = Math.max(...passwords.map(p => p.id)) + 1;
-      setPasswords([...passwords, { id: newId, site: newSite, password: newPassword, visible: false }]);
+  const handleAddPassword = async () => {
+    if (newSite && newPassword && user?.id) {
+      console.log('➕ Agregando contraseña:', newSite)
+      const newPasswordData = await addPassword(user.id, newSite, newPassword)
+      
+      if (newPasswordData) {
+        setPasswords([...passwords, newPasswordData])
+        console.log('✅ Contraseña agregada exitosamente')
+      } else {
+        console.error('❌ Error agregando contraseña')
+        alert('Error al agregar la contraseña. Intenta nuevamente.')
+      }
+      
       setNewSite("");
       setNewPassword("");
       setShowAddModal(false);
     }
   };
 
-  const handleEditPassword = (id: number) => {
+  const handleEditPassword = (id: string) => {
     const password = passwords.find(p => p.id === id);
     if (password) {
       setEditSite(password.site);
@@ -148,23 +182,43 @@ export default function HomePage() {
     }
   };
 
-  const handleSaveEdit = () => {
+  const handleSaveEdit = async () => {
     if (editingId && editSite && editPassword) {
-      setPasswords(passwords.map(pwd => 
-        pwd.id === editingId ? { ...pwd, site: editSite, password: editPassword } : pwd
-      ));
+      console.log('✏️ Actualizando contraseña:', editingId)
+      const updatedPassword = await updatePassword(editingId, editSite, editPassword)
+      
+      if (updatedPassword) {
+        setPasswords(passwords.map(pwd => 
+          pwd.id === editingId ? updatedPassword : pwd
+        ));
+        console.log('✅ Contraseña actualizada exitosamente')
+      } else {
+        console.error('❌ Error actualizando contraseña')
+        alert('Error al actualizar la contraseña. Intenta nuevamente.')
+      }
+      
       setEditingId(null);
       setEditSite("");
       setEditPassword("");
     }
   };
 
-  const handleDeletePassword = (id: number) => {
-    setPasswords(passwords.filter(pwd => pwd.id !== id));
+  const handleDeletePassword = async (id: string) => {
+    console.log('🗑️ Eliminando contraseña:', id)
+    const success = await deletePassword(id)
+    
+    if (success) {
+      setPasswords(passwords.filter(pwd => pwd.id !== id));
+      console.log('✅ Contraseña eliminada exitosamente')
+    } else {
+      console.error('❌ Error eliminando contraseña')
+      alert('Error al eliminar la contraseña. Intenta nuevamente.')
+    }
+    
     setDeletingId(null);
   };
 
-  const confirmDelete = (id: number) => {
+  const confirmDelete = (id: string) => {
     setDeletingId(id);
   };
 
@@ -193,16 +247,46 @@ export default function HomePage() {
     }
   };
 
-  const handleInstallAndroid = () => {
-    // Detectar si es Android
-    const isAndroid = /Android/i.test(navigator.userAgent);
-    
-    if (isAndroid) {
-      // Mostrar instrucciones específicas para Android
-      alert('Para instalar en Android:\n\n1. Toca los tres puntos (⋮) en la barra de direcciones\n2. Selecciona "Instalar aplicación" o "Agregar a pantalla de inicio"\n3. Confirma la instalación\n\n¡La app se instalará como una aplicación nativa!');
+  // Android/Chromium install prompt support
+  interface BeforeInstallPromptEvent extends Event {
+    prompt: () => Promise<void>;
+    userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
+  }
+  const installPromptRef = React.useRef<BeforeInstallPromptEvent | null>(null);
+
+  // Listen for install prompt
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      installPromptRef.current = e as BeforeInstallPromptEvent;
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  }, []);
+
+  const handleInstallAndroid = async () => {
+    if (installPromptRef.current) {
+      // Show native install prompt
+      await installPromptRef.current.prompt();
+      const choiceResult = await installPromptRef.current.userChoice;
+      
+      if (choiceResult.outcome === 'accepted') {
+        console.log('✅ Usuario aceptó la instalación');
+      } else {
+        console.log('❌ Usuario rechazó la instalación');
+      }
+      
+      installPromptRef.current = null;
     } else {
-      // Mostrar instrucciones generales
-      alert('Para instalar en Android:\n\n1. Abre Chrome en tu dispositivo Android\n2. Ve a llaveapp.com\n3. Toca los tres puntos (⋮) en la barra de direcciones\n4. Selecciona "Instalar aplicación"\n5. Confirma la instalación');
+      // Fallback: mostrar instrucciones
+      const isAndroid = /Android/i.test(navigator.userAgent);
+      
+      if (isAndroid) {
+        alert('Para instalar en Android:\n\n1. Toca los tres puntos (⋮) en la barra de direcciones\n2. Selecciona "Instalar aplicación" o "Agregar a pantalla de inicio"\n3. Confirma la instalación\n\n¡La app se instalará como una aplicación nativa!');
+      } else {
+        alert('Para instalar en Android:\n\n1. Abre Chrome en tu dispositivo Android\n2. Ve a llaveapp.com\n3. Toca los tres puntos (⋮) en la barra de direcciones\n4. Selecciona "Instalar aplicación"\n5. Confirma la instalación');
+      }
     }
   };
 
@@ -227,7 +311,7 @@ export default function HomePage() {
         return b.site.localeCompare(a.site);
       case "recent":
       default:
-        return b.id - a.id;
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     }
   });
 
@@ -421,11 +505,11 @@ export default function HomePage() {
                   Pasos para instalar:
                 </p>
                 <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px', lineHeight: '2.0' }}>
-                  <li style={{ marginBottom: '8px' }}>1. Abre Chrome o tu navegador</li>
-                  <li style={{ marginBottom: '8px' }}>2. Ve a la página de Llave</li>
-                  <li style={{ marginBottom: '8px' }}>3. Toca los tres puntos de la esquina superior</li>
-                  <li style={{ marginBottom: '8px' }}>4. Selecciona &quot;Instalar aplicación&quot;</li>
-                  <li style={{ marginBottom: '8px' }}>5. Confirma la instalación</li>
+                  <li style={{ marginBottom: '8px' }}>Abre Chrome o tu navegador</li>
+                  <li style={{ marginBottom: '8px' }}>Ve a la página de Llave</li>
+                  <li style={{ marginBottom: '8px' }}>Toca los tres puntos de la esquina superior</li>
+                  <li style={{ marginBottom: '8px' }}>Selecciona &quot;Instalar aplicación&quot;</li>
+                  <li style={{ marginBottom: '8px' }}>Confirma la instalación</li>
                 </ol>
               </div>
               <div className="android-button" onClick={handleInstallAndroid} style={{ cursor: 'pointer' }}>
@@ -441,27 +525,38 @@ export default function HomePage() {
                   Pasos para instalar:
                 </p>
                 <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px', lineHeight: '2.0' }}>
-                  <li style={{ marginBottom: '8px' }}>1. Abre Safari en tu iPhone/iPad</li>
-                  <li style={{ marginBottom: '8px' }}>2. Ve a la página de Llave</li>
-                  <li style={{ marginBottom: '8px' }}>3. Toca el botón compartir</li>
-                  <li style={{ marginBottom: '8px' }}>4. Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
-                  <li style={{ marginBottom: '8px' }}>5. Confirma y personaliza el nombre</li>
+                  <li style={{ marginBottom: '8px' }}>Abre Safari en tu iPhone/iPad</li>
+                  <li style={{ marginBottom: '8px' }}>Ve a la página de Llave</li>
+                  <li style={{ marginBottom: '8px' }}>Toca el botón compartir</li>
+                  <li style={{ marginBottom: '8px' }}>Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
+                  <li style={{ marginBottom: '8px' }}>Confirma y personaliza el nombre</li>
                 </ol>
               </div>
-              <div className="android-button" onClick={handleInstallIOS} style={{ cursor: 'pointer' }}>
-                <div className="android-logo">🍎</div>
-                <span>Agregar a Inicio</span>
-              </div>
+              <p style={{ 
+                fontSize: '10px', 
+                textAlign: 'center', 
+                color: 'var(--blue-electric)',
+                marginTop: '15px',
+                fontStyle: 'italic'
+              }}>
+                Usa el botón compartir de Safari para agregar a inicio
+              </p>
             </div>
           </div>
 
           {/* Donations */}
           <div className="pixel-card">
             <h4 className="pixel-subtitle">💝 Donaciones</h4>
-            <p style={{ fontSize: '12px', marginBottom: '15px', textAlign: 'left' }}>
+            <p style={{ fontSize: '12px', marginBottom: '20px', textAlign: 'left', lineHeight: '2.0' }}>
               Si te gusta Llave y quieres apoyar el desarrollo, considera hacer una donación:
             </p>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              gap: 'clamp(10px, 3vw, 15px)', 
+              flexWrap: 'wrap',
+              marginTop: '20px'
+            }}>
               <DonationButton type="jugo" onDonate={handleDonation} />
               <DonationButton type="pizza" onDonate={handleDonation} />
               <DonationButton type="libro" onDonate={handleDonation} />
@@ -656,7 +751,7 @@ export default function HomePage() {
                 ) : (
                   <>
                     <p className="password-title">{item.site}</p>
-                    <p style={{ margin: '0', fontSize: '12px' }}>{item.visible ? item.password : "••••••••"}</p>
+                    <p style={{ margin: '0', fontSize: '12px' }}>{visiblePasswords.has(item.id) ? item.password : "••••••••"}</p>
                   </>
                 )}
               </div>
