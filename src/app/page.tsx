@@ -394,7 +394,7 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
-  if (!isLoggedIn) {
+  // Main app content
   return (
       <div className="pixel-container">
         {/* Background Pixels */}
@@ -459,8 +459,9 @@ export default function HomePage() {
       {/* Background Pixels */}
       <div className="background-pixels"></div>
       
-      
-      <div className="pixel-card pixel-fade-in">
+      {/* Show main app content if logged in */}
+      {isLoggedIn && (
+        <div className="pixel-card pixel-fade-in">
         {/* Header */}
         <div style={{ 
           textAlign: 'center', 
