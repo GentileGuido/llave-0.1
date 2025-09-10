@@ -46,7 +46,7 @@ body::before {
 
 .pixel-container {
   min-height: 100vh;
-  padding: 20px;
+  padding: 25px;
   position: relative;
   overflow: hidden;
 }
@@ -54,8 +54,8 @@ body::before {
 .pixel-card {
   background: rgba(0, 0, 0, 0.9);
   border: 2px solid var(--green-neon);
-  padding: 20px;
-  margin: 10px 0;
+  padding: 25px;
+  margin: 15px 0;
   position: relative;
   animation: scan-line 2s linear infinite;
 }
@@ -105,7 +105,7 @@ body::before {
   color: var(--green-neon);
   font-size: 2rem;
   text-align: center;
-  margin: 20px 0;
+  margin: 25px 0;
   text-shadow: 0 0 10px var(--green-neon);
   animation: pixel-bounce 2s ease-in-out infinite;
 }

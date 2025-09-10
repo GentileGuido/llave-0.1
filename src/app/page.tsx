@@ -254,32 +254,25 @@ export default function HomePage() {
   }
   const installPromptRef = React.useRef<BeforeInstallPromptEvent | null>(null);
 
-  // Listen for install prompt
+  // Listen for install prompt (usando el método de SOCIAL)
   useEffect(() => {
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      installPromptRef.current = e as BeforeInstallPromptEvent;
+    const setFromGlobal = () => {
+      const anyWindow = window as unknown as { __bipEvent?: BeforeInstallPromptEvent };
+      if (anyWindow.__bipEvent) installPromptRef.current = anyWindow.__bipEvent;
     };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    setFromGlobal();
+    window.addEventListener('bip-ready', setFromGlobal);
+    return () => window.removeEventListener('bip-ready', setFromGlobal);
   }, []);
 
   const handleInstallAndroid = async () => {
-    if (installPromptRef.current) {
-      // Show native install prompt
-      await installPromptRef.current.prompt();
-      const choiceResult = await installPromptRef.current.userChoice;
-      
-      if (choiceResult.outcome === 'accepted') {
-        console.log('✅ Usuario aceptó la instalación');
-      } else {
-        console.log('❌ Usuario rechazó la instalación');
-      }
-      
-      installPromptRef.current = null;
-    } else {
-      // Fallback: mostrar instrucciones
+    // Try global event first, then local ref (método de SOCIAL)
+    const anyWindow = typeof window !== 'undefined' ? (window as unknown as { __bipEvent?: BeforeInstallPromptEvent }) : undefined;
+    const promptEvent = anyWindow?.__bipEvent || installPromptRef.current;
+    
+    if (!promptEvent) {
+      // Si no hay prompt, mostrar instrucciones
+      console.log('No hay prompt disponible, mostrando instrucciones...');
       const isAndroid = /Android/i.test(navigator.userAgent);
       
       if (isAndroid) {
@@ -287,6 +280,26 @@ export default function HomePage() {
       } else {
         alert('Para instalar en Android:\n\n1. Abre Chrome en tu dispositivo Android\n2. Ve a llaveapp.com\n3. Toca los tres puntos (⋮) en la barra de direcciones\n4. Selecciona "Instalar aplicación"\n5. Confirma la instalación');
       }
+      return;
+    }
+    
+    try {
+      // Mostrar el prompt inmediatamente en respuesta al click
+      await promptEvent.prompt();
+      const choiceResult = await promptEvent.userChoice;
+      
+      if (choiceResult.outcome === 'accepted') {
+        console.log('✅ Usuario aceptó la instalación');
+      } else {
+        console.log('❌ Usuario rechazó la instalación');
+      }
+      
+      // Limpiar el evento después de usarlo
+      installPromptRef.current = null;
+      if (anyWindow) anyWindow.__bipEvent = null;
+    } catch (error) {
+      console.error('Error durante la instalación:', error);
+      alert('Error durante la instalación. Intenta usar el menú del navegador.');
     }
   };
 
