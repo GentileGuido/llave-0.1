@@ -905,16 +905,17 @@ export default function HomePage() {
             border: '1px solid var(--green-neon)'
           }}>
             {user.user_metadata?.avatar_url && (
-              <img 
-                src={user.user_metadata.avatar_url} 
-                alt="Avatar" 
-                style={{ 
-                  width: '24px', 
-                  height: '24px', 
-                  borderRadius: '50%',
-                  border: '1px solid var(--green-neon)'
-                }} 
-              />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
+                    src={user.user_metadata.avatar_url} 
+                    alt="Avatar" 
+                    style={{ 
+                      width: '24px', 
+                      height: '24px', 
+                      borderRadius: '50%',
+                      border: '1px solid var(--green-neon)'
+                    }} 
+                  />
             )}
             <div>
               <p style={{ 
