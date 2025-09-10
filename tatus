@@ -1,0 +1,5 @@
+[33m9b81ace[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: Corregir Google Auth y remover Prisma
+[33mbf15ce6[m Fix OAuth redirect by removing manual redirectTo option
+[33m3c70402[m Remove key icon from content and add favicon with key emoji
+[33m8aee07a[m Add key icon ��️ to the LLAVE logo
+[33m9e12c9f[m Fix layout.tsx by removing Providers import
