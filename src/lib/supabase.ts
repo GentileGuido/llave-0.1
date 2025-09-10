@@ -14,8 +14,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // Función helper para login con Google
 export async function signInWithGoogle() {
-  // Usar el puerto correcto de Railway (8080)
-  const redirectUrl = `${window.location.origin}/auth/callback`
+  // Forzar el uso de la URL pública en lugar de localhost
+  const redirectUrl = 'https://llaveapp.com/auth/callback'
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
