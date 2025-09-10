@@ -613,6 +613,7 @@ export default function HomePage() {
     );
   }
 
+  // Main app content
   return (
     <div className="pixel-container">
       {/* Background Pixels */}
