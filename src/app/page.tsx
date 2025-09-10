@@ -193,6 +193,32 @@ export default function HomePage() {
     }
   };
 
+  const handleInstallAndroid = () => {
+    // Detectar si es Android
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    
+    if (isAndroid) {
+      // Mostrar instrucciones específicas para Android
+      alert('Para instalar en Android:\n\n1. Toca los tres puntos (⋮) en la barra de direcciones\n2. Selecciona "Instalar aplicación" o "Agregar a pantalla de inicio"\n3. Confirma la instalación\n\n¡La app se instalará como una aplicación nativa!');
+    } else {
+      // Mostrar instrucciones generales
+      alert('Para instalar en Android:\n\n1. Abre Chrome en tu dispositivo Android\n2. Ve a llaveapp.com\n3. Toca los tres puntos (⋮) en la barra de direcciones\n4. Selecciona "Instalar aplicación"\n5. Confirma la instalación');
+    }
+  };
+
+  const handleInstallIOS = () => {
+    // Detectar si es iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    
+    if (isIOS) {
+      // Mostrar instrucciones específicas para iOS
+      alert('Para instalar en iOS:\n\n1. Toca el botón compartir (□↗) en Safari\n2. Selecciona "Agregar a pantalla de inicio"\n3. Personaliza el nombre si quieres\n4. Toca "Agregar"\n\n¡La app aparecerá en tu pantalla de inicio!');
+    } else {
+      // Mostrar instrucciones generales
+      alert('Para instalar en iOS:\n\n1. Abre Safari en tu iPhone/iPad\n2. Ve a llaveapp.com\n3. Toca el botón compartir (□↗)\n4. Selecciona "Agregar a pantalla de inicio"\n5. Confirma y personaliza el nombre');
+    }
+  };
+
   const sortedPasswords = [...passwords].sort((a, b) => {
     switch (sortBy) {
       case "az":
@@ -357,25 +383,29 @@ export default function HomePage() {
             ←
           </button>
           
-          <h1 className="pixel-title" style={{ textAlign: 'center' }}>Configuración</h1>
+          <h1 className="pixel-title" style={{ 
+            textAlign: 'center', 
+            fontSize: '1.5rem',
+            marginBottom: '20px'
+          }}>Configuración</h1>
           
           {/* App Info */}
           <div className="pixel-card">
             <h4 className="pixel-subtitle">ℹ️ Acerca de Llave</h4>
-            <p style={{ fontSize: '12px', lineHeight: '1.6' }}>
+            <p style={{ fontSize: '12px', lineHeight: '2.4', marginBottom: '15px' }}>
               Llave es un gestor de contraseñas seguro con estética pixel art. 
               Desarrollado 100% con Inteligencia Artificial para ofrecer una experiencia 
               única y retro.
             </p>
-            <p style={{ fontSize: '12px', lineHeight: '1.6', marginTop: '10px' }}>
+            <p style={{ fontSize: '12px', lineHeight: '2.4', marginBottom: '20px' }}>
               Tecnologías: Next.js, TypeScript, CSS Pixel Art
             </p>
             <p style={{ 
               fontSize: '14px', 
-              lineHeight: '1.6', 
-              marginTop: '15px', 
+              lineHeight: '2.4', 
+              marginTop: '20px', 
               color: 'var(--green-neon)',
-        textAlign: 'center',
+              textAlign: 'center',
               animation: 'pixel-glow 2s ease-in-out infinite'
             }}>
               Desarrollador: Guido Gentile
@@ -386,19 +416,19 @@ export default function HomePage() {
           <div className="pixel-grid">
             <div className="pixel-card">
               <h4 className="pixel-subtitle">📱 Instalar en Android</h4>
-              <div style={{ marginBottom: '15px' }}>
-                <p style={{ fontSize: '12px', marginBottom: '10px' }}>
+              <div style={{ marginBottom: '20px' }}>
+                <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.8' }}>
                   Pasos para instalar:
                 </p>
-                <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px' }}>
-                  <li>1. Abre Chrome o tu navegador</li>
-                  <li>2. Ve a la página de Llave</li>
-                  <li>3. Toca los tres puntos de la esquina superior</li>
-                  <li>4. Selecciona &quot;Instalar aplicación&quot;</li>
-                  <li>5. Confirma la instalación</li>
+                <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px', lineHeight: '2.0' }}>
+                  <li style={{ marginBottom: '8px' }}>1. Abre Chrome o tu navegador</li>
+                  <li style={{ marginBottom: '8px' }}>2. Ve a la página de Llave</li>
+                  <li style={{ marginBottom: '8px' }}>3. Toca los tres puntos de la esquina superior</li>
+                  <li style={{ marginBottom: '8px' }}>4. Selecciona &quot;Instalar aplicación&quot;</li>
+                  <li style={{ marginBottom: '8px' }}>5. Confirma la instalación</li>
                 </ol>
               </div>
-              <div className="android-button">
+              <div className="android-button" onClick={handleInstallAndroid} style={{ cursor: 'pointer' }}>
                 <div className="android-logo">🤖</div>
                 <span>Instalar App</span>
               </div>
@@ -406,19 +436,19 @@ export default function HomePage() {
             
             <div className="pixel-card">
               <h4 className="pixel-subtitle">🍎 Instalar en iOS</h4>
-              <div style={{ marginBottom: '15px' }}>
-                <p style={{ fontSize: '12px', marginBottom: '10px' }}>
+              <div style={{ marginBottom: '20px' }}>
+                <p style={{ fontSize: '12px', marginBottom: '15px', lineHeight: '1.8' }}>
                   Pasos para instalar:
                 </p>
-                <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px' }}>
-                  <li>1. Abre Safari en tu iPhone/iPad</li>
-                  <li>2. Ve a la página de Llave</li>
-                  <li>3. Toca el botón compartir</li>
-                  <li>4. Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
-                  <li>5. Confirma y personaliza el nombre</li>
+                <ol style={{ fontSize: '10px', textAlign: 'left', paddingLeft: '20px', lineHeight: '2.0' }}>
+                  <li style={{ marginBottom: '8px' }}>1. Abre Safari en tu iPhone/iPad</li>
+                  <li style={{ marginBottom: '8px' }}>2. Ve a la página de Llave</li>
+                  <li style={{ marginBottom: '8px' }}>3. Toca el botón compartir</li>
+                  <li style={{ marginBottom: '8px' }}>4. Selecciona &quot;Agregar a pantalla de inicio&quot;</li>
+                  <li style={{ marginBottom: '8px' }}>5. Confirma y personaliza el nombre</li>
                 </ol>
               </div>
-              <div className="android-button">
+              <div className="android-button" onClick={handleInstallIOS} style={{ cursor: 'pointer' }}>
                 <div className="android-logo">🍎</div>
                 <span>Agregar a Inicio</span>
               </div>
@@ -487,8 +517,14 @@ export default function HomePage() {
           textAlign: 'center', 
           marginBottom: '20px'
         }}>
-          <h1 className="pixel-title" style={{ margin: '0', fontSize: '2rem' }}>LLAVE</h1>
-          <p className="pixel-subtitle" style={{ margin: '5px 0 0 0', fontSize: '0.8rem' }}>
+          <h1 className="pixel-title" style={{ 
+            margin: '0', 
+            fontSize: 'clamp(1.2rem, 4vw, 2rem)' 
+          }}>LLAVE</h1>
+          <p className="pixel-subtitle" style={{ 
+            margin: '5px 0 0 0', 
+            fontSize: 'clamp(0.6rem, 2.5vw, 0.8rem)' 
+          }}>
             El gestor de contraseñas que necesitabas
           </p>
         </div>
@@ -498,18 +534,23 @@ export default function HomePage() {
           display: 'flex', 
           flexDirection: 'column',
           justifyContent: 'center', 
-          gap: '8px', 
-          margin: '15px 0',
+          gap: 'clamp(6px, 2vw, 8px)', 
+          margin: 'clamp(10px, 3vw, 15px) 0',
           alignItems: 'center'
         }}>
           {/* First Row */}
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ 
+            display: 'flex', 
+            gap: 'clamp(5px, 2vw, 10px)', 
+            flexWrap: 'wrap', 
+            justifyContent: 'center' 
+          }}>
             <button
               onClick={() => setSortBy("recent")}
               className={`sort-button ${sortBy === "recent" ? "active" : ""}`}
               style={{ 
-                fontSize: '9px', 
-                padding: '6px 10px',
+                fontSize: 'clamp(7px, 2.2vw, 9px)', 
+                padding: 'clamp(4px, 1.2vw, 6px) clamp(6px, 2vw, 10px)',
                 backgroundColor: sortBy === "recent" ? 'var(--green-neon)' : 'transparent',
                 color: sortBy === "recent" ? 'black' : 'white'
               }}
@@ -520,8 +561,8 @@ export default function HomePage() {
               onClick={() => setSortBy("az")}
               className={`sort-button ${sortBy === "az" ? "active" : ""}`}
               style={{ 
-                fontSize: '9px', 
-                padding: '6px 10px',
+                fontSize: 'clamp(7px, 2.2vw, 9px)', 
+                padding: 'clamp(4px, 1.2vw, 6px) clamp(6px, 2vw, 10px)',
                 backgroundColor: sortBy === "az" ? 'var(--green-neon)' : 'transparent',
                 color: sortBy === "az" ? 'black' : 'white'
               }}
@@ -532,8 +573,8 @@ export default function HomePage() {
               onClick={() => setSortBy("za")}
               className={`sort-button ${sortBy === "za" ? "active" : ""}`}
               style={{ 
-                fontSize: '9px', 
-                padding: '6px 10px',
+                fontSize: 'clamp(7px, 2.2vw, 9px)', 
+                padding: 'clamp(4px, 1.2vw, 6px) clamp(6px, 2vw, 10px)',
                 backgroundColor: sortBy === "za" ? 'var(--green-neon)' : 'transparent',
                 color: sortBy === "za" ? 'black' : 'white'
               }}
@@ -543,18 +584,29 @@ export default function HomePage() {
           </div>
           
           {/* Second Row */}
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ 
+            display: 'flex', 
+            gap: 'clamp(5px, 2vw, 10px)', 
+            flexWrap: 'wrap', 
+            justifyContent: 'center' 
+          }}>
             <button
               onClick={() => setShowAddModal(true)}
               className="pixel-button success"
-              style={{ fontSize: '9px', padding: '6px 10px' }}
+              style={{ 
+                fontSize: 'clamp(7px, 2.2vw, 9px)', 
+                padding: 'clamp(4px, 1.2vw, 6px) clamp(6px, 2vw, 10px)' 
+              }}
             >
               ➕ Agregar
             </button>
             <button
               onClick={() => setShowConfigScreen(true)}
               className="pixel-button"
-              style={{ fontSize: '9px', padding: '6px 10px' }}
+              style={{ 
+                fontSize: 'clamp(7px, 2.2vw, 9px)', 
+                padding: 'clamp(4px, 1.2vw, 6px) clamp(6px, 2vw, 10px)' 
+              }}
             >
               ℹ️ Info/Config
             </button>

@@ -586,3 +586,102 @@ body::before {
   pointer-events: none;
   z-index: 1;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pixel-container {
+    padding: 10px;
+  }
+  
+  .pixel-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .pixel-subtitle {
+    font-size: 0.7rem !important;
+  }
+  
+  .pixel-card {
+    padding: 15px;
+    margin: 8px 0;
+  }
+  
+  .pixel-button {
+    font-size: 8px !important;
+    padding: 6px 10px !important;
+    min-width: 60px !important;
+  }
+  
+  .icon-button {
+    font-size: 12px !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  .pixel-input {
+    font-size: 10px !important;
+    padding: 8px !important;
+  }
+  
+  .pixel-grid {
+    display: block !important;
+  }
+  
+  .pixel-grid .pixel-card {
+    margin-bottom: 15px;
+  }
+  
+  .android-button {
+    font-size: 10px !important;
+    padding: 8px 12px !important;
+  }
+  
+  .android-button .android-logo {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .pixel-container {
+    padding: 5px;
+  }
+  
+  .pixel-title {
+    font-size: 1rem !important;
+  }
+  
+  .pixel-subtitle {
+    font-size: 0.6rem !important;
+  }
+  
+  .pixel-card {
+    padding: 10px;
+    margin: 5px 0;
+  }
+  
+  .pixel-button {
+    font-size: 7px !important;
+    padding: 5px 8px !important;
+    min-width: 50px !important;
+  }
+  
+  .icon-button {
+    font-size: 10px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+  
+  .pixel-input {
+    font-size: 9px !important;
+    padding: 6px !important;
+  }
+  
+  .android-button {
+    font-size: 9px !important;
+    padding: 6px 10px !important;
+  }
+  
+  .android-button .android-logo {
+    font-size: 12px !important;
+  }
+}
