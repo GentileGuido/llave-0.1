@@ -762,21 +762,22 @@ export default function HomePage() {
               
               <div className="pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative', paddingBottom: '50px' }}>
                 {/* Back Button - Inside the main card */}
-                {/* Back Button - Fixed position, doesn't affect title centering */}
+                {/* Back Button - Positioned at the purple rectangle location */}
                 <button 
                   className="pixel-button" 
                   onClick={() => setShowConfigScreen(false)}
                   style={{ 
-                    position: 'fixed',
-                    top: '20px',
-                    left: '20px',
+                    position: 'absolute',
+                    top: '50%',
+                    right: '20px',
+                    transform: 'translateY(-50%)',
                     fontSize: '12px',
                     padding: '6px 12px',
                     backgroundColor: 'var(--purple-neon)',
                     border: '1px solid var(--purple-neon)',
                     color: 'var(--text-white)',
                     cursor: 'pointer',
-                    zIndex: 1000
+                    zIndex: 10
                   }}
                 >
                   BACK
