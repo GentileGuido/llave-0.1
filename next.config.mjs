@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
-  experimental: {
-    outputFileTracingRoot: undefined,
-  },
   // Configurar headers para evitar problemas de CORS
   async headers() {
     return [
