@@ -762,31 +762,34 @@ export default function HomePage() {
               
               <div className="pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative', paddingBottom: '50px' }}>
                 {/* Back Button - Inside the main card */}
-                <h1 className="pixel-title" style={{ 
-                  textAlign: 'center', 
-                  fontSize: 'clamp(1rem, 3vw, 1.2rem)',
-                  marginBottom: '20px'
-                }}>Configuración</h1>
-                
-                {/* Back Button - Positioned relative to green perimeter */}
+                {/* Back Button - Fixed position, doesn't affect title centering */}
                 <button 
                   className="pixel-button" 
                   onClick={() => setShowConfigScreen(false)}
                   style={{ 
-                    position: 'absolute',
-                    top: '23px',
-                    left: '10px',
+                    position: 'fixed',
+                    top: '20px',
+                    left: '20px',
                     fontSize: '12px',
                     padding: '6px 12px',
                     backgroundColor: 'var(--purple-neon)',
                     border: '1px solid var(--purple-neon)',
                     color: 'var(--text-white)',
                     cursor: 'pointer',
-                    zIndex: 10
+                    zIndex: 1000
                   }}
                 >
                   BACK
                 </button>
+                
+                <h1 className="pixel-title" style={{ 
+                  textAlign: 'center', 
+                  fontSize: 'clamp(1rem, 3vw, 1.2rem)',
+                  marginBottom: '20px',
+                  position: 'relative',
+                  top: '50%',
+                  transform: 'translateY(-50%)'
+                }}>Configuración</h1>
                 
                 {/* App Info */}
                 <div className="pixel-card">
