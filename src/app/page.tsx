@@ -580,28 +580,36 @@ export default function HomePage() {
                       </div>
                     </div>
                   ) : (
-                    <>
-                      <h3 className="password-title" style={{ 
-                        margin: '0 0 10px 0', 
-                        fontSize: 'clamp(12px, 3vw, 16px)',
-                        color: 'var(--blue-electric)'
-                      }}>
-                        {password.site}
-                      </h3>
-                      <div style={{ 
-                        fontSize: 'clamp(10px, 2.5vw, 12px)', 
-                        marginBottom: '15px',
-                        wordBreak: 'break-all'
-                      }}>
-                        {visiblePasswords.has(password.id) ? password.password : "••••••••"}
+                    <div style={{ 
+                      display: 'flex', 
+                      justifyContent: 'space-between', 
+                      alignItems: 'flex-start',
+                      width: '100%'
+                    }}>
+                      {/* Sección Izquierda - Datos */}
+                      <div style={{ flex: 1 }}>
+                        <h3 className="password-title" style={{ 
+                          margin: '0 0 8px 0', 
+                          fontSize: 'clamp(12px, 3vw, 16px)',
+                          color: 'var(--blue-electric)'
+                        }}>
+                          {password.site}
+                        </h3>
+                        <div style={{ 
+                          fontSize: 'clamp(10px, 2.5vw, 12px)', 
+                          color: 'var(--text-white)',
+                          wordBreak: 'break-all'
+                        }}>
+                          {visiblePasswords.has(password.id) ? password.password : "••••••••"}
+                        </div>
                       </div>
+                      
+                      {/* Sección Derecha - Iconos */}
                       <div style={{ 
                         display: 'flex', 
-                        justifyContent: 'flex-start', 
                         gap: 'clamp(4px, 1vw, 8px)',
-                        flexWrap: 'nowrap',
-                        marginTop: '8px',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        marginLeft: '15px'
                       }}>
                         <button
                           onClick={() => copyPassword(password.password)}
@@ -636,7 +644,7 @@ export default function HomePage() {
                           🗑️
                         </button>
                       </div>
-                    </>
+                    </div>
                   )}
                 </div>
               ))}
@@ -766,10 +774,10 @@ export default function HomePage() {
                   onClick={() => setShowConfigScreen(false)}
                   style={{ 
                     position: 'absolute',
-                    top: '20px',
-                    left: '20px',
-                    fontSize: '20px',
-                    padding: '6px 10px',
+                    top: '10px',
+                    left: '10px',
+                    fontSize: '18px',
+                    padding: '4px 8px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
