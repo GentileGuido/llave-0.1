@@ -14,10 +14,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // Función helper para login con Google
 export async function signInWithGoogle() {
-  // Forzar el uso del dominio de producción
-  const redirectUrl = window.location.hostname === 'llaveapp.com' 
-    ? 'https://llaveapp.com/auth/callback'
-    : `${window.location.origin}/auth/callback`
+  // Forzar el uso del dominio de producción siempre
+  const redirectUrl = 'https://llaveapp.com/auth/callback'
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
