@@ -396,12 +396,40 @@ export default function HomePage() {
 
   // Main app content
   return (
-      <div className="pixel-container">
-        {/* Background Pixels */}
-        <div className="background-pixels"></div>
-        
-        
-        {/* Login Screen - Only Button */}
+    <div className="pixel-container">
+      {/* Background Pixels */}
+      <div className="background-pixels"></div>
+      
+      {/* Show login screen if not logged in */}
+      {!isLoggedIn && (
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '100vh',
+          textAlign: 'center',
+          gap: '30px'
+        }}>
+          <h1 className="pixel-title" style={{ margin: '0', fontSize: '3rem' }}>LLAVE</h1>
+          <p className="pixel-subtitle" style={{ margin: '0', fontSize: '1.2rem' }}>El gestor de contraseñas que necesitabas</p>
+          
+          <button
+            onClick={handleLogin}
+            className="pixel-button"
+            style={{ 
+              fontSize: '1.2rem', 
+              padding: '15px 30px',
+              animation: 'pixel-glow 2s ease-in-out infinite'
+            }}
+          >
+            🔐 Iniciar Sesión con Google
+          </button>
+        </div>
+      )}
+      
+      {/* Show main app content if logged in */}
+      {isLoggedIn && (
     <div style={{ 
       display: 'flex', 
           flexDirection: 'column', 
@@ -934,7 +962,6 @@ export default function HomePage() {
             </div>
           )}
         </div>
-      )}
       )}
     </div>
   );
