@@ -20,6 +20,7 @@ export async function POST(request: NextRequest) {
       items: [
         {
           title: `Donación Llave - ${type}`,
+          description: `Apoya el desarrollo de Llave con una donación de $${amount}`,
           quantity: 1,
           unit_price: amount,
           currency_id: 'ARS'
@@ -31,7 +32,13 @@ export async function POST(request: NextRequest) {
         pending: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://llaveapp.com'}/donation/pending`
       },
       auto_return: 'approved',
-      notification_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://llaveapp.com'}/api/mp-webhook`
+      notification_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://llaveapp.com'}/api/mp-webhook`,
+      external_reference: `llave_donation_${type}_${Date.now()}`,
+      metadata: {
+        app: 'llave',
+        type: type,
+        amount: amount
+      }
     };
 
     // Llamar a la API de Mercado Pago

@@ -24,6 +24,7 @@ export default function DonationButton({ type, onDonate }: DonationButtonProps) 
       await onDonate(type, config.amount);
     } catch (error) {
       console.error('Error processing donation:', error);
+      alert('Error al procesar la donación. Intenta nuevamente.');
     } finally {
       setIsLoading(false);
     }
