@@ -241,6 +241,10 @@ export default function HomePage() {
   const sortedPasswords = [...passwords].sort((a, b) => {
     if (sortBy === "recent") {
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    } else if (sortBy === "alphabetical") {
+      return a.site.localeCompare(b.site)
+    } else if (sortBy === "reverse-alphabetical") {
+      return b.site.localeCompare(a.site)
     } else {
       return a.site.localeCompare(b.site)
     }
@@ -408,6 +412,14 @@ export default function HomePage() {
             </svg>
             Iniciar Sesión con Google
           </button>
+          
+          <p className="pixel-subtitle" style={{ 
+            margin: '20px 0 0 0', 
+            fontSize: '1rem',
+            textAlign: 'center'
+          }}>
+            🛡️ Seguridad pixelada garantizada 🛡️
+          </p>
         </div>
       )}
       
@@ -488,6 +500,16 @@ export default function HomePage() {
               }}
             >
               🔤 A-Z
+            </button>
+            <button
+              onClick={() => setSortBy("reverse-alphabetical")}
+              className={`pixel-button ${sortBy === "reverse-alphabetical" ? "success" : ""}`}
+              style={{ 
+                fontSize: 'clamp(9px, 2vw, 12px)',
+                padding: 'clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 12px)'
+              }}
+            >
+              🔤 Z-A
             </button>
           </div>
 
@@ -704,19 +726,6 @@ export default function HomePage() {
               fontSize: '12px',
               zIndex: 1000
             }}>
-              {user.user_metadata?.avatar_url && (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={user.user_metadata.avatar_url}
-                  alt="Avatar"
-                  style={{
-                    width: '24px',
-                    height: '24px',
-                    borderRadius: '50%',
-                    border: '1px solid var(--green-neon)'
-                  }}
-                />
-              )}
               <span style={{ color: 'var(--green-neon)' }}>
                 {user.user_metadata?.full_name || user.email}
               </span>
@@ -737,11 +746,11 @@ export default function HomePage() {
 
           {/* Show config screen if active */}
           {showConfigScreen && (
-            <div className="pixel-container" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000, background: 'rgba(0, 0, 0, 0.95)' }}>
+            <div className="pixel-container" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000, background: 'rgba(0, 0, 0, 0.95)', overflowY: 'auto' }}>
               {/* Background Pixels */}
               <div className="background-pixels"></div>
               
-              <div className="pixel-card pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative' }}>
+              <div className="pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative', paddingBottom: '50px' }}>
                 {/* Back Button - Inside the main card */}
                 <button 
                   className="back-button" 
