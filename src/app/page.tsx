@@ -862,15 +862,12 @@ export default function HomePage() {
                     <DonationButton type="auto" onDonate={handleDonation} />
                   </div>
                 </div>
-              </div>
 
-              {/* Back Button - Después del bloque de donaciones */}
-              <div style={{ 
-                marginTop: '15px',
-                marginBottom: '15px',
-                display: 'flex',
-                justifyContent: 'center'
-              }}>
+                {/* Back Button - Después del bloque de donaciones */}
+                <div style={{ 
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}>
                 <div style={{
                   border: '1px solid var(--green-neon)',
                   padding: '3px',
@@ -891,6 +888,7 @@ export default function HomePage() {
                     BACK
                   </button>
                 </div>
+              </div>
               </div>
 
               {/* Donation Modal - Only show in config screen */}
