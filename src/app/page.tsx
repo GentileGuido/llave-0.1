@@ -760,7 +760,7 @@ export default function HomePage() {
               {/* Background Pixels */}
               <div className="background-pixels"></div>
               
-              <div className="pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative', paddingBottom: '50px' }}>
+              <div className="pixel-fade-in" style={{ maxWidth: '800px', margin: '20px auto', position: 'relative', paddingBottom: '80px' }}>
                 {/* Back Button - Inside the main card */}
                 
                 <h1 className="pixel-title" style={{ 
@@ -866,7 +866,8 @@ export default function HomePage() {
 
               {/* Back Button - Después del bloque de donaciones */}
               <div style={{ 
-                marginTop: '20px',
+                marginTop: '30px',
+                marginBottom: '30px',
                 display: 'flex',
                 justifyContent: 'center'
               }}>
