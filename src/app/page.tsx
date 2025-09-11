@@ -866,8 +866,8 @@ export default function HomePage() {
 
               {/* Back Button - Después del bloque de donaciones */}
               <div style={{ 
-                marginTop: '30px',
-                marginBottom: '30px',
+                marginTop: '15px',
+                marginBottom: '15px',
                 display: 'flex',
                 justifyContent: 'center'
               }}>
